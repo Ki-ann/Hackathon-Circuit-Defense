@@ -8,28 +8,27 @@ public abstract class CircuitPart : MonoBehaviour {
 	//If this part is connected to a battery
 	//Or another part that can pass it a charge from a battery
 	[HideInInspector] public bool isConnected = false;
-	
+
 	[HideInInspector] public Vector3 snapArea;
 
 	//Starting and Ending of part
 	//Flows from Positive => Negative
 	public Transform Positive, Negative;
 	public GameObject prefab;
-	
+
 	[SerializeField] private GameObject m_Visual;
-	public GameObject visual
-    {
-        get { return m_Visual; }
-    }
-	
+	public GameObject visual {
+		get { return m_Visual; }
+		set { m_Visual = value; }
+	}
+
 	[SerializeField] private GameObject m_Target;
-    public GameObject target
-    {
-        get { return m_Target; }
-    }
+	public GameObject target {
+		get { return m_Target; }
+	}
 
 	public virtual void Start () {
-        m_gridSystem = FindObjectOfType<GridSystem>();
+		m_gridSystem = FindObjectOfType<GridSystem> ();
 	}
 
 	public virtual void Update () {
@@ -39,5 +38,15 @@ public abstract class CircuitPart : MonoBehaviour {
 
 	public void UpdateTargetPosition (Vector3 position) {
 		target.transform.position = position;
+		//Update position in the grid dictionary
+	}
+
+	public void AddSelfToGridSystem () {
+		m_gridSystem.AddToGridSystem (transform.position, this.gameObject);
+	}
+
+	// Should be called when the part gets destroyed
+	public void RemoveSelfFromGridSystem () {
+		m_gridSystem.RemoveFromGridSystem (this.gameObject);
 	}
 }
