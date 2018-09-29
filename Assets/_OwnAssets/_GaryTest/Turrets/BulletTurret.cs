@@ -13,13 +13,12 @@ public class BulletTurret : Turret {
         isAttacking = true;
         RaycastHit hit;
         if (Physics.Raycast (FirePoint.transform.position, visual.transform.forward, out hit, AttackRadius)) {
-            StartCoroutine (DrawLine (hit.point));
             if (hit.collider.GetComponent<EnemyAI> () != null) {
                 //Attack 
                 Debug.Log ("Die fiend");
+                StartCoroutine (DrawLine (hit.point));
             }
-        } 
-        else {
+        } else {
             StartCoroutine (DrawLine (FirePoint.transform.forward * AttackRadius));
         }
         yield return new WaitForSeconds (AttackSpeed);
