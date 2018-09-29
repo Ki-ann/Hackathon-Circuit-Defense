@@ -23,7 +23,9 @@ public class Zombie : EnemyAI {
         if (!this.agent)
             this.agent = GetComponent<NavMeshAgent>();
 
-        anim = GetComponent<Animator>();
+        if (health <= 0)
+            Destroy(this.gameObject);
+        //anim = GetComponent<Animator>();
     }
     void OnCollisionStay(Collision other)
     {
@@ -43,6 +45,6 @@ public class Zombie : EnemyAI {
     }
     public void SetHealth(float _health)
     {
-        health = _health
+        health = _health;
     }
 }

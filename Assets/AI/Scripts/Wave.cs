@@ -15,6 +15,7 @@ public class Wave : MonoBehaviour {
     [SerializeField] int waveCount = 0;
     [SerializeField] float timer = 1.5f;
     [SerializeField] float resetTimer = 0.5f;
+    [SerializeField] float timeB4WaveStart= 30f;
     int resetCount = 0;
     [SerializeField] int totalToSpawn;
     [SerializeField] int spawnCount;
@@ -62,9 +63,15 @@ public class Wave : MonoBehaviour {
 
     public void StartWave()
     {
-        waveStatus = STATUS.ONGOING;
-        spawnCount = 0;
-        totalToSpawn = waveCount * waveCount;
+        timer = timeB4WaveStart;
+        timer -= Time.deltaTime;
+        if(timer <= 0)
+        {
+            spawnCount = 0;
+            totalToSpawn = waveCount * waveCount;
+            timer = 1.5f;
+            waveStatus = STATUS.ONGOING;
+        }
     }
 
     public void EndWave()
