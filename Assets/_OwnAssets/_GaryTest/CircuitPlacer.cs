@@ -27,10 +27,10 @@ public class CircuitPlacer : MonoBehaviour {
 
 	void PlacePart () {
 		Vector3 snapArea = selectedCircuitPart.snapArea;
-		CircuitPart placedCircuitPart = Instantiate (selectedCircuitPart.prefab, Vector3.zero, Quaternion.identity).GetComponent<CircuitPart>();
+		CircuitPart placedCircuitPart = Instantiate (selectedCircuitPart.prefab, Vector3.zero, Quaternion.identity).GetComponent<CircuitPart> ();
 		placedCircuitPart.visual.transform.position = snapArea;
 		placedCircuitPart.snapArea = snapArea;
-		placedCircuitPart.AddSelfToGridSystem();
+		placedCircuitPart.AddSelfToGridSystem ();
 		placedCircuitPart.transform.Find ("Target").gameObject.SetActive (false);
 	}
 

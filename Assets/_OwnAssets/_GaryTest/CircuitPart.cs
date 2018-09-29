@@ -9,6 +9,8 @@ public abstract class CircuitPart : MonoBehaviour {
 	private CircuitPart _To;
 	private CircuitPart _From;
 
+	
+
 	//If this part is connected to a battery
 	//Or another part that can pass it a charge from a battery
 	[HideInInspector] public bool isConnected = false;
@@ -46,7 +48,9 @@ public abstract class CircuitPart : MonoBehaviour {
 	}
 
 	public virtual void AddSelfToGridSystem () {
-		m_gridSystem.AddToGridSystem (transform.position, this.gameObject);
+		if (m_gridSystem == null)
+			m_gridSystem = FindObjectOfType<GridSystem> ();
+		m_gridSystem.AddToGridSystem (snapArea, this.gameObject);
 	}
 
 	// Should be called when the part gets destroyed
