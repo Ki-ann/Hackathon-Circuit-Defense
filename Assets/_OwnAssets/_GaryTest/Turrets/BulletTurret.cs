@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletTurret : Turret {
     private LineRenderer bulletPath;
 
-    void Start () {
+    public override void Start () {
         base.Start ();
         bulletPath = GetComponent<LineRenderer> ();
     }

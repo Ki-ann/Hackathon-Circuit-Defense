@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CircuitPlacer : MonoBehaviour {
 	public CircuitPart selectedCircuitPart;
-	public List<Turret> ListOfTurrets;
+	public List<Buildings> ListOfTurrets;
 	public List<Wire> ListOfWires;
 	public List<Battery> ListOfBatteries;
 	private GameObject targetToMove;
@@ -57,7 +57,7 @@ public class CircuitPlacer : MonoBehaviour {
 
 		switch (itemType) {
 			case ItemType.TURRETS:
-				index = ListOfTurrets.IndexOf ((Turret) selectedCircuitPart);
+				index = ListOfTurrets.IndexOf ((Buildings) selectedCircuitPart);
 				listSize = ListOfTurrets.Count;
 				break;
 			case ItemType.WIRES:
