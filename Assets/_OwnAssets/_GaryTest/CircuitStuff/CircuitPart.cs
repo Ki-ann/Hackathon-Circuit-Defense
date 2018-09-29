@@ -90,6 +90,7 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage, ICircuitNeighbou
 	}
 
 	public virtual void Start () {
+		currentHP = maxHP;
 		m_gridSystem = FindObjectOfType<GridSystem> ();
 	}
 
@@ -100,8 +101,14 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage, ICircuitNeighbou
 
 	public virtual void TakeDamage (float amount) {
 		currentHP -= amount;
+		Debug.Log ("Current Hp " + currentHP);
+		if (currentHP <= 0)
+			Die();
 	}
 
+	public virtual void Die() {
+		Debug.Log("Die");
+	}
 	public void UpdateTargetPosition (Vector3 position) {
 		target.transform.position = position;
 		//Update position in the grid dictionary
