@@ -38,7 +38,6 @@ GameObject:
   - component: {fileID: 4162019560894058}
   - component: {fileID: 33771132881481460}
   - component: {fileID: 23078086605729134}
-  - component: {fileID: 65659660791252742}
   m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
@@ -54,6 +53,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4114671377446548}
+  - component: {fileID: 65981274941308294}
   m_Layer: 0
   m_Name: TurretVisual
   m_TagString: Untagged
@@ -71,7 +71,6 @@ GameObject:
   - component: {fileID: 4431254564843284}
   - component: {fileID: 33792145666424080}
   - component: {fileID: 23812366130051534}
-  - component: {fileID: 136488291580061132}
   m_Layer: 0
   m_Name: TurretBarrel
   m_TagString: Untagged
@@ -127,7 +126,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1790272655551458
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,18 +421,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1399009325783590}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65659660791252742
+--- !u!65 &65981274941308294
 BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1128722695193056}
+  m_GameObject: {fileID: 1313184455160678}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.6266048, y: 1.4889627, z: 1.1538726}
+  m_Center: {x: 0.0035689771, y: 0.24448133, z: -0.00980109}
 --- !u!114 &114001570328761174
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -484,16 +483,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projPrefab: {fileID: 1472820634166980, guid: fdede61c7b673e344ac312ea02ad9eda, type: 2}
   projSpeed: 10
---- !u!136 &136488291580061132
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1399009325783590}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}

@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4536932818790156}
+  - component: {fileID: 65226693192111436}
   m_Layer: 0
   m_Name: TurretVisual
   m_TagString: Untagged
@@ -36,7 +37,6 @@ GameObject:
   - component: {fileID: 4032349602540260}
   - component: {fileID: 33211043335207652}
   - component: {fileID: 23074317979149370}
-  - component: {fileID: 65250817036593318}
   m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
@@ -108,7 +108,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1929684682823654
 GameObject:
   m_ObjectHideFlags: 1
@@ -119,7 +119,6 @@ GameObject:
   - component: {fileID: 4212430773423584}
   - component: {fileID: 33869473979595710}
   - component: {fileID: 23857153310983794}
-  - component: {fileID: 135560390412771664}
   m_Layer: 2
   m_Name: Visual
   m_TagString: Untagged
@@ -137,7 +136,6 @@ GameObject:
   - component: {fileID: 4409986659579466}
   - component: {fileID: 33758625773849748}
   - component: {fileID: 23446085109934850}
-  - component: {fileID: 65091611247374740}
   m_Layer: 2
   m_Name: Shield
   m_TagString: Untagged
@@ -466,30 +464,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1849023984466536}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65091611247374740
+--- !u!65 &65226693192111436
 BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1981852462863192}
+  m_GameObject: {fileID: 1102263188997464}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65250817036593318
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1203277362740282}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.4495574, y: 1.8218365, z: 1.2850108}
+  m_Center: {x: 0.12832779, y: 0.41091824, z: -0.1425054}
 --- !u!114 &114972891688671032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -523,15 +509,3 @@ MonoBehaviour:
   maxRechargeSpeed: 100
   damagedCooldownTime: 2
   shieldBarrier: {fileID: 1981852462863192}
---- !u!135 &135560390412771664
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1929684682823654}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

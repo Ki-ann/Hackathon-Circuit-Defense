@@ -101,7 +101,7 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage, ICircuitNeighbou
 
 	public virtual void TakeDamage (float amount) {
 		currentHP -= amount;
-		Debug.Log ("Current Hp " + currentHP);
+        Debug.Log("currenthp: " + currentHP);
 		if (currentHP <= 0)
 			Die();
 	}

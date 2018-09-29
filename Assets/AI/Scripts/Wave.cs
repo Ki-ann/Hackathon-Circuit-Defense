@@ -15,6 +15,7 @@ public class Wave : MonoBehaviour {
     [SerializeField] int waveCount = 0;
     [SerializeField] float timer = 1.5f;
     [SerializeField] float resetTimer = 0.5f;
+    [SerializeField] float timeB4WaveStart= 30f;
     int resetCount = 0;
     [SerializeField] int totalToSpawn;
     [SerializeField] int spawnCount;
@@ -62,9 +63,15 @@ public class Wave : MonoBehaviour {
 
     public void StartWave()
     {
-        waveStatus = STATUS.ONGOING;
-        spawnCount = 0;
-        totalToSpawn = waveCount * waveCount;
+        timer = timeB4WaveStart;
+        timer -= Time.deltaTime;
+        if(timer <= 0)
+        {
+            spawnCount = 0;
+            totalToSpawn = waveCount * waveCount;
+            timer = 1.5f;
+            waveStatus = STATUS.ONGOING;
+        }
     }
 
     public void EndWave()
@@ -108,40 +115,23 @@ public class Wave : MonoBehaviour {
     {
         if(totalToSpawn - spawnCount > 0)
         {
-                timer -= Time.deltaTime;
-                if (timer <= 0)
-                {
-                    spawnPos = SpawnArray.Instance.spawnPointObjList[Random.Range(0, waveCount)].transform.position;
-                    spawnRot = SpawnArray.Instance.spawnPointObjList[Random.Range(0, waveCount)].transform.rotation;
-                    spawnedZombie = Instantiate(zombie, spawnPos, spawnRot);
-                    spawnedZombie.destinationObj = FindObjectOfType<Core>().gameObject;
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                spawnPos = SpawnArray.Instance.spawnPointObjList[Random.Range(0, waveCount)].transform.position;
+                spawnRot = SpawnArray.Instance.spawnPointObjList[Random.Range(0, waveCount)].transform.rotation;
+                spawnedZombie = Instantiate(zombie, spawnPos, spawnRot);
+                spawnedZombie.SetDamage(30f);
+                spawnedZombie.SetHealth(100f);
+                spawnedZombie.SetSpeed(2.5f);
+                spawnedZombie.destinationObj = FindObjectOfType<Core>().gameObject;
 
-                    if (!AIArray.Instance.enemyList.Contains(spawnedZombie as EnemyAI))
-                        AIArray.Instance.enemyList.Add(spawnedZombie as EnemyAI);
+                if (!AIArray.Instance.enemyList.Contains(spawnedZombie as EnemyAI))
+                    AIArray.Instance.enemyList.Add(spawnedZombie as EnemyAI);
 
-                    spawnCount++;
-                    timer = resetTimer;
-                }
+                spawnCount++;
+                timer = resetTimer;
             }
         }
-        //if(AIArray.Instance.enemyList.Count < waveCount * waveCount)
-        //{
-        //    //timer -= Time.deltaTime;
-        //    for (int i = 0; i < waveCount * waveCount; i++)
-        //    {
-        //        spawnPos = SpawnArray.Instance.spawnPointObjList[Random.Range(0, waveCount)].transform.position;
-        //        spawnRot = SpawnArray.Instance.spawnPointObjList[Random.Range(0, waveCount)].transform.rotation;
-
-        //      //  if (timer <= 0)
-        //        //{
-        //            spawnedZombie = Instantiate(zombie, spawnPos, spawnRot);
-        //            spawnedZombie.destinationObj = FindObjectOfType<Core>().gameObject;
-        //            timer = 1.5f;
-        //        //}
-        //        if (!AIArray.Instance.enemyList.Contains(spawnedZombie as EnemyAI))
-        //            AIArray.Instance.enemyList.Add(spawnedZombie as EnemyAI);
-        //        //Debug.Log(spawnZombie.destinationObj.transform.position);
-        //    }
-        //}
-    
+    }
 }

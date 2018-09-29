@@ -258,15 +258,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlaced: 0
-  isConnected: 0
+  _To: []
+  _From: []
   snapArea: {x: 0, y: 0, z: 0}
   positive: {fileID: 0}
   negative: {fileID: 0}
+  isConnected: 0
+  PositivePart: {fileID: 0}
+  NegativePart: {fileID: 0}
+  _Positive: 0
+  _Negative: 1
+  Charge:
+    maxCharge: 5
   prefab: {fileID: 1634497318180534}
   m_Visual: {fileID: 1544111578477948}
   m_Target: {fileID: 1368201419994286}
-  hP: 0
+  maxHP: 0
+  currentHP: 0
   cost: 0
+  path: []
+  VoltageBall: {fileID: 1893399962901718, guid: 60980fded017cd746a51ab0fc0f856af,
+    type: 2}
 --- !u!136 &136102952936511170
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -183,14 +183,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlaced: 0
-  isConnected: 0
+  _To: []
+  _From: []
   snapArea: {x: 0, y: 0, z: 0}
   positive: {fileID: 0}
   negative: {fileID: 0}
+  isConnected: 0
+  PositivePart: {fileID: 0}
+  NegativePart: {fileID: 0}
+  _Positive: 4
+  _Negative: 4
+  Charge:
+    maxCharge: 0
   prefab: {fileID: 1443569010097618}
   m_Visual: {fileID: 1894077714506142}
   m_Target: {fileID: 1320075115403356}
-  hP: 0
+  maxHP: 0
+  currentHP: 0
   cost: 0
   wireVisuals:
   - {fileID: 1009344912393674, guid: 4b418f9ac716a8c4a908761e9af4707c, type: 2}

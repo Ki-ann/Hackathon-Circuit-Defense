@@ -37,12 +37,12 @@ public class EnemyAI : MonoBehaviour, ITakeDamage, IDealDamage, IEnemy {
         agent = GetComponent<NavMeshAgent>();
     }
 
-    public void TakeDamage(float damage)
+    public virtual void TakeDamage(float damage)
     {
         health -= damage;
     }
     
-    public void DealDamage(float damage)
+    public virtual void DealDamage(float damage)
     {
 
     }
