@@ -6,30 +6,21 @@ public class Wave : MonoBehaviour {
 
     public enum STATUS { START, END, ONGOING, NEXT, NOTHING}
     public STATUS waveStatus;
+    public Zombie zombie;
 
     bool start;
     bool end;
     bool ongoing;
 
-    [SerializeField]int waveCount = 0;
+    [SerializeField] int waveCount = 0;
+    [SerializeField] float timer = 1.5f;
+    [SerializeField] float resetTimer = 0.5f;
     int resetCount = 0;
-	
-    public Zombie zombie;
-    //public GameObject startOne;
-    //public GameObject startTwo;
-    //public GameObject startThree;
-    //public GameObject startFour;
-    //public AIArray aiArray;
+    [SerializeField] int totalToSpawn;
+    [SerializeField] int spawnCount;
+
     Vector3 spawnPos;
     Quaternion spawnRot;
-    Vector3 startPosOne;
-    Quaternion startRotOne;
-    Vector3 startPosTwo;
-    Quaternion startRotTwo;
-    Vector3 startPosThree;
-    Quaternion startRotThree;
-    Vector3 startPosFour;
-    Quaternion startRotFour;
     Zombie spawnedZombie;
     // Use this for initialization
     void Start () {
@@ -72,6 +63,8 @@ public class Wave : MonoBehaviour {
     public void StartWave()
     {
         waveStatus = STATUS.ONGOING;
+        spawnCount = 0;
+        totalToSpawn = waveCount * waveCount;
     }
 
     public void EndWave()
@@ -102,27 +95,53 @@ public class Wave : MonoBehaviour {
         for (int i = 0; i < AIArray.Instance.enemyList.Count; i++)
         {
             if (AIArray.Instance.enemyList[i] == null)
+            {
                 AIArray.Instance.enemyList.RemoveAt(i);
+                totalToSpawn--;
+                spawnCount--;
+            }
+            if (AIArray.Instance.enemyList.Count == 0)
+                waveStatus = STATUS.END;
         }
-
-        if (AIArray.Instance.enemyList.Count <= 0)
-            waveStatus = STATUS.END;
     }
     public void Spawn()
     {
-        if(AIArray.Instance.enemyList.Count < waveCount * waveCount)
+        if(totalToSpawn - spawnCount > 0)
         {
-            for (int i = 0; i < waveCount * waveCount; i++)
-            {
-                spawnPos = SpawnArray.Instance.spawnPointObjList[Random.Range(1, waveCount)].transform.position;
-                spawnRot = SpawnArray.Instance.spawnPointObjList[Random.Range(1, waveCount)].transform.rotation;
-                spawnedZombie = Instantiate(zombie, spawnPos, spawnRot);
-                spawnedZombie.destinationObj = FindObjectOfType<Core>().gameObject;
+                timer -= Time.deltaTime;
+                if (timer <= 0)
+                {
+                    spawnPos = SpawnArray.Instance.spawnPointObjList[Random.Range(0, waveCount)].transform.position;
+                    spawnRot = SpawnArray.Instance.spawnPointObjList[Random.Range(0, waveCount)].transform.rotation;
+                    spawnedZombie = Instantiate(zombie, spawnPos, spawnRot);
+                    spawnedZombie.destinationObj = FindObjectOfType<Core>().gameObject;
 
-                if (!AIArray.Instance.enemyList.Contains(spawnedZombie as EnemyAI))
-                    AIArray.Instance.enemyList.Add(spawnedZombie as EnemyAI);
-                //Debug.Log(spawnZombie.destinationObj.transform.position);
+                    if (!AIArray.Instance.enemyList.Contains(spawnedZombie as EnemyAI))
+                        AIArray.Instance.enemyList.Add(spawnedZombie as EnemyAI);
+
+                    spawnCount++;
+                    timer = resetTimer;
+                }
             }
         }
-    }
+        //if(AIArray.Instance.enemyList.Count < waveCount * waveCount)
+        //{
+        //    //timer -= Time.deltaTime;
+        //    for (int i = 0; i < waveCount * waveCount; i++)
+        //    {
+        //        spawnPos = SpawnArray.Instance.spawnPointObjList[Random.Range(0, waveCount)].transform.position;
+        //        spawnRot = SpawnArray.Instance.spawnPointObjList[Random.Range(0, waveCount)].transform.rotation;
+
+        //      //  if (timer <= 0)
+        //        //{
+        //            spawnedZombie = Instantiate(zombie, spawnPos, spawnRot);
+        //            spawnedZombie.destinationObj = FindObjectOfType<Core>().gameObject;
+        //            timer = 1.5f;
+        //        //}
+        //        if (!AIArray.Instance.enemyList.Contains(spawnedZombie as EnemyAI))
+        //            AIArray.Instance.enemyList.Add(spawnedZombie as EnemyAI);
+        //        //Debug.Log(spawnZombie.destinationObj.transform.position);
+        //    }
+        //}
+    
 }
