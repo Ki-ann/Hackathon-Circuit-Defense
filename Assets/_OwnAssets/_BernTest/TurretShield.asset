@@ -9,8 +9,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 329cd2fb23cd3364a975e37072388326, type: 3}
-  m_Name: TurretLaser
+  m_Name: TurretShield
   m_EditorClassIdentifier: 
-  ItemName: TurretLaser
-  ItemCost: 20
-  ItemPrefab: {fileID: 1058644752226254, guid: 6e24c1176466da648a5c0078f3e2a677, type: 2}
+  ItemName: Shield
+  ItemCost: 50
+  ItemPrefab: {fileID: 1475437429108318, guid: 89a4b20d5704195408c2bf6d4dbc253e, type: 2}
