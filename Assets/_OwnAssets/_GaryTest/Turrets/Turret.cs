@@ -30,8 +30,7 @@ public abstract class Turret : CircuitPart {
 			if (Input.GetKeyDown (KeyCode.Z)) {
 				Charge.ChargeLevelChange (5);
 			}
-			Debug.Log (gameObject.name + " charge level " + Charge.CurrentCharge);
-			Debug.Log (gameObject.name + " attack speed is " + attackSpeed);
+
 			//Turret Behvaiours
 			CalculateAttackSpeed ();
 			CheckRadius ();

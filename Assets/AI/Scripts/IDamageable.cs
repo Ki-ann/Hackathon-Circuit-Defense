@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDamageable{
-    void TakeDamage(float amount);
-    void DealDamage(float amount);
+public interface ITakeDamage {
+    void TakeDamage (float amount);
+}
+
+public interface IDealDamage {
+    void DealDamage (float amount);
 }
