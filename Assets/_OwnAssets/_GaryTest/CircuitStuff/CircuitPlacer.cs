@@ -11,19 +11,22 @@ public class CircuitPlacer : MonoBehaviour {
 	private GameObject targetToMove;
 	private InputManager inputManager;
 	[HideInInspector] public enum ItemType { TURRETS, WIRES, BATTERIES };
-	private ItemType selectedItemType = ItemType.TURRETS;
+ private ItemType selectedItemType = ItemType.TURRETS;
 
-	void Start () {
-		targetToMove = selectedCircuitPart.transform.Find ("Target").gameObject;
-		inputManager = FindObjectOfType<InputManager> ();
+ void Start () {
+ targetToMove = selectedCircuitPart.transform.Find ("Target").gameObject;
+ inputManager = FindObjectOfType<InputManager> ();
 	}
 
 	void Update () {
-		if (inputManager.MouseScroll != 0f){
+		if (inputManager.MouseScroll != 0f) {
 			ChangeSelectedPart (selectedItemType);
+			
+			if (selectedCircuitPart.visual.GetComponent<Collider> ().enabled)
+				selectedCircuitPart.visual.GetComponent<Collider> ().enabled = false;
 		}
-		if(inputManager.ShiftMouseScroll != 0f){
-			ChangeSelectedItemType();
+		if (inputManager.ShiftMouseScroll != 0f) {
+			ChangeSelectedItemType ();
 		}
 		targetToMove.transform.position = new Vector3 (inputManager.mousePosition.x, 0, inputManager.mousePosition.z);
 
@@ -39,7 +42,7 @@ public class CircuitPlacer : MonoBehaviour {
 
 	void PlacePart () {
 		Vector3 snapArea = selectedCircuitPart.snapArea;
-		
+
 		if (selectedCircuitPart.m_gridSystem.CheckFreeSpace (snapArea)) {
 			CircuitPart placedCircuitPart = Instantiate (selectedCircuitPart.prefab, Vector3.zero, Quaternion.identity).GetComponent<CircuitPart> ();
 			placedCircuitPart.visual.transform.position = snapArea;
@@ -106,13 +109,12 @@ public class CircuitPlacer : MonoBehaviour {
 
 		selectedCircuitPart = nextSelected;
 		selectedCircuitPart.gameObject.SetActive (true);
-		targetToMove = selectedCircuitPart.transform.Find ("Target").gameObject;
+		targetToMove = selectedCircuitPart.target.gameObject;
 	}
 	void ChangeSelectedItemType () {
 
-		int index = (int)selectedItemType;
-		int listSize =  Enum.GetNames(typeof(ItemType)).Length;
-
+		int index = (int) selectedItemType;
+		int listSize = Enum.GetNames (typeof (ItemType)).Length;
 
 		if (inputManager.ShiftMouseScroll < 0f) //move left
 			index--;
@@ -127,9 +129,8 @@ public class CircuitPlacer : MonoBehaviour {
 			index = listSize - 1;
 		}
 
-	
-		selectedItemType = (ItemType)index;
-		
+		selectedItemType = (ItemType) index;
+
 		CircuitPart nextSelected = null;
 
 		switch (selectedItemType) {

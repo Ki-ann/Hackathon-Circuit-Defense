@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Wave : MonoBehaviour {
 
-    public enum STATUS { START, END, ONGOING, NEXT, NOTHING}
+    public enum STATUS { START, END, ONGOING, NEXT, STANDBY}
     public STATUS waveStatus;
     public Zombie zombie;
 
@@ -37,7 +37,8 @@ public class Wave : MonoBehaviour {
     {
         switch (waveStatus)
         {
-            case STATUS.NOTHING:
+            case STATUS.STANDBY:
+                StandBy();
                 break;
             case STATUS.START:
                 start = true;
@@ -61,9 +62,13 @@ public class Wave : MonoBehaviour {
         }
     }
 
-    public void StartWave()
+    public void StandBy()
     {
         timer = timeB4WaveStart;
+        waveStatus = STATUS.START;
+    }
+    public void StartWave()
+    {
         timer -= Time.deltaTime;
         if(timer <= 0)
         {
@@ -94,7 +99,7 @@ public class Wave : MonoBehaviour {
     public void NextWave()
     {
         waveCount += 1;
-        waveStatus = STATUS.START;
+        waveStatus = STATUS.STANDBY;
     }
 
     public void Ongoing()
