@@ -1105,6 +1105,7 @@ MonoBehaviour:
   waveCount: 1
   timer: 1.5
   resetTimer: 0.5
+  timeB4WaveStart: 30
   totalToSpawn: 0
   spawnCount: 0
 --- !u!4 &1918886081
