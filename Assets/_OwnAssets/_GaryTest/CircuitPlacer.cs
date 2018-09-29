@@ -14,9 +14,8 @@ public class CircuitPlacer : MonoBehaviour {
 	}
 
 	void Update () {
-		if (inputManager.MouseScroll != 0f) {
+		if (inputManager.MouseScroll != 0f)
 			ChangeSelectedPart ();
-		}
 
 		targetToMove.transform.position = new Vector3 (inputManager.mousePosition.x, 0, inputManager.mousePosition.z);
 
@@ -35,10 +34,19 @@ public class CircuitPlacer : MonoBehaviour {
 	}
 
 	void ChangeSelectedPart () {
-		int index = ListOfTurrets.IndexOf (selectedCircuitPart) + 1;
+		int index = ListOfTurrets.IndexOf (selectedCircuitPart);
+		if (inputManager.MouseScroll < 0f) //move left
+			index--;
+		if (inputManager.MouseScroll > 0f) //move right
+			index++;
 
 		if (index >= ListOfTurrets.Count) {
 			index = 0;
+		}
+
+		if (index < 0)
+		{
+			index = ListOfTurrets.Count - 1 ;
 		}
 
 		CircuitPart nextSelected = ListOfTurrets[index];

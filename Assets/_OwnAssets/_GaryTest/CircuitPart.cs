@@ -8,6 +8,11 @@ public abstract class CircuitPart : MonoBehaviour {
 
 	private CircuitPart _To;
 	private CircuitPart _From;
+	[SerializeField] private float hP;
+	public float HP
+	{
+		get { return hP; }
+	}
 
 	private int cost;
 	public int Cost 
