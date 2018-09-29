@@ -25,7 +25,8 @@ public class Zombie : EnemyAI {
 
         if (health <= 0)
             Destroy(this.gameObject);
-        //anim = GetComponent<Animator>();
+
+        anim = GetComponent<Animator>();
     }
     void OnCollisionStay(Collision other)
     {
