@@ -9,8 +9,9 @@ public class ShieldTurret : Buildings {
     //#7EBDFF blue  Healthy
     //#CB2E26 red   Damaged
     //#4BFF00 green Recharging
-    [SerializeField] private GameObject shieldBarrier;
-    private Material shieldMaterial;
+    [SerializeField] private GameObject shield;
+    [SerializeField] private Material shieldMaterial;
+    private Material m_Material;
     private float maxPossibleHP;
     private float rechargeSpeed;
     private bool isRecentlyDamaged;
@@ -20,12 +21,15 @@ public class ShieldTurret : Buildings {
     public override void Start () {
         base.Start ();
 
-        CalculateShieldHealth ();
-        currentHP = maxPossibleHP;
-        shieldMaterial = shieldBarrier.GetComponent<Material>();
-        ColorUtility.TryParseHtmlString ("#7EBDFF", out Healthy);
-        ColorUtility.TryParseHtmlString ("#CB2E26", out Damaged);
-        ColorUtility.TryParseHtmlString ("#4BFF00", out Recharging);
+        if (isPlaced) {
+            CalculateShieldHealth ();
+            currentHP = maxPossibleHP;
+            m_Material = new Material (shieldMaterial);
+            shield.GetComponent<Renderer> ().material = m_Material;
+            ColorUtility.TryParseHtmlString ("#7EBDFF", out Healthy);
+            ColorUtility.TryParseHtmlString ("#CB2E26", out Damaged);
+            ColorUtility.TryParseHtmlString ("#4BFF00", out Recharging);
+        }
     }
 
     public override void Update () {
@@ -33,14 +37,14 @@ public class ShieldTurret : Buildings {
 
         if (isPlaced) {
             //Test
-            Debug.Log("max possible hp " + maxPossibleHP);
-            Debug.Log("current hp " + currentHP);
+            // Debug.Log ("max possible hp " + maxPossibleHP);
+            // Debug.Log ("current hp " + currentHP);
 
             if (Input.GetKeyDown (KeyCode.X)) {
                 TakeDamage (10);
             }
 
-            if (Charge.CurrentCharge == 0) 
+            if (Charge.CurrentCharge == 0)
                 return;
 
             CalculateShieldHealth ();
@@ -48,54 +52,56 @@ public class ShieldTurret : Buildings {
 
             if (!isRecentlyDamaged) {
                 //Recharge shield health till max
-                ShieldRecharge ();
+                if (currentHP != maxPossibleHP)
+                    ShieldRecharge ();
             } else {
                 damagedTimer -= Time.deltaTime;
-                if (damagedTimer <= 0) {
+                if (damagedTimer <= 0)
                     isRecentlyDamaged = false;
-                }
             }
         }
     }
 
     void ShieldRecharge () {
         if (currentHP == maxPossibleHP) {
-            shieldMaterial.color = Healthy;
+            m_Material.color = Healthy;
+            Debug.Log ("Healthy == ");
             return;
         }
 
-        if (currentHP > maxPossibleHP)
-        {
+        if (currentHP > maxPossibleHP) {
             currentHP = maxPossibleHP;
-            shieldMaterial.color = Healthy;
+            m_Material.color = Healthy;
+            Debug.Log ("Healthy >");
             return;
         }
 
         if (currentHP < maxPossibleHP) {
             currentHP += maxRechargeSpeed * Time.deltaTime;
-            shieldMaterial.color = Recharging;
+            m_Material.color = Recharging;
+            Debug.Log ("recharging");
         }
     }
 
     void TriggerCooldown () {
         isRecentlyDamaged = true;
         damagedTimer = damagedCooldownTime;
-        shieldMaterial.color = Damaged;
+        m_Material.color = Damaged;
+        Debug.Log ("damaged");
     }
 
     public override void TakeDamage (float amount) {
+        Debug.Log ("Damaged!");
         currentHP -= amount;
-        if (currentHP <= 0)
-        {
-            Die();
+        if (currentHP <= 0) {
+            Die ();
             return;
         }
         TriggerCooldown ();
     }
 
-    public override void Die()
-    {
-        base.Die();
+    public override void Die () {
+        base.Die ();
     }
 
     void CalculateShieldHealth () {

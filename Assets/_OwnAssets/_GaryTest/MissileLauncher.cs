@@ -12,6 +12,7 @@ public class MissileLauncher : MonoBehaviour, ILauncher {
 	public void Launch (Turret turret) {
 		GameObject missile = Instantiate (projPrefab, turret.FirePoint.transform.position, Quaternion.Euler(90, 0, 0));
 		missile.transform.eulerAngles += turret.FirePoint.transform.rotation.eulerAngles;
+		missile.GetComponent<MissileController>().m_Turret = turret;
 		rBody = missile.GetComponent<Rigidbody>();
 		rBody.velocity = turret.FirePoint.transform.forward * projSpeed;
 	}

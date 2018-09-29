@@ -26,11 +26,21 @@ public class Zombie : EnemyAI {
         if (health <= 0)
             Destroy(this.gameObject);
 
-        anim = GetComponent<Animator>();
+        if(!anim)
+            anim = GetComponent<Animator>();
+
+        if (Vector3.Distance(transform.position, destination) > agent.remainingDistance)
+            SetAnimations(true);
+        else
+            SetAnimations(false);
     }
     void OnCollisionStay(Collision other)
     {
-        if (other.gameObject.transform.parent.GetComponent<CircuitPart>())
+        if (other.gameObject.GetComponent<Core>()) 
+        {
+            //add core stuff here
+        }
+        else if (other.gameObject.transform.parent.GetComponent<CircuitPart>())
         {
             other.gameObject.transform.parent.GetComponent<CircuitPart>().TakeDamage(damage);
             //Debug.Log("fk u turret");
@@ -47,5 +57,9 @@ public class Zombie : EnemyAI {
     public void SetHealth(float _health)
     {
         health = _health;
+    }
+    public void SetAnimations(bool isMoving)
+    {
+        anim.SetBool("Move", isMoving);
     }
 }
