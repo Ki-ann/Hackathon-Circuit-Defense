@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAI : MonoBehaviour, IEnemy, IDamageable {
+public class EnemyAI : MonoBehaviour, IEnemy, ITakeDamage, IDealDamage {
 
     public float speed { get; set; }
     public float health { get; set; }
