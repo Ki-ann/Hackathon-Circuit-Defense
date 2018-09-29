@@ -7,8 +7,15 @@ public class HandAngleTrigger : MonoBehaviour
     [SerializeField] private GameObject triggerItem;
     [SerializeField] private float lowerAngleLimit;
     [SerializeField] private float upperAngleLimit;
+    [SerializeField] private Transform uiPos;
+    private FollowTransform ft;
     private bool state = false;
     private bool prevState = false;
+
+    private void Start()
+    {
+        ft = triggerItem.GetComponent<FollowTransform>();
+    }
 
     private void Update()
     {
@@ -26,6 +33,11 @@ public class HandAngleTrigger : MonoBehaviour
             prevState = state;
 
             triggerItem.SetActive(state);
+
+            if (state)
+            {
+                ft.SetFollowTarget(uiPos);
+            }
         }
     }
 }
