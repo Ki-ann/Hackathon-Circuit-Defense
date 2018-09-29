@@ -4,6 +4,10 @@ using UnityEngine;
 
 public abstract class CircuitPart : MonoBehaviour {
 	private GridSystem m_gridSystem;
+	public GridSystem m_GridSystem { get { return m_gridSystem; } }
+
+	private CircuitPart _To;
+	private CircuitPart _From;
 
 	//If this part is connected to a battery
 	//Or another part that can pass it a charge from a battery
@@ -11,7 +15,7 @@ public abstract class CircuitPart : MonoBehaviour {
 
 	[HideInInspector] public Vector3 snapArea;
 
-	//Starting and Ending of part
+	//Starting and Ending of part for electricity visuals
 	//Flows from Positive => Negative
 	public Transform Positive, Negative;
 	public GameObject prefab;
@@ -41,7 +45,7 @@ public abstract class CircuitPart : MonoBehaviour {
 		//Update position in the grid dictionary
 	}
 
-	public void AddSelfToGridSystem () {
+	public virtual void AddSelfToGridSystem () {
 		m_gridSystem.AddToGridSystem (transform.position, this.gameObject);
 	}
 
