@@ -85,6 +85,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4026165980439956}
+  - component: {fileID: 65109303964805306}
   m_Layer: 0
   m_Name: TurretVisual
   m_TagString: Untagged
@@ -102,7 +103,6 @@ GameObject:
   - component: {fileID: 4588356126650070}
   - component: {fileID: 33359524276162262}
   - component: {fileID: 23566291974841008}
-  - component: {fileID: 65947950523248892}
   m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
@@ -135,7 +135,6 @@ GameObject:
   - component: {fileID: 4213073407000452}
   - component: {fileID: 33062236445023596}
   - component: {fileID: 23398774088819104}
-  - component: {fileID: 65661271584497286}
   m_Layer: 0
   m_Name: TurretBarrels
   m_TagString: Untagged
@@ -422,30 +421,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1244966064523154}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65661271584497286
+--- !u!65 &65109303964805306
 BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1892862917269010}
+  m_GameObject: {fileID: 1448189035464936}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65947950523248892
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1480330527916660}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.1868296, y: 1.5741274, z: 1.2206074}
+  m_Center: {x: 0.0036883056, y: 0.28706372, z: 0.04223782}
 --- !u!114 &114563313555228830
 MonoBehaviour:
   m_ObjectHideFlags: 1

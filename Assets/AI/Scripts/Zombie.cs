@@ -25,13 +25,24 @@ public class Zombie : EnemyAI {
 
         anim = GetComponent<Animator>();
     }
-
-    private void OnTriggerEnter(Collider other)
+    void OnCollisionStay(Collision other)
     {
-        if (other.GetComponent<CircuitPart>())
+        if (other.gameObject.transform.parent.GetComponent<CircuitPart>())
         {
-            other.GetComponent<CircuitPart>().TakeDamage(damage);
-            Debug.Log("fk u turret");
+            other.gameObject.transform.parent.GetComponent<CircuitPart>().TakeDamage(damage);
+            //Debug.Log("fk u turret");
         }
+    }
+    public void SetDamage(float _damage)
+    {
+        damage = _damage;
+    }
+    public void SetSpeed(float _speed)
+    {
+        speed = _speed;
+    }
+    public void SetHealth(float _health)
+    {
+        health = _health
     }
 }
