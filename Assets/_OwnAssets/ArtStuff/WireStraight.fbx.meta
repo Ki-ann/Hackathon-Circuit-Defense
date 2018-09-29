@@ -21,7 +21,12 @@ ModelImporter:
     4300002: BezierCurve.002
     4300004: BezierCurve.001
     4300006: BezierCurve.008
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: No Name
+    second: {fileID: 2100000, guid: 6976593767801524796fd380ff70c669, type: 2}
   materials:
     importMaterials: 1
     materialName: 0

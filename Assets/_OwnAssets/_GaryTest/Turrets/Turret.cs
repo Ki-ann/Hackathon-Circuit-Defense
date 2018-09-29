@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class Turret : CircuitPart {
@@ -10,14 +11,13 @@ public abstract class Turret : CircuitPart {
 	[SerializeField] private float attackSpeed;
 	[SerializeField] private float attackDamage;
 	private GameObject targetToAttack;
+	private float distanceToTarget;
 
 	public override void Update () {
 		base.Update ();
 		if (isPlaced) {
 			//Turret Behvaiours
-			if (targetToAttack == null)
-				CheckRadius ();
-
+			CheckRadius ();
 			if (targetToAttack != null)
 				TryAttack ();
 
@@ -25,19 +25,35 @@ public abstract class Turret : CircuitPart {
 	}
 
 	void CheckRadius () {
-		Collider[] colInRadius = Physics.OverlapSphere (visual.transform.position, attackRadius);
+		List<Collider> collidersInRadius = Physics.OverlapSphere (visual.transform.position, attackRadius).ToList ();
 
-		foreach (Collider col in colInRadius) {
+		if (targetToAttack != null) {
+			Debug.Log (collidersInRadius.Contains (targetToAttack.GetComponent<Collider> ()));
+			if (!collidersInRadius.Contains (targetToAttack.GetComponent<Collider> ())) {
+				targetToAttack = null;
+			}
+		}
 
-		
+		foreach (Collider col in collidersInRadius) {
 			//check if col is enemy, if yes than target and attack
 			if (col.GetComponent<EnemyAI> () != null) {
-				targetToAttack = col.gameObject;
-				return;
+				if (targetToAttack == null) {
+					SetNewTarget (col.gameObject);
+					return;
+				}
+
+				float distanceToNewEnemy = Vector3.Distance (visual.transform.position, col.transform.position);
+				if (distanceToTarget > distanceToNewEnemy) {
+					SetNewTarget (col.gameObject);
+				}
 			}
 		}
 	}
 
+	void SetNewTarget (GameObject target) {
+		targetToAttack = target.gameObject;
+		distanceToTarget = Vector3.Distance (visual.transform.position, targetToAttack.transform.position);
+	}
 	void TryAttack () {
 		LookAtTarget ();
 		RaycastHit hit;
