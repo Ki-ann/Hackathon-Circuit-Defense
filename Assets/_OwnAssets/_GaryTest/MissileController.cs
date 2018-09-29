@@ -21,8 +21,15 @@ public class MissileController : MonoBehaviour {
 
 	void Explode () {
 		CheckForSurroundingEnemies ();
+		GameObject explosion = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		explosion.transform.position = transform.position;
+		
 		Destroy (gameObject, 0f);
 	}
+
+	// IEnumerator explosionHandler(GameObject explosion) {
+	// 	explosion.transform.localScale
+	// }	
 
 	void CheckForSurroundingEnemies () {
 		Collider[] surroundingColliders = Physics.OverlapSphere (transform.position, explosionRadius);

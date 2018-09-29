@@ -156,6 +156,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114001570328761174, guid: 42c8f2d783da1664aa10c42acfdbdad5,
+        type: 2}
+      propertyPath: attackDamage
+      value: 30
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 42c8f2d783da1664aa10c42acfdbdad5, type: 2}
   m_IsPrefabAsset: 0

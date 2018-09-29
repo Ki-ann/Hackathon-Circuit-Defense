@@ -22,10 +22,7 @@ public class Zombie : EnemyAI {
 
         if (!this.agent)
             this.agent = GetComponent<NavMeshAgent>();
-
-        if (health <= 0)
-            Destroy(this.gameObject);
-
+            
         if(!anim)
             anim = GetComponent<Animator>();
 

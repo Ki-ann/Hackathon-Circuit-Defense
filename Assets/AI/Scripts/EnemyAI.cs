@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAI : MonoBehaviour, ITakeDamage, IDealDamage, IEnemy {
+public class EnemyAI : MonoBehaviour, ITakeDamage, IEnemy {
 
     public float speed { get; set; }
     public float health { get; set; }
@@ -40,10 +40,15 @@ public class EnemyAI : MonoBehaviour, ITakeDamage, IDealDamage, IEnemy {
     public virtual void TakeDamage(float damage)
     {
         health -= damage;
+
+        if (health <= 0)
+        {
+            Die();
+        }
     }
     
-    public virtual void DealDamage(float damage)
+    public virtual void Die()
     {
-
+        Destroy(this.gameObject, 0f);
     }
 }
