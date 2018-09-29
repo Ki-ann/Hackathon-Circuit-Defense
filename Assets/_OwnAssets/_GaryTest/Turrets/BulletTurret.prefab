@@ -166,6 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a183898e185b64785b3d65021d92cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hP: 0
   isConnected: 0
   snapArea: {x: 0, y: 0, z: 0}
   Positive: {fileID: 0}
@@ -173,3 +174,6 @@ MonoBehaviour:
   prefab: {fileID: 1383998213664906}
   m_Visual: {fileID: 1892862917269010}
   m_Target: {fileID: 1771923509052838}
+  attackRadius: 5
+  attackSpeed: 2
+  attackDamage: 5
