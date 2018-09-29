@@ -14,16 +14,18 @@ public class GridSystem : MonoBehaviour {
 		FinalPosition.y = 0;
 		return FinalPosition;
 	}
-	
-	public GameObject[] GetNeighbouringObjects (Vector3 position) {
+
+	public CircuitPart[] GetNeighbouringParts (Vector3 position) {
 		position = grid.GetNearestPointOnGrid (position);
 
 		GameObject partUp, partDown, partLeft, partRight;
 
-		return new GameObject[] { grid.GridParts.TryGetValue (position + Vector3.forward * grid.Size, out partUp) ? partUp : null,
-		grid.GridParts.TryGetValue (position - Vector3.forward * grid.Size, out partDown) ? partDown : null, 
-		grid.GridParts.TryGetValue (position - Vector3.right * grid.Size, out partLeft) ? partLeft : null, 
-		grid.GridParts.TryGetValue (position + Vector3.right * grid.Size, out partRight) ? partRight : null};
+		return new CircuitPart[] {
+			grid.GridParts.TryGetValue (position + Vector3.forward * grid.Size, out partUp) ? partUp.GetComponent<CircuitPart> () : null,
+				grid.GridParts.TryGetValue (position + Vector3.right * grid.Size, out partRight) ? partRight.GetComponent<CircuitPart> () : null,
+				grid.GridParts.TryGetValue (position - Vector3.forward * grid.Size, out partDown) ? partDown.GetComponent<CircuitPart> () : null,
+				grid.GridParts.TryGetValue (position - Vector3.right * grid.Size, out partLeft) ? partLeft.GetComponent<CircuitPart> () : null
+		};
 	}
 	public bool AddToGridSystem (Vector3 position, GameObject part) {
 		if (!grid.GridParts.ContainsKey (position)) {
@@ -35,6 +37,6 @@ public class GridSystem : MonoBehaviour {
 	}
 
 	public void RemoveFromGridSystem (GameObject destroyedPart) {
-		grid.GridParts.Remove (destroyedPart.GetComponent<CircuitPart>().snapArea);
+		grid.GridParts.Remove (destroyedPart.GetComponent<CircuitPart> ().snapArea);
 	}
 }
