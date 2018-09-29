@@ -23,6 +23,7 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage {
 	public Transform Negative {
 		get { return negative; }
 	}
+
 	[HideInInspector] public bool isConnected;
 	public CircuitPart PositivePart;
 	public CircuitPart NegativePart;
@@ -30,6 +31,7 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage {
 	public enum poles { UP, DOWN, LEFT, RIGHT, NONE };
  public poles _Positive;
  public poles _Negative;
+
 
  [System.Serializable]
  public struct ChargeLevel {
@@ -79,6 +81,7 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage {
 	public float MaxHP {
 		get { return maxHP; }
 	}
+
 	[HideInInspector] public float currentHP;
 
 	[SerializeField] private int cost;
@@ -92,6 +95,7 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage {
 
 	public virtual void Update () {
 		snapArea = m_gridSystem.GetNearestPosition (target.transform.position);
+		
 		visual.transform.position = snapArea;
 	}
 

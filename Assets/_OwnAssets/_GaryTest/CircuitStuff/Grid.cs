@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 public class Grid : MonoBehaviour {
-	[HideInInspector] public Dictionary<Vector3, GameObject> GridParts = new Dictionary<Vector3, GameObject>();
+	[HideInInspector] public Dictionary<Vector3, GameObject> GridParts = new Dictionary<Vector3, GameObject> ();
 	[SerializeField] private float size = 1f;
 	public float Size { get { return size; } }
 	public Vector3 GetNearestPointOnGrid (Vector3 position) {

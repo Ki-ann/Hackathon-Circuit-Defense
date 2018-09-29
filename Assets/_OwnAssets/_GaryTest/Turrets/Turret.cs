@@ -4,6 +4,11 @@ using System.Linq;
 using UnityEngine;
 
 public abstract class Turret : Buildings, IHaveAttack {
+	[SerializeField] private GameObject barrel;
+	public GameObject Barrel {
+		get { return barrel; }
+	}
+
 	[Header ("Attack Stats")]
 	[Tooltip ("Attack Radius of tower")]
 	[SerializeField] private GameObject firePoint;
@@ -79,7 +84,8 @@ public abstract class Turret : Buildings, IHaveAttack {
 	}
 
 	void LookAtTarget () {
-		visual.transform.LookAt (targetToAttack.transform);
+		barrel.transform.LookAt (targetToAttack.transform);
+		barrel.transform.eulerAngles = new Vector3 (0, barrel.transform.eulerAngles.y, 0);
 	}
 	public virtual IEnumerator TryAttack () { yield return new WaitForSeconds (0); }
 

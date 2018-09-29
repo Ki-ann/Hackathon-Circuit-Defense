@@ -41,7 +41,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1929684682823654
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,7 +100,7 @@ Transform:
   m_GameObject: {fileID: 1981852462863192}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.5}
-  m_LocalScale: {x: 2, y: 1, z: 0.05}
+  m_LocalScale: {x: 1.2, y: 1, z: 0.05}
   m_Children: []
   m_Father: {fileID: 4212430773423584}
   m_RootOrder: 0
@@ -259,8 +259,10 @@ MonoBehaviour:
   maxHP: 20
   currentHP: 0
   cost: 0
+  connectedBattery: {fileID: 0}
   maxRechargeSpeed: 4
   damagedCooldownTime: 2
+  shieldMaterial: {fileID: 2100000, guid: 55722582caddab94c95d8a5d1c5946b9, type: 2}
 --- !u!135 &135560390412771664
 SphereCollider:
   m_ObjectHideFlags: 1

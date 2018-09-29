@@ -12,7 +12,7 @@ public class BulletTurret : Turret {
     public override IEnumerator TryAttack () {
         isAttacking = true;
         RaycastHit hit;
-        if (Physics.Raycast (FirePoint.transform.position, visual.transform.forward, out hit, AttackRadius)) {
+        if (Physics.Raycast (FirePoint.transform.position, Barrel.transform.forward, out hit, AttackRadius)) {
             if (hit.collider.GetComponent<EnemyAI> () != null) {
                 //Attack 
                 Debug.Log ("Die fiend");
@@ -26,7 +26,7 @@ public class BulletTurret : Turret {
     }
 
     IEnumerator DrawLine (Vector3 endPosition) {
-        Debug.DrawRay (FirePoint.transform.position, visual.transform.forward * AttackRadius, Color.red);
+        Debug.DrawRay (FirePoint.transform.position, Barrel.transform.forward * AttackRadius, Color.red);
         bulletPath.enabled = true;
         Vector3[] lineStartEnd = { FirePoint.transform.position, endPosition };
         bulletPath.SetPositions (lineStartEnd);
