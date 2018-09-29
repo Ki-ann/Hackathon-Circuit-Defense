@@ -366,6 +366,7 @@ MonoBehaviour:
   ListOfTurrets:
   - {fileID: 1818295306}
   - {fileID: 795846954}
+  ListOfWires: []
 --- !u!114 &420875070
 MonoBehaviour:
   m_ObjectHideFlags: 0

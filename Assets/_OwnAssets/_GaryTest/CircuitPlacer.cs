@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CircuitPlacer : MonoBehaviour {
 	public CircuitPart selectedCircuitPart;
-	public List<Turret> ListOfTurrets;
+	public List<Turret> ListOfTurrets; 
     public List<Wire> ListOfWires;
     //list of power
 	private GameObject targetToMove;
@@ -35,7 +35,7 @@ public class CircuitPlacer : MonoBehaviour {
 
 	void PlacePart () {
 		Vector3 snapArea = selectedCircuitPart.snapArea;
-		Debug.Log (selectedCircuitPart.m_gridSystem.CheckFreeSpace (snapArea));
+		
 		if (selectedCircuitPart.m_gridSystem.CheckFreeSpace (snapArea)) {
 			CircuitPart placedCircuitPart = Instantiate (selectedCircuitPart.prefab, Vector3.zero, Quaternion.identity).GetComponent<CircuitPart> ();
 			placedCircuitPart.visual.transform.position = snapArea;
