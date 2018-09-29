@@ -468,7 +468,7 @@ MonoBehaviour:
   attackRadius: 6
   minAttackSpeed: 1.5
   attackSpeedDiff: 1
-  attackDamage: 5
+  attackDamage: 10
   isAttacking: 0
 --- !u!120 &120995024067557036
 LineRenderer:

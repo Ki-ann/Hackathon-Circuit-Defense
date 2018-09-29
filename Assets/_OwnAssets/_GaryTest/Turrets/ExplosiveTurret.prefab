@@ -126,7 +126,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1790272655551458
 GameObject:
   m_ObjectHideFlags: 0
@@ -468,7 +468,7 @@ MonoBehaviour:
   attackRadius: 4
   minAttackSpeed: 4
   attackSpeedDiff: 2
-  attackDamage: 10
+  attackDamage: 30
   isAttacking: 0
 --- !u!114 &114179661395393290
 MonoBehaviour:
