@@ -32,7 +32,7 @@ public class InputManager : MonoBehaviour {
 		} else {
 			LeftClick = lControllerEvents.IsButtonPressed (VRTK_ControllerEvents.ButtonAlias.TriggerPress) || rControllerEvents.IsButtonPressed (VRTK_ControllerEvents.ButtonAlias.TriggerPress);
 
-			if (lControllerEvents.GetAxisState (VRTK_ControllerEvents.Vector2AxisAlias.Touchpad, SDK_BaseController.ButtonPressTypes.PressDown)) {
+			if (lControllerEvents.GetAxisState (VRTK_ControllerEvents.Vector2AxisAlias.Touchpad, SDK_BaseController.ButtonPressTypes.PressUp)) {
 				Vector2 lCAxis = lControllerEvents.GetAxis (VRTK_ControllerEvents.Vector2AxisAlias.Touchpad);
 				if (lCAxis.x > touchpadXDeadZone || lCAxis.x < -touchpadXDeadZone) {
 					MouseScroll = lCAxis.x;
@@ -45,7 +45,7 @@ public class InputManager : MonoBehaviour {
                         uIHandler.ScrollShop(-1);
                     }
 				}
-			} else if (rControllerEvents.GetAxisState (VRTK_ControllerEvents.Vector2AxisAlias.Touchpad, SDK_BaseController.ButtonPressTypes.PressDown)) {
+			} else if (rControllerEvents.GetAxisState (VRTK_ControllerEvents.Vector2AxisAlias.Touchpad, SDK_BaseController.ButtonPressTypes.PressUp)) {
 				Vector2 rCAxis = rControllerEvents.GetAxis (VRTK_ControllerEvents.Vector2AxisAlias.Touchpad);
 				if (rCAxis.x > touchpadXDeadZone || rCAxis.x < -touchpadXDeadZone) {
 					MouseScroll = rCAxis.x;
