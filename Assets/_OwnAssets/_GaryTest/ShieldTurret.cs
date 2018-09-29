@@ -28,16 +28,27 @@ public class ShieldTurret : Buildings {
 
     public override void Update () {
         base.Update ();
-        CalculateShieldHealth ();
-        CalculateRechargeSpeed ();
 
-        if (!isRecentlyDamaged) {
-            //Recharge shield health till max
-            ShieldRecharge ();
-        } else {
-            damagedTimer -= Time.deltaTime;
-            if (damagedTimer <= 0) {
-                isRecentlyDamaged = false;
+        if (isPlaced) {
+            //Test
+            Debug.Log ("max possible hp " + maxPossibleHP);
+            Debug.Log ("current hp " + currentHP);
+
+            if (Input.GetKeyDown (KeyCode.X)) {
+                TakeDamage (10);
+            }
+            
+            CalculateShieldHealth ();
+            CalculateRechargeSpeed ();
+
+            if (!isRecentlyDamaged) {
+                //Recharge shield health till max
+                ShieldRecharge ();
+            } else {
+                damagedTimer -= Time.deltaTime;
+                if (damagedTimer <= 0) {
+                    isRecentlyDamaged = false;
+                }
             }
         }
     }
