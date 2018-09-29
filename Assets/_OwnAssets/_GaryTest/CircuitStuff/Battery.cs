@@ -6,9 +6,12 @@ using UnityEngine;
 public class Battery : CircuitPart, ICircuitNeighbour {
     public List<CircuitPart> path = new List<CircuitPart> ();
     public GameObject VoltageBall;
+
+    private bool startChecking;
     public override void Start () {
         base.Start ();
         this.connectedBattery = this;
+        StartCoroutine (voltageCheckerCoroutine ());
     }
     public override void Update () {
         base.Update ();
@@ -98,30 +101,43 @@ public class Battery : CircuitPart, ICircuitNeighbour {
         if (PositivePart && NegativePart) {
             _From.Add (NegativePart);
             _To.Add (PositivePart);
+            startChecking = true;
             this.LinkToNextNode ();
+        } else {
+            startChecking = false;
         }
     }
 
     public override void LinkToNextNode () {
         CheckNeighboursForConnection ();
         if (PositivePart != null) {
-            if (PositivePart.GetComponent<Wire> ())
+            if (PositivePart.GetComponent<Wire> ()) {
                 if (!this._To.Contains (PositivePart)) this._To.Add (PositivePart);
-            ((Wire) PositivePart).connectedBattery = this;
+                ((Wire) PositivePart).connectedBattery = this;
+            }
         }
         if (NegativePart != null) {
-            if (NegativePart.GetComponent<Wire> ())
-                if (!this._From.Contains (NegativePart)) this._From.Add (NegativePart);
-            ((Wire) NegativePart).connectedBattery = this;
+            if (NegativePart.GetComponent<Wire> ()) {
+                //flip negative side hack
+                //if (!this._From.Contains (NegativePart)) this._From.Add (NegativePart);
+                NegativePart._From = new List<CircuitPart> (NegativePart._To);
+                NegativePart._To.Clear ();
+                NegativePart._To.Add (this);
+                ((Wire) NegativePart).connectedBattery = this;
+            }
         }
     }
 
-    public void EstablishedBatteryConnection (CircuitPart lastPart) {
-
-        foreach (CircuitPart part in path) {
-            part.isConnected = true;
+    IEnumerator voltageCheckerCoroutine () {
+        while (true) {
+            if (startChecking) {
+                VoltageSphere ball = Instantiate (VoltageBall, this.visual.transform.position, Quaternion.identity).GetComponent<VoltageSphere> ();
+                ball.charge.ChargeLevelChange (this.Charge.MaxCharge);
+                ball.previousPart = (CircuitPart) this;
+                ball.nextPart = PositivePart;
+                yield return new WaitForSeconds (3f);
+            } else
+                yield return new WaitForFixedUpdate ();
         }
-
-        Debug.Log ("We are connected");
     }
 }
