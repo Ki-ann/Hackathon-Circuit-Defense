@@ -940,6 +940,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1126970280}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1163979872 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114914206034980826, guid: 8f0dbb9c981b16e4bace7791e395d6a0,
+    type: 2}
+  m_PrefabInternal: {fileID: 1419386013}
+  m_Script: {fileID: 11500000, guid: eba3cd5456cd79e49948f5ceb58544b4, type: 3}
+--- !u!114 &1180289855 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114993761072221736, guid: 8f0dbb9c981b16e4bace7791e395d6a0,
+    type: 2}
+  m_PrefabInternal: {fileID: 1419386013}
+  m_Script: {fileID: 11500000, guid: eba3cd5456cd79e49948f5ceb58544b4, type: 3}
 --- !u!1 &1295278574 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1907032289157570, guid: 8f0dbb9c981b16e4bace7791e395d6a0,
@@ -1661,6 +1673,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
   useKeyboard: 0
+  lControllerEvents: {fileID: 1163979872}
+  RControllerEvents: {fileID: 1180289855}
   MouseScroll: 0
 --- !u!1 &1911584786
 GameObject:

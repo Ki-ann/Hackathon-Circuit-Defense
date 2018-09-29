@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTK;
 
 public class InputManager : MonoBehaviour {
 	[SerializeField] private Camera cam;
 	[SerializeField] private bool useKeyboard = false;
 	public bool LeftClick { get; private set; }
+    [SerializeField] private VRTK_ControllerEvents lControllerEvents;
+    [SerializeField] private VRTK_ControllerEvents RControllerEvents;
 
-	[HideInInspector] public float MouseScroll;
+    [HideInInspector] public float MouseScroll;
 	public struct MousePosition {
 		public float x, z;
 	}
@@ -20,6 +23,10 @@ public class InputManager : MonoBehaviour {
 			GetMousePos ();
 			CycleSelectedObject ();
 		}
+        else
+        {
+            LeftClick = lControllerEvents.IsButtonPressed(VRTK_ControllerEvents.ButtonAlias.TriggerPress) || RControllerEvents.IsButtonPressed(VRTK_ControllerEvents.ButtonAlias.TriggerPress);
+        }
 	}
 
 	void CycleSelectedObject () 
