@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CircuitPlacer : MonoBehaviour {
+public class CubePlacer : MonoBehaviour {
 	public CircuitPart selectedCircuitPart;
 	public List<CircuitPart> ListOfTurrets;
 	private GameObject targetToMove;
 	private InputManager inputManager;
 
 	void Start () {
-		targetToMove = selectedCircuitPart.target;
+		targetToMove = selectedCircuitPart.transform.Find ("Target").gameObject;
 		inputManager = FindObjectOfType<InputManager> ();
 	}
 
@@ -27,8 +27,10 @@ public class CircuitPlacer : MonoBehaviour {
 
 	void PlacePart () {
 		Vector3 snapArea = selectedCircuitPart.snapArea;
-		GameObject placedCircuitPart = Instantiate (selectedCircuitPart.prefab, Vector3.zero, Quaternion.identity);
-		placedCircuitPart.GetComponent<CircuitPart>().visual.transform.position = snapArea;
+		CircuitPart placedCircuitPart = Instantiate (selectedCircuitPart.prefab, Vector3.zero, Quaternion.identity).GetComponent<CircuitPart>();
+		placedCircuitPart.visual.transform.position = snapArea;
+		placedCircuitPart.snapArea = snapArea;
+		placedCircuitPart.AddSelfToGridSystem();
 		placedCircuitPart.transform.Find ("Target").gameObject.SetActive (false);
 	}
 
