@@ -8,6 +8,9 @@ public class BillboardItem : MonoBehaviour
     
     private void LateUpdate()
     {
+        if (!faceTarget)
+            return;
+
         transform.LookAt(transform.position + faceTarget.rotation * Vector3.forward, faceTarget.rotation * Vector3.up);
     }
 }

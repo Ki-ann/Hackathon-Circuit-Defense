@@ -7,6 +7,12 @@ public class HandAngleTrigger : MonoBehaviour
     [SerializeField] private GameObject triggerItem;
     [SerializeField] private float lowerAngleLimit;
     [SerializeField] private float upperAngleLimit;
+    
+    [SerializeField] private float xlowerAngleLimit;
+    [SerializeField] private float xupperAngleLimit;
+    [SerializeField] private float ylowerAngleLimit;
+    [SerializeField] private float yupperAngleLimit;
+
     [SerializeField] private Transform uiPos;
     [SerializeField] private PlacementPointer pp;
     [SerializeField] private HandAngleTrigger otherTrigger;
@@ -30,6 +36,16 @@ public class HandAngleTrigger : MonoBehaviour
         if(!activeState && !otherTrigger.activeState)
         {
             placementMode.Value = false;
+        }
+
+        if (transform.rotation.eulerAngles.x < xlowerAngleLimit || transform.rotation.eulerAngles.x > xupperAngleLimit)
+        {
+            return;
+        }
+
+        if (transform.rotation.eulerAngles.y < ylowerAngleLimit || transform.rotation.eulerAngles.y > yupperAngleLimit)
+        {
+            return;
         }
 
         if (transform.rotation.eulerAngles.z > lowerAngleLimit && transform.rotation.eulerAngles.z < upperAngleLimit)
