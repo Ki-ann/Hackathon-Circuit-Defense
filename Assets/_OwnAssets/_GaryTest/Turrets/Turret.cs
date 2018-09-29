@@ -23,7 +23,6 @@ public abstract class Turret : Buildings, IHaveAttack {
 	private float distanceToTarget;
 	[HideInInspector] public bool isAttacking = false;
 
-	public Battery connectedBattery;
 	public override void Update () {
 		base.Update ();
 		if (isPlaced) {
