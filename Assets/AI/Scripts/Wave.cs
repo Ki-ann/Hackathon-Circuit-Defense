@@ -15,12 +15,13 @@ public class Wave : MonoBehaviour {
     int resetCount = 0;
 	
     public Zombie zombie;
-    public GameObject startOne;
-    public GameObject startTwo;
-    public GameObject startThree;
-    public GameObject startFour;
+    //public GameObject startOne;
+    //public GameObject startTwo;
+    //public GameObject startThree;
+    //public GameObject startFour;
     //public AIArray aiArray;
-
+    Vector3 spawnPos;
+    Quaternion spawnRot;
     Vector3 startPosOne;
     Quaternion startRotOne;
     Vector3 startPosTwo;
@@ -29,18 +30,9 @@ public class Wave : MonoBehaviour {
     Quaternion startRotThree;
     Vector3 startPosFour;
     Quaternion startRotFour;
-    Zombie spawnZombie;
+    Zombie spawnedZombie;
     // Use this for initialization
     void Start () {
-        startPosOne = startOne.transform.position;
-        startRotOne = startOne.transform.rotation;
-        startPosTwo = startTwo.transform.position;
-        startRotTwo = startTwo.transform.rotation;
-        startPosThree = startThree.transform.position;
-        startRotThree = startThree.transform.rotation;
-        startPosFour = startFour.transform.position;
-        startRotFour = startFour.transform.rotation;
-
 	}
 	
 	// Update is called once per frame
@@ -122,11 +114,13 @@ public class Wave : MonoBehaviour {
         {
             for (int i = 0; i < waveCount * waveCount; i++)
             {
-                spawnZombie = Instantiate(zombie, startPosOne, startRotOne);
-                spawnZombie.destinationObj = FindObjectOfType<Core>().gameObject;
+                spawnPos = SpawnArray.Instance.spawnPointObjList[Random.Range(1, waveCount)].transform.position;
+                spawnRot = SpawnArray.Instance.spawnPointObjList[Random.Range(1, waveCount)].transform.rotation;
+                spawnedZombie = Instantiate(zombie, spawnPos, spawnRot);
+                spawnedZombie.destinationObj = FindObjectOfType<Core>().gameObject;
 
-                if (!AIArray.Instance.enemyList.Contains(spawnZombie as EnemyAI))
-                    AIArray.Instance.enemyList.Add(spawnZombie as EnemyAI);
+                if (!AIArray.Instance.enemyList.Contains(spawnedZombie as EnemyAI))
+                    AIArray.Instance.enemyList.Add(spawnedZombie as EnemyAI);
                 //Debug.Log(spawnZombie.destinationObj.transform.position);
             }
         }
