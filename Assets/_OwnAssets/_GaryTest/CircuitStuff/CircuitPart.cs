@@ -23,18 +23,18 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage {
 	public Transform Negative {
 		get { return negative; }
 	}
-
+	[HideInInspector] public bool isConnected;
 	public CircuitPart PositivePart;
 	public CircuitPart NegativePart;
 
 	public enum poles { UP, DOWN, LEFT, RIGHT, NONE };
-	public poles _Positive;
-	public poles _Negative;
+ public poles _Positive;
+ public poles _Negative;
 
-	[System.Serializable]
-	public struct ChargeLevel {
-	[SerializeField] private float maxCharge;
-	public float MaxCharge {
+ [System.Serializable]
+ public struct ChargeLevel {
+ [SerializeField] private float maxCharge;
+ public float MaxCharge {
 			get { return maxCharge; }
 		}
 
@@ -52,6 +52,10 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage {
 			if (currentCharge < 0) {
 				currentCharge = 0;
 			}
+		}
+
+		public float ChargePercentage () {
+			return CurrentCharge / MaxCharge;
 		}
 	}
 	public ChargeLevel Charge;
@@ -72,6 +76,9 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage {
 
 	[Header ("InGame Turret Stuff")]
 	[SerializeField] private float maxHP;
+	public float MaxHP {
+		get { return maxHP; }
+	}
 	public float currentHP;
 
 	[SerializeField] private int cost;
@@ -88,7 +95,7 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage {
 		visual.transform.position = snapArea;
 	}
 
-	public virtual void TakeDamage (float amount){
+	public virtual void TakeDamage (float amount) {
 		currentHP -= amount;
 	}
 
@@ -115,14 +122,13 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage {
 		for (int i = 0; i < neighbouringParts.Length; i++) {
 			if (!_From.Contains (neighbouringParts[i])) {
 				_To.Add (neighbouringParts[i]);
-				neighbouringParts[i]._From.Add(this);
+				neighbouringParts[i]._From.Add (this);
 			}
 			//Stop linking at the end
-			if(!neighbouringParts[i]._To.Any())
-			neighbouringParts[i].LinkToNextNode();
+			if (!neighbouringParts[i]._To.Any ())
+				neighbouringParts[i].LinkToNextNode ();
 		}
 
-		
 	}
 
 	public void ClearLinks () {

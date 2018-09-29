@@ -44,7 +44,7 @@ public abstract class Turret : CircuitPart {
 	}
 
 	void CalculateAttackSpeed () {
-		float PercentageCharge = Charge.CurrentCharge / Charge.MaxCharge;
+		float PercentageCharge = Charge.ChargePercentage();
 		attackSpeed = minAttackSpeed - attackSpeedDiff * PercentageCharge;
 	}
 
