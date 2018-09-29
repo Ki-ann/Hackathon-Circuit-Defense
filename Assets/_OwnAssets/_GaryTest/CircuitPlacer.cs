@@ -14,9 +14,8 @@ public class CircuitPlacer : MonoBehaviour {
 	}
 
 	void Update () {
-		if (inputManager.MouseScroll != 0f) {
+		if (inputManager.MouseScroll != 0f)
 			ChangeSelectedPart ();
-		}
 
 		targetToMove.transform.position = new Vector3 (inputManager.mousePosition.x, 0, inputManager.mousePosition.z);
 
@@ -27,18 +26,27 @@ public class CircuitPlacer : MonoBehaviour {
 
 	void PlacePart () {
 		Vector3 snapArea = selectedCircuitPart.snapArea;
-		CircuitPart placedCircuitPart = Instantiate (selectedCircuitPart.prefab, Vector3.zero, Quaternion.identity).GetComponent<CircuitPart>();
+		CircuitPart placedCircuitPart = Instantiate (selectedCircuitPart.prefab, Vector3.zero, Quaternion.identity).GetComponent<CircuitPart> ();
 		placedCircuitPart.visual.transform.position = snapArea;
 		placedCircuitPart.snapArea = snapArea;
-		placedCircuitPart.AddSelfToGridSystem();
+		placedCircuitPart.AddSelfToGridSystem ();
 		placedCircuitPart.transform.Find ("Target").gameObject.SetActive (false);
 	}
 
 	void ChangeSelectedPart () {
-		int index = ListOfTurrets.IndexOf (selectedCircuitPart) + 1;
+		int index = ListOfTurrets.IndexOf (selectedCircuitPart);
+		if (inputManager.MouseScroll < 0f) //move left
+			index--;
+		if (inputManager.MouseScroll > 0f) //move right
+			index++;
 
 		if (index >= ListOfTurrets.Count) {
 			index = 0;
+		}
+
+		if (index < 0)
+		{
+			index = ListOfTurrets.Count - 1 ;
 		}
 
 		CircuitPart nextSelected = ListOfTurrets[index];

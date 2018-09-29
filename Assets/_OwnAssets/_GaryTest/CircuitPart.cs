@@ -4,14 +4,44 @@ using UnityEngine;
 
 public abstract class CircuitPart : MonoBehaviour {
 	private GridSystem m_gridSystem;
+	public GridSystem m_GridSystem { get { return m_gridSystem; } }
 
+	private CircuitPart _To;
+	private CircuitPart _From;
+	[SerializeField] private float hP;
+	public float HP
+	{
+		get { return hP; }
+	}
+
+	private int cost;
+	public int Cost 
+	{
+		get { return cost; }
+	}
+	public struct ChargeLevel
+	{
+		private float maxCharge, minCharge;
+		public float MaxCharge 
+		{
+			get { return maxCharge; }
+		}
+
+		public float MinCharge 
+		{
+			get { return minCharge; }
+		}
+
+		public float CurrentCharge;
+	}
+	public ChargeLevel Charge;
 	//If this part is connected to a battery
 	//Or another part that can pass it a charge from a battery
 	[HideInInspector] public bool isConnected = false;
 
 	[HideInInspector] public Vector3 snapArea;
 
-	//Starting and Ending of part
+	//Starting and Ending of part for electricity visuals
 	//Flows from Positive => Negative
 	public Transform Positive, Negative;
 	public GameObject prefab;
@@ -41,8 +71,10 @@ public abstract class CircuitPart : MonoBehaviour {
 		//Update position in the grid dictionary
 	}
 
-	public void AddSelfToGridSystem () {
-		m_gridSystem.AddToGridSystem (transform.position, this.gameObject);
+	public virtual void AddSelfToGridSystem () {
+		if (m_gridSystem == null)
+			m_gridSystem = FindObjectOfType<GridSystem> ();
+		m_gridSystem.AddToGridSystem (snapArea, this.gameObject);
 	}
 
 	// Should be called when the part gets destroyed

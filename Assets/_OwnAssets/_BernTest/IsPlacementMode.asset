@@ -11,4 +11,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bcddc7c6af43cd44aa707f501422446, type: 3}
   m_Name: IsPlacementMode
   m_EditorClassIdentifier: 
-  Value: 1
+  Value: 0
