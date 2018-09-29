@@ -8,8 +8,11 @@ public class HandAngleTrigger : MonoBehaviour
     [SerializeField] private float lowerAngleLimit;
     [SerializeField] private float upperAngleLimit;
     [SerializeField] private Transform uiPos;
+    [SerializeField] private PlacementPointer pp;
+    [SerializeField] private HandAngleTrigger otherTrigger;
+    [SerializeField] private BoolVariable placementMode;
+    [HideInInspector] public bool activeState = false;
     private FollowTransform ft;
-    private bool state = false;
     private bool prevState = false;
 
     private void Start()
@@ -19,24 +22,36 @@ public class HandAngleTrigger : MonoBehaviour
 
     private void Update()
     {
+        if (otherTrigger.activeState)
+        {
+            return;
+        }
+
+        if(!activeState && !otherTrigger.activeState)
+        {
+            placementMode.Value = false;
+        }
+
         if (transform.rotation.eulerAngles.z > lowerAngleLimit && transform.rotation.eulerAngles.z < upperAngleLimit)
         {
-            state = true;
+            activeState = true;
         }
         else
         {
-            state = false;
+            activeState = false;
         }
 
-        if (state != prevState)
+        if (activeState != prevState)
         {
-            prevState = state;
+            prevState = activeState;
 
-            triggerItem.SetActive(state);
-
-            if (state)
+            triggerItem.SetActive(activeState);
+            
+            if (activeState)
             {
                 ft.SetFollowTarget(uiPos);
+                pp.SetPointerOrigin(otherTrigger.transform);
+                placementMode.Value = true;
             }
         }
     }
