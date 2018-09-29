@@ -15,7 +15,7 @@ public class BulletTurret : Turret {
         if (Physics.Raycast (FirePoint.transform.position, Barrel.transform.forward, out hit, AttackRadius)) {
             if (hit.collider.GetComponent<EnemyAI> () != null) {
                 //Attack 
-                Debug.Log ("Die fiend");
+                hit.collider.GetComponent<EnemyAI>().TakeDamage(AttackDamage);
                 StartCoroutine (DrawLine (hit.point));
             }
         } else {

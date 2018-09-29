@@ -9,7 +9,8 @@ public class ShieldTurret : Buildings {
     //#7EBDFF blue  Healthy
     //#CB2E26 red   Damaged
     //#4BFF00 green Recharging
-    [SerializeField] private Material shieldMaterial;
+    [SerializeField] private GameObject shieldBarrier;
+    private Material shieldMaterial;
     private float maxPossibleHP;
     private float rechargeSpeed;
     private bool isRecentlyDamaged;
@@ -21,6 +22,7 @@ public class ShieldTurret : Buildings {
 
         CalculateShieldHealth ();
         currentHP = maxPossibleHP;
+        shieldMaterial = shieldBarrier.GetComponent<Material>();
         ColorUtility.TryParseHtmlString ("#7EBDFF", out Healthy);
         ColorUtility.TryParseHtmlString ("#CB2E26", out Damaged);
         ColorUtility.TryParseHtmlString ("#4BFF00", out Recharging);
@@ -31,13 +33,18 @@ public class ShieldTurret : Buildings {
 
         if (isPlaced) {
             //Test
-            Debug.Log ("max possible hp " + maxPossibleHP);
-            Debug.Log ("current hp " + currentHP);
+            // Debug.Log ("max possible hp " + maxPossibleHP);
+            // Debug.Log ("current hp " + currentHP);
 
             if (Input.GetKeyDown (KeyCode.X)) {
                 TakeDamage (10);
             }
-            
+
+            if (Charge.CurrentCharge == 0) {
+
+                return;
+            }
+
             CalculateShieldHealth ();
             CalculateRechargeSpeed ();
 

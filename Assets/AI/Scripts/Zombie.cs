@@ -18,16 +18,20 @@ public class Zombie : EnemyAI {
         {
             if(agent.destination != destination)
                 agent.SetDestination(destination);
-            //Debug.Log(destination);
-            //Debug.Log(destinationObj);
-            //Debug.Log(true);
         }
 
         if (!this.agent)
             this.agent = GetComponent<NavMeshAgent>();
-            
+
+        anim = GetComponent<Animator>();
     }
-//    public override void GetNavAgent()
-//    {
-//    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<CircuitPart>())
+        {
+            other.GetComponent<CircuitPart>().TakeDamage(damage);
+            Debug.Log("fk u turret");
+        }
+    }
 }

@@ -15,6 +15,7 @@ public class EnemyAI : MonoBehaviour, ITakeDamage, IDealDamage, IEnemy {
     protected NavMeshAgent agent;
     protected Vector3 destination;
     protected Vector3 startPosition;
+    protected Animator anim;
     // Use this for initialization
     public virtual void Start()
     {
@@ -45,9 +46,4 @@ public class EnemyAI : MonoBehaviour, ITakeDamage, IDealDamage, IEnemy {
     {
 
     }
-    //private void OnDrawGizmos()
-    //{
-    //    Color color = Color.red;
-    //    Gizmos.DrawSphere(destination, 2f);
-    //}
 }

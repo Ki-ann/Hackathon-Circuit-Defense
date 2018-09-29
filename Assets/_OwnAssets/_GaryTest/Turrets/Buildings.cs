@@ -7,7 +7,7 @@ public abstract class Buildings : CircuitPart {
 	public override void Update () {
 		base.Update ();
 		if (!isPlaced) {
-			RotateVisualLookAt ();
+			RotateVisualLookAt();
 		}
 
 		if (isPlaced) {

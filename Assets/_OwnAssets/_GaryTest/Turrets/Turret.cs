@@ -36,6 +36,9 @@ public abstract class Turret : Buildings, IHaveAttack {
 				Charge.ChargeLevelChange (5);
 			}
 
+            if (Charge.CurrentCharge == 0)
+                return;
+
 			//Turret Behvaiours
 			CalculateAttackSpeed ();
 			CheckRadius ();
