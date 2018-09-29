@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Wave : MonoBehaviour {
 
-    public enum STATUS { START, END, ONGOING, NOTHING}
+    public enum STATUS { START, END, ONGOING, NEXT, NOTHING}
     public STATUS waveStatus;
 
     bool start;
     bool end;
     bool ongoing;
 
-    int waveCount = 0;
+    [SerializeField]int waveCount = 0;
     int resetCount = 0;
 	
     public Zombie zombie;
@@ -19,7 +19,7 @@ public class Wave : MonoBehaviour {
     public GameObject startTwo;
     public GameObject startThree;
     public GameObject startFour;
-    public AIArray aiArray;
+    //public AIArray aiArray;
 
     Vector3 startPosOne;
     Quaternion startRotOne;
@@ -67,37 +67,68 @@ public class Wave : MonoBehaviour {
                 EndWave();
                 break;
             case STATUS.ONGOING:
-                if (waveCount <= 3 && aiArray)
-                    for (int i = 0; i < waveCount * 5; i++)
-                    {
-                    Spawn();
-                    }
+                Spawn();
+                Ongoing();
                 ongoing = true;
+                break;
+            case STATUS.NEXT:
+                NextWave();
                 break;
         }
     }
 
     public void StartWave()
     {
-        waveCount++;
         waveStatus = STATUS.ONGOING;
     }
 
     public void EndWave()
     {
-
-    }
-
-    public void Spawn()
-    {
-        if(waveCount <= 3 && aiArray.enemyList.Count < waveCount * 5)
+        for (int i = 0; i < AIArray.Instance.enemyList.Count; i++)
         {
-            spawnZombie = Instantiate(zombie, startPosTwo, startRotTwo);
-            spawnZombie.destinationObj = FindObjectOfType<Core>().gameObject;
-            //Debug.Log(spawnZombie.destinationObj.transform.position);
+            if (AIArray.Instance.enemyList[i] != null)
+            {
+                DestroyImmediate(AIArray.Instance.enemyList[i].gameObject);
+                AIArray.Instance.enemyList.RemoveAt(i);
+            }
+            else
+                AIArray.Instance.enemyList.RemoveAt(i);
         }
 
-        if (!aiArray.enemyList.Contains(spawnZombie as EnemyAI))
-            aiArray.enemyList.Add(spawnZombie as EnemyAI);
+        if(AIArray.Instance.enemyList.Count == 0)
+            waveStatus = STATUS.NEXT;
+    }
+
+    public void NextWave()
+    {
+        waveCount += 1;
+        waveStatus = STATUS.START;
+    }
+
+    public void Ongoing()
+    {
+        for (int i = 0; i < AIArray.Instance.enemyList.Count; i++)
+        {
+            if (AIArray.Instance.enemyList[i] == null)
+                AIArray.Instance.enemyList.RemoveAt(i);
+        }
+
+        if (AIArray.Instance.enemyList.Count <= 0)
+            waveStatus = STATUS.END;
+    }
+    public void Spawn()
+    {
+        if(AIArray.Instance.enemyList.Count < waveCount * waveCount)
+        {
+            for (int i = 0; i < waveCount * waveCount; i++)
+            {
+                spawnZombie = Instantiate(zombie, startPosOne, startRotOne);
+                spawnZombie.destinationObj = FindObjectOfType<Core>().gameObject;
+
+                if (!AIArray.Instance.enemyList.Contains(spawnZombie as EnemyAI))
+                    AIArray.Instance.enemyList.Add(spawnZombie as EnemyAI);
+                //Debug.Log(spawnZombie.destinationObj.transform.position);
+            }
+        }
     }
 }

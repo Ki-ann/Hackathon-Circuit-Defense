@@ -268,7 +268,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 678832365}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.69, y: 0.79, z: -0.32}
+  m_LocalPosition: {x: -0.69, y: 1.452, z: -3.047}
   m_LocalScale: {x: 10, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
@@ -287,7 +287,7 @@ GameObject:
   - component: {fileID: 887690426}
   - component: {fileID: 887690430}
   - component: {fileID: 887690431}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: core
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -568,45 +568,18 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114514093565212508, guid: f3a054e8956730440956677d8d861f76,
-        type: 2}
-      propertyPath: destinationObj
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 1237400108808882, guid: f3a054e8956730440956677d8d861f76, type: 2}
       propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114514093565212508, guid: f3a054e8956730440956677d8d861f76,
-        type: 2}
-      propertyPath: aiarray
-      value: 
-      objectReference: {fileID: 11400000, guid: 1783170b692ec7c4189947f23dad5acf,
-        type: 2}
-    - target: {fileID: 114514093565212508, guid: f3a054e8956730440956677d8d861f76,
-        type: 2}
-      propertyPath: aiArray
-      value: 
-      objectReference: {fileID: 11400000, guid: 1783170b692ec7c4189947f23dad5acf,
-        type: 2}
-    - target: {fileID: 195098636269650660, guid: f3a054e8956730440956677d8d861f76,
-        type: 2}
-      propertyPath: m_StoppingDistance
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 195098636269650660, guid: f3a054e8956730440956677d8d861f76,
-        type: 2}
-      propertyPath: m_AutoBraking
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 195098636269650660, guid: f3a054e8956730440956677d8d861f76,
-        type: 2}
-      propertyPath: m_AutoTraverseOffMeshLink
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 195098636269650660, guid: f3a054e8956730440956677d8d861f76,
         type: 2}
       propertyPath: m_AutoRepath
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 195098636269650660, guid: f3a054e8956730440956677d8d861f76,
+        type: 2}
+      propertyPath: m_StoppingDistance
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -712,7 +685,6 @@ MonoBehaviour:
   startTwo: {fileID: 631340798}
   startThree: {fileID: 1054757084}
   startFour: {fileID: 641102523}
-  aiArray: {fileID: 1918886082}
 --- !u!4 &1918886081
 Transform:
   m_ObjectHideFlags: 0
@@ -720,7 +692,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1918886079}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3.23, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

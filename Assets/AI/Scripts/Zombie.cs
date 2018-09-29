@@ -29,6 +29,5 @@ public class Zombie : EnemyAI {
     }
 //    public override void GetNavAgent()
 //    {
-        
 //    }
 }

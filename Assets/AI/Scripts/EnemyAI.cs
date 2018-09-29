@@ -46,10 +46,9 @@ public class EnemyAI : MonoBehaviour, IEnemy, IDamageable {
     {
 
     }
-
-    private void OnDrawGizmos()
-    {
-        Color color = Color.red;
-        Gizmos.DrawSphere(destination, 2f);
-    }
+    //private void OnDrawGizmos()
+    //{
+    //    Color color = Color.red;
+    //    Gizmos.DrawSphere(destination, 2f);
+    //}
 }
