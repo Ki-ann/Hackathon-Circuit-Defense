@@ -8,6 +8,11 @@ public class DamageColliders : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        
+        ITakeDamage damagable = collision.gameObject.GetComponent<ITakeDamage>();
+
+        if (damagable != null)
+        {
+            damagable.TakeDamage(damageAmount);
+        }
     }
 }
