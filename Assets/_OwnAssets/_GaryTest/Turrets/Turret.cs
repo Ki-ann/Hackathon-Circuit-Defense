@@ -7,20 +7,30 @@ public abstract class Turret : CircuitPart {
 	[Header ("Attack Stats")]
 	[Tooltip ("Attack Radius of tower")]
 	[SerializeField] private GameObject firePoint;
+	public GameObject FirePoint { get { return firePoint; } }
+
 	[SerializeField] private float attackRadius;
+	public float AttackRadius { get { return attackRadius; } }
+
 	[SerializeField] private float attackSpeed;
+	public float AttackSpeed { get { return attackSpeed; } }
+
 	[SerializeField] private float attackDamage;
+	public float AttackDamage { get { return attackDamage; } }
 	private GameObject targetToAttack;
 	private float distanceToTarget;
-
+	[HideInInspector] public bool isAttacking = false;
+	
 	public override void Update () {
 		base.Update ();
 		if (isPlaced) {
 			//Turret Behvaiours
 			CheckRadius ();
-			if (targetToAttack != null)
-				TryAttack ();
-
+			if (targetToAttack != null) {
+				LookAtTarget ();
+				if (!isAttacking)
+					StartCoroutine(TryAttack ());
+			}
 		}
 	}
 
@@ -28,9 +38,9 @@ public abstract class Turret : CircuitPart {
 		List<Collider> collidersInRadius = Physics.OverlapSphere (visual.transform.position, attackRadius).ToList ();
 
 		if (targetToAttack != null) {
-			Debug.Log (collidersInRadius.Contains (targetToAttack.GetComponent<Collider> ()));
 			if (!collidersInRadius.Contains (targetToAttack.GetComponent<Collider> ())) {
 				targetToAttack = null;
+				isAttacking = false;
 			}
 		}
 
@@ -54,21 +64,11 @@ public abstract class Turret : CircuitPart {
 		targetToAttack = target.gameObject;
 		distanceToTarget = Vector3.Distance (visual.transform.position, targetToAttack.transform.position);
 	}
-	void TryAttack () {
-		LookAtTarget ();
-		RaycastHit hit;
-		if (Physics.Raycast (firePoint.transform.position, visual.transform.forward, out hit, attackRadius)) {
-			Debug.DrawRay (firePoint.transform.position, visual.transform.forward * attackRadius, Color.red);
-			if (hit.collider.GetComponent<EnemyAI> () != null) {
-				//Attack 
-				Debug.Log ("Die fiend");
-			}
-		}
-	}
 
 	void LookAtTarget () {
 		visual.transform.LookAt (targetToAttack.transform);
 	}
+	public abstract IEnumerator TryAttack ();
 
 	void OnDrawGizmos () {
 		Gizmos.color = Color.yellow;
