@@ -2,15 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Core : MonoBehaviour {
+public class Core : MonoBehaviour, ITakeDamage {
+	[SerializeField] private float maxHealth;
+	private float currentHealth;
+	public bool GameRun = true;
 
-	// Use this for initialization
-	void Start () {
-		
+	public void TakeDamage (float amount) {
+		currentHealth -= maxHealth;
+		if (currentHealth <= 0) {
+			GameOver ();
+		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	void GameOver () {
+		//reset
+		//SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		Debug.Log ("You lose");
+		GameRun = false;
+		gameObject.SetActive(false);
 	}
 }
