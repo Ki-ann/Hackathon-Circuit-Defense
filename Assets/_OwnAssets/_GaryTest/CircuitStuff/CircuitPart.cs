@@ -108,6 +108,7 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage, ICircuitNeighbou
 
 	public virtual void Die() {
 		Debug.Log("Die");
+		gameObject.SetActive (false);
 	}
 	public void UpdateTargetPosition (Vector3 position) {
 		target.transform.position = position;

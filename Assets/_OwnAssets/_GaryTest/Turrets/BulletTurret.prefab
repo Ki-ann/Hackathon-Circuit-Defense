@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33106875414923346}
   - component: {fileID: 23330828169190864}
   m_Layer: 0
-  m_Name: Negative
+  m_Name: Positive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 33458188036014960}
   - component: {fileID: 23105233672047994}
   m_Layer: 0
-  m_Name: Positive
+  m_Name: Negative
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -448,8 +448,8 @@ MonoBehaviour:
   _To: []
   _From: []
   snapArea: {x: 0, y: 0, z: 0}
-  positive: {fileID: 4489983756421090}
-  negative: {fileID: 4692384273901756}
+  positive: {fileID: 4692384273901756}
+  negative: {fileID: 4489983756421090}
   isConnected: 0
   PositivePart: {fileID: 0}
   NegativePart: {fileID: 0}
