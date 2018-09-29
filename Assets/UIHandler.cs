@@ -10,5 +10,6 @@ public class UIHandler : MonoBehaviour
     public void UpdatePlacer(int itemType)
     {
         circuitPlacer.SetSelectedItemType((CircuitPlacer.ItemType)itemType);
+        Debug.Log("Changed to: " + (CircuitPlacer.ItemType)itemType);
     }
 }
