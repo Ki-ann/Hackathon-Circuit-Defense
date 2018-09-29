@@ -9,8 +9,27 @@ public abstract class CircuitPart : MonoBehaviour {
 	private CircuitPart _To;
 	private CircuitPart _From;
 
-	
+	private int cost;
+	public int Cost 
+	{
+		get { return cost; }
+	}
+	public struct ChargeLevel
+	{
+		private float maxCharge, minCharge;
+		public float MaxCharge 
+		{
+			get { return maxCharge; }
+		}
 
+		public float MinCharge 
+		{
+			get { return minCharge; }
+		}
+
+		public float CurrentCharge;
+	}
+	public ChargeLevel Charge;
 	//If this part is connected to a battery
 	//Or another part that can pass it a charge from a battery
 	[HideInInspector] public bool isConnected = false;
