@@ -17,6 +17,7 @@ public class InputManager : MonoBehaviour {
 	[HideInInspector] public float MouseScroll;
 	[HideInInspector] public float ShiftMouseScroll;
 	private bool shiftDown;
+
 	public struct MousePosition {
 		public float x, z;
 	}
@@ -32,11 +33,11 @@ public class InputManager : MonoBehaviour {
 		} else {
 			LeftClick = lControllerEvents.IsButtonPressed (VRTK_ControllerEvents.ButtonAlias.TriggerPress) || rControllerEvents.IsButtonPressed (VRTK_ControllerEvents.ButtonAlias.TriggerPress);
 
-			if (lControllerEvents.GetAxisState (VRTK_ControllerEvents.Vector2AxisAlias.Touchpad, SDK_BaseController.ButtonPressTypes.PressUp)) {
+			if (lControllerEvents.GetAxisState (VRTK_ControllerEvents.Vector2AxisAlias.Touchpad, SDK_BaseController.ButtonPressTypes.PressDown)) {
 				Vector2 lCAxis = lControllerEvents.GetAxis (VRTK_ControllerEvents.Vector2AxisAlias.Touchpad);
 				if (lCAxis.x > touchpadXDeadZone || lCAxis.x < -touchpadXDeadZone) {
 					MouseScroll = lCAxis.x;
-                    if(lCAxis.x > 0)
+                    if(lCAxis.x > touchpadXDeadZone)
                     {
                         uIHandler.ScrollShop(1);
                     }

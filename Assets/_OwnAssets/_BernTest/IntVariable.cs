@@ -6,4 +6,11 @@ using UnityEngine;
 public class IntVariable : ScriptableObject
 {
     public int Value;
+
+    [SerializeField] private int Constant;
+
+    private void OnEnable()
+    {
+        Value = Constant;
+    }
 }

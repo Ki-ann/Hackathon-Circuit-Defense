@@ -20,7 +20,7 @@ public class CircuitPlacer : MonoBehaviour {
 	}
 
 	void Update () {
-		if (inputManager.MouseScroll != 0f) {
+		if (inputManager.MouseScroll != 0) {
 			ChangeSelectedPart (selectedItemType);
 			
 			if (selectedCircuitPart.visual.GetComponent<Collider> ().enabled)
@@ -77,9 +77,9 @@ public class CircuitPlacer : MonoBehaviour {
 				break;
 		}
 
-		if (inputManager.MouseScroll < 0f) //move left
+		if (inputManager.MouseScroll < 0) //move left
 			index--;
-		if (inputManager.MouseScroll > 0f) //move right
+		if (inputManager.MouseScroll > 0) //move right
 			index++;
 
 		if (index >= listSize) {
