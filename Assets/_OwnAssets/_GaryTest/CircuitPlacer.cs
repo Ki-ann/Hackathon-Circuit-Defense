@@ -26,11 +26,15 @@ public class CircuitPlacer : MonoBehaviour {
 
 	void PlacePart () {
 		Vector3 snapArea = selectedCircuitPart.snapArea;
-		CircuitPart placedCircuitPart = Instantiate (selectedCircuitPart.prefab, Vector3.zero, Quaternion.identity).GetComponent<CircuitPart> ();
-		placedCircuitPart.visual.transform.position = snapArea;
-		placedCircuitPart.snapArea = snapArea;
-		placedCircuitPart.AddSelfToGridSystem ();
-		placedCircuitPart.transform.Find ("Target").gameObject.SetActive (false);
+		Debug.Log (selectedCircuitPart.m_gridSystem.CheckFreeSpace (snapArea));
+		if (selectedCircuitPart.m_gridSystem.CheckFreeSpace (snapArea)) {
+			CircuitPart placedCircuitPart = Instantiate (selectedCircuitPart.prefab, Vector3.zero, Quaternion.identity).GetComponent<CircuitPart> ();
+			placedCircuitPart.visual.transform.position = snapArea;
+			placedCircuitPart.snapArea = snapArea;
+			placedCircuitPart.isPlaced = true;
+			placedCircuitPart.target.gameObject.SetActive (false);
+			placedCircuitPart.AddSelfToGridSystem ();
+		}
 	}
 
 	void ChangeSelectedPart () {
@@ -44,9 +48,8 @@ public class CircuitPlacer : MonoBehaviour {
 			index = 0;
 		}
 
-		if (index < 0)
-		{
-			index = ListOfTurrets.Count - 1 ;
+		if (index < 0) {
+			index = ListOfTurrets.Count - 1;
 		}
 
 		CircuitPart nextSelected = ListOfTurrets[index];

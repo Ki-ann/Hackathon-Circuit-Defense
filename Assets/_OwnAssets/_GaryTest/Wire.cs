@@ -10,7 +10,7 @@ public class Wire : CircuitPart {
         SwapVisuals ();
     }
     public void SwapVisuals () {
-        CircuitPart[] neighbouringParts = this.m_GridSystem.GetNeighbouringParts (transform.position);
+        CircuitPart[] neighbouringParts = this.m_gridSystem.GetNeighbouringParts (transform.position);
 
         // Use binary to check for different wire configurations
         string partsInBinary = (neighbouringParts[0] ? "1" : "0") + (neighbouringParts[1] ? "1" : "0") + (neighbouringParts[2] ? "1" : "0") + (neighbouringParts[3] ? "1" : "0");
@@ -68,7 +68,7 @@ public class Wire : CircuitPart {
     }
 
     private void GetNeighboursToSwapVisuals(){
-        CircuitPart[] neighbouringParts = this.m_GridSystem.GetNeighbouringParts (transform.position).Where(x=> x != null).ToArray();
+        CircuitPart[] neighbouringParts = this.m_gridSystem.GetNeighbouringParts (transform.position).Where(x=> x != null).ToArray();
         for(int i = 0; i < neighbouringParts.Length; i++){
             Wire wireComponent = neighbouringParts[i].GetComponent<Wire>();
             if(wireComponent)
