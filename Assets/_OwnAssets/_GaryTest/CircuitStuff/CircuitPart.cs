@@ -1,17 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class CircuitPart : MonoBehaviour, ITakeDamage {
 	public GridSystem m_gridSystem { get; private set; }
 
 	[HideInInspector] public bool isPlaced = false;
-	private CircuitPart _To;
-	private CircuitPart _From;
-	//If this part is connected to a battery
-	//Or another part that can pass it a charge from a battery
-	[HideInInspector] public bool isConnected = false;
-
+	[HideInInspector] public List<CircuitPart> _To = new List<CircuitPart> ();
+	[HideInInspector] public List<CircuitPart> _From = new List<CircuitPart> ();
 	[HideInInspector] public Vector3 snapArea;
 
 	[Header ("Circuit Stuff")]
@@ -19,10 +16,25 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage {
 	//Flows from Positive => Negative
 	[SerializeField] private Transform positive;
 	[SerializeField] private Transform negative;
+	public Transform Positive {
+		get { return positive; }
+	}
+
+	public Transform Negative {
+		get { return negative; }
+	}
+
+	public CircuitPart PositivePart;
+	public CircuitPart NegativePart;
+
+	public enum poles { UP, DOWN, LEFT, RIGHT, NONE };
+	public poles _Positive;
+	public poles _Negative;
+
 	[System.Serializable]
 	public struct ChargeLevel {
-		[SerializeField] private float maxCharge;
-		public float MaxCharge {
+	[SerializeField] private float maxCharge;
+	public float MaxCharge {
 			get { return maxCharge; }
 		}
 
@@ -44,14 +56,6 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage {
 	}
 	public ChargeLevel Charge;
 
-	public Transform Positive {
-		get { return positive; }
-	}
-
-	public Transform Negative {
-		get { return negative; }
-	}
-
 	[Header ("Grid Stuff")]
 	public GameObject prefab;
 
@@ -67,10 +71,8 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage {
 	}
 
 	[Header ("InGame Turret Stuff")]
-	[SerializeField] private float hP;
-	public float HP {
-		get { return hP; }
-	}
+	[SerializeField] private float maxHP;
+	public float currentHP;
 
 	[SerializeField] private int cost;
 	public int Cost {
@@ -86,7 +88,9 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage {
 		visual.transform.position = snapArea;
 	}
 
-	public abstract void TakeDamage (float amount);
+	public virtual void TakeDamage (float amount){
+		currentHP -= amount;
+	}
 
 	public void UpdateTargetPosition (Vector3 position) {
 		target.transform.position = position;
@@ -102,7 +106,27 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage {
 	}
 
 	// Should be called when the part gets destroyed
-	public void RemoveSelfFromGridSystem () {
+	public virtual void RemoveSelfFromGridSystem () {
 		m_gridSystem.RemoveFromGridSystem (this.gameObject);
+	}
+
+	public virtual void LinkToNextNode () {
+		CircuitPart[] neighbouringParts = this.m_gridSystem.GetNeighbouringParts (this.snapArea).Where (x => x != null).ToArray ();
+		for (int i = 0; i < neighbouringParts.Length; i++) {
+			if (!_From.Contains (neighbouringParts[i])) {
+				_To.Add (neighbouringParts[i]);
+				neighbouringParts[i]._From.Add(this);
+			}
+			//Stop linking at the end
+			if(!neighbouringParts[i]._To.Any())
+			neighbouringParts[i].LinkToNextNode();
+		}
+
+		
+	}
+
+	public void ClearLinks () {
+		_From = new List<CircuitPart> ();
+		_To = new List<CircuitPart> ();
 	}
 }
