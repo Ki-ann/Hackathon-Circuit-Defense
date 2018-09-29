@@ -402,7 +402,7 @@ MonoBehaviour:
   maxHP: 0
   currentHP: 0
   cost: 0
-  connectedBattery: {fileID: 0}
+  barrel: {fileID: 0}
   firePoint: {fileID: 0}
   attackRadius: 0
   minAttackSpeed: 0
