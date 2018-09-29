@@ -24,9 +24,6 @@ public class UIHandler : MonoBehaviour
         circuitPlacer.SetSelectedItemType((CircuitPlacer.ItemType)itemType);
         Debug.Log("Changed to: " + (CircuitPlacer.ItemType)itemType);
 
-        mainMenu.SetActive(false);
-        shopMenu.SetActive(true);
-
         switch ((CircuitPlacer.ItemType)itemType)
         {
             case CircuitPlacer.ItemType.TURRETS:
@@ -44,6 +41,8 @@ public class UIHandler : MonoBehaviour
 
         index = 0;
         sh.OnValueChange(shopItems, 0);
+
+        GoToShop();
     }
 
     public void ScrollShop(int scrollBy)
@@ -63,9 +62,27 @@ public class UIHandler : MonoBehaviour
         sh.OnValueChange(shopItems, index);
     }
 
-    public void BackToMain()
+    private void GoToShop()
     {
-        mainMenu.SetActive(true);
+        StartCoroutine(DelayShopChange());
+    }
+
+    public void GoToMain()
+    {
+        StartCoroutine(DelayMainChange());
+    }
+
+    private IEnumerator DelayShopChange()
+    {
+        yield return new WaitForSeconds(0.3f);
+        mainMenu.SetActive(false);
+        shopMenu.SetActive(true);
+    }
+
+    private IEnumerator DelayMainChange()
+    {
+        yield return new WaitForSeconds(0.3f);
         shopMenu.SetActive(false);
+        mainMenu.SetActive(true);
     }
 }

@@ -8,13 +8,17 @@ public class ScriptEnabler : MonoBehaviour
 
     private void OnEnable()
     {
-        behaviour.enabled = true;
+        StartCoroutine(EnableAfter(1.3f, true));
     }
 
-    //private void OnEnable()
-    //{
+    private void OnDisable()
+    {
+        StartCoroutine(EnableAfter(1.3f, false));
+    }
 
-    //}
-
-    //private IEnumerator  
+    private IEnumerator EnableAfter(float seconds, bool enableState)
+    {
+        yield return new WaitForSeconds(seconds);
+        behaviour.enabled = enableState;
+    }
 }
