@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class CircuitPart : MonoBehaviour {
+public abstract class CircuitPart : MonoBehaviour, ITakeDamage {
 	public GridSystem m_gridSystem { get; private set; }
 
 	[HideInInspector] public bool isPlaced = false;
@@ -85,6 +85,8 @@ public abstract class CircuitPart : MonoBehaviour {
 		snapArea = m_gridSystem.GetNearestPosition (target.transform.position);
 		visual.transform.position = snapArea;
 	}
+
+	public abstract void TakeDamage (float amount);
 
 	public void UpdateTargetPosition (Vector3 position) {
 		target.transform.position = position;
