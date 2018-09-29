@@ -12,7 +12,9 @@ public abstract class Turret : CircuitPart {
 	[SerializeField] private float attackRadius;
 	public float AttackRadius { get { return attackRadius; } }
 
-	[SerializeField] private float attackSpeed;
+	private float attackSpeed;
+	[SerializeField] private float minAttackSpeed;
+	[SerializeField] private float attackSpeedDiff;
 	public float AttackSpeed { get { return attackSpeed; } }
 
 	[SerializeField] private float attackDamage;
@@ -20,18 +22,30 @@ public abstract class Turret : CircuitPart {
 	private GameObject targetToAttack;
 	private float distanceToTarget;
 	[HideInInspector] public bool isAttacking = false;
-	
+
 	public override void Update () {
 		base.Update ();
 		if (isPlaced) {
+			//Test
+			if (Input.GetKeyDown (KeyCode.Z)) {
+				Charge.ChargeLevelChange (5);
+			}
+			Debug.Log (gameObject.name + " charge level " + Charge.CurrentCharge);
+			Debug.Log (gameObject.name + " attack speed is " + attackSpeed);
 			//Turret Behvaiours
+			CalculateAttackSpeed ();
 			CheckRadius ();
 			if (targetToAttack != null) {
 				LookAtTarget ();
 				if (!isAttacking)
-					StartCoroutine(TryAttack ());
+					StartCoroutine (TryAttack ());
 			}
 		}
+	}
+
+	void CalculateAttackSpeed () {
+		float PercentageCharge = Charge.CurrentCharge / Charge.MaxCharge;
+		attackSpeed = minAttackSpeed - attackSpeedDiff * PercentageCharge;
 	}
 
 	void CheckRadius () {

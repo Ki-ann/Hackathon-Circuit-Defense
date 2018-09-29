@@ -4,22 +4,10 @@ using UnityEngine;
 
 public abstract class CircuitPart : MonoBehaviour {
 	public GridSystem m_gridSystem { get; private set; }
+
 	[HideInInspector] public bool isPlaced = false;
 	private CircuitPart _To;
 	private CircuitPart _From;
-	public struct ChargeLevel {
-		private float maxCharge, minCharge;
-		public float MaxCharge {
-			get { return maxCharge; }
-		}
-
-		public float MinCharge {
-			get { return minCharge; }
-		}
-
-		public float CurrentCharge;
-	}
-	public ChargeLevel Charge;
 	//If this part is connected to a battery
 	//Or another part that can pass it a charge from a battery
 	[HideInInspector] public bool isConnected = false;
@@ -31,13 +19,36 @@ public abstract class CircuitPart : MonoBehaviour {
 	//Flows from Positive => Negative
 	[SerializeField] private Transform positive;
 	[SerializeField] private Transform negative;
+	[System.Serializable]
+	public struct ChargeLevel {
+		[SerializeField] private float maxCharge;
+		public float MaxCharge {
+			get { return maxCharge; }
+		}
+
+		[HideInInspector] private float currentCharge;
+
+		public float CurrentCharge {
+			get { return currentCharge; }
+		}
+		public void ChargeLevelChange (float amount) {
+			currentCharge += amount;
+			if (currentCharge > maxCharge) {
+				currentCharge = maxCharge;
+			}
+
+			if (currentCharge < 0) {
+				currentCharge = 0;
+			}
+		}
+	}
+	public ChargeLevel Charge;
 
 	public Transform Positive {
 		get { return positive; }
 	}
 
-	public Transform Negative
-	 {
+	public Transform Negative {
 		get { return negative; }
 	}
 
@@ -83,9 +94,9 @@ public abstract class CircuitPart : MonoBehaviour {
 	public virtual void AddSelfToGridSystem () {
 		if (m_gridSystem == null)
 			m_gridSystem = FindObjectOfType<GridSystem> ();
-		
-		if (m_gridSystem.CheckFreeSpace(snapArea))
-			m_gridSystem.AddToGridSystem(snapArea, this.gameObject);
+
+		if (m_gridSystem.CheckFreeSpace (snapArea))
+			m_gridSystem.AddToGridSystem (snapArea, this.gameObject);
 	}
 
 	// Should be called when the part gets destroyed
