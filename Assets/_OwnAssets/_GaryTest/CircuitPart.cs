@@ -3,32 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class CircuitPart : MonoBehaviour {
-	private GridSystem m_gridSystem;
-	public GridSystem m_GridSystem { get { return m_gridSystem; } }
-
+	public GridSystem m_gridSystem { get; private set; }
+	[HideInInspector] public bool isPlaced = false;
 	private CircuitPart _To;
 	private CircuitPart _From;
-	[SerializeField] private float hP;
-	public float HP
-	{
-		get { return hP; }
-	}
-
-	private int cost;
-	public int Cost 
-	{
-		get { return cost; }
-	}
-	public struct ChargeLevel
-	{
+	public struct ChargeLevel {
 		private float maxCharge, minCharge;
-		public float MaxCharge 
-		{
+		public float MaxCharge {
 			get { return maxCharge; }
 		}
 
-		public float MinCharge 
-		{
+		public float MinCharge {
 			get { return minCharge; }
 		}
 
@@ -41,9 +26,22 @@ public abstract class CircuitPart : MonoBehaviour {
 
 	[HideInInspector] public Vector3 snapArea;
 
+	[Header ("Circuit Stuff")]
 	//Starting and Ending of part for electricity visuals
 	//Flows from Positive => Negative
-	public Transform Positive, Negative;
+	[SerializeField] private Transform positive;
+	[SerializeField] private Transform negative;
+
+	public Transform Positive {
+		get { return positive; }
+	}
+
+	public Transform Negative
+	 {
+		get { return negative; }
+	}
+
+	[Header ("Grid Stuff")]
 	public GameObject prefab;
 
 	[SerializeField] private GameObject m_Visual;
@@ -55,6 +53,17 @@ public abstract class CircuitPart : MonoBehaviour {
 	[SerializeField] private GameObject m_Target;
 	public GameObject target {
 		get { return m_Target; }
+	}
+
+	[Header ("InGame Turret Stuff")]
+	[SerializeField] private float hP;
+	public float HP {
+		get { return hP; }
+	}
+
+	[SerializeField] private int cost;
+	public int Cost {
+		get { return cost; }
 	}
 
 	public virtual void Start () {
@@ -74,7 +83,9 @@ public abstract class CircuitPart : MonoBehaviour {
 	public virtual void AddSelfToGridSystem () {
 		if (m_gridSystem == null)
 			m_gridSystem = FindObjectOfType<GridSystem> ();
-		m_gridSystem.AddToGridSystem (snapArea, this.gameObject);
+		
+		if (m_gridSystem.CheckFreeSpace(snapArea))
+			m_gridSystem.AddToGridSystem(snapArea, this.gameObject);
 	}
 
 	// Should be called when the part gets destroyed

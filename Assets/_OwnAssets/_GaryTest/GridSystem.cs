@@ -27,13 +27,14 @@ public class GridSystem : MonoBehaviour {
 				grid.GridParts.TryGetValue (position - Vector3.right * grid.Size, out partLeft) ? partLeft.GetComponent<CircuitPart> () : null
 		};
 	}
-	public bool AddToGridSystem (Vector3 position, GameObject part) {
-		if (!grid.GridParts.ContainsKey (position)) {
-			grid.GridParts.Add (position, part);
-			return true;
-		} else {
-			return false;
-		}
+	public void AddToGridSystem (Vector3 position, GameObject part) {
+		grid.GridParts.Add (position, part);
+	}
+
+	public bool CheckFreeSpace (Vector3 position) {
+		//return true if free
+		//return false if not free
+		return !grid.GridParts.ContainsKey (position);
 	}
 
 	public void RemoveFromGridSystem (GameObject destroyedPart) {
