@@ -53,7 +53,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4102683376264780}
-  - component: {fileID: 65209157020052426}
   m_Layer: 0
   m_Name: ExplosiveTurretVisual
   m_TagString: Untagged
@@ -361,15 +360,3 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1856895072103512}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65209157020052426
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1492964114669282}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.6266048, y: 1.4889627, z: 1.1538726}
-  m_Center: {x: 0.0035689771, y: 0.24448133, z: -0.00980109}

@@ -68,7 +68,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4979260408203030}
-  - component: {fileID: 65757629069717396}
   m_Layer: 0
   m_Name: BulletTurretVisual
   m_TagString: Untagged
@@ -361,15 +360,3 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1683098150984812}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65757629069717396
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1808015443892066}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.1868296, y: 1.5741274, z: 1.2206074}
-  m_Center: {x: 0.0036883056, y: 0.28706372, z: 0.04223782}

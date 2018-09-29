@@ -9,8 +9,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 329cd2fb23cd3364a975e37072388326, type: 3}
-  m_Name: Wire
+  m_Name: Battery
   m_EditorClassIdentifier: 
-  ItemName: Wire
-  ItemCost: 5
-  ItemPrefab: {fileID: 1702240016517230, guid: eb0e1ff7994294d4085a2e486be96dbf, type: 2}
+  ItemName: Battery
+  ItemCost: 10
+  ItemPrefab: {fileID: 1617898361551076, guid: f46d017ac69328645be6b468511f3b5d, type: 2}

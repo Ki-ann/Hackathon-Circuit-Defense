@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Name: TurretShield
   m_EditorClassIdentifier: 
   ItemName: Shield
-  ItemCost: 50
+  ItemCost: 20
   ItemPrefab: {fileID: 1475437429108318, guid: 89a4b20d5704195408c2bf6d4dbc253e, type: 2}

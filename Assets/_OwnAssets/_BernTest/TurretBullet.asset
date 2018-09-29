@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Name: TurretBullet
   m_EditorClassIdentifier: 
   ItemName: Bullet
-  ItemCost: 50
+  ItemCost: 20
   ItemPrefab: {fileID: 1808015443892066, guid: ffe2ea6f947ecfe479b0c7836a2bb176, type: 2}

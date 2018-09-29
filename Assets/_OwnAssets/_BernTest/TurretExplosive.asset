@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Name: TurretExplosive
   m_EditorClassIdentifier: 
   ItemName: Explosive
-  ItemCost: 20
+  ItemCost: 50
   ItemPrefab: {fileID: 1492964114669282, guid: 98689bc0251b43d4bb51c7919458f736, type: 2}
