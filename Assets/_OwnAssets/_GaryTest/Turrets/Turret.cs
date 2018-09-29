@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public abstract class Turret : Buildings, IHaveAttack {
+public abstract class Turret : Buildings, IHaveAttack, ICircuitNeighbour {
 	[SerializeField] private GameObject barrel;
 	public GameObject Barrel {
 		get { return barrel; }
@@ -36,8 +36,8 @@ public abstract class Turret : Buildings, IHaveAttack {
 				Charge.ChargeLevelChange (5);
 			}
 
-            if (Charge.CurrentCharge == 0)
-                return;
+			if (Charge.CurrentCharge == 0)
+				return;
 
 			//Turret Behvaiours
 			CalculateAttackSpeed ();
@@ -49,7 +49,9 @@ public abstract class Turret : Buildings, IHaveAttack {
 			}
 		}
 	}
-
+	public override void NeighbourAction () {
+		this.LinkToNextNode ();
+	}
 	void CalculateAttackSpeed () {
 		float PercentageCharge = Charge.ChargePercentage ();
 		attackSpeed = minAttackSpeed - attackSpeedDiff * PercentageCharge;
