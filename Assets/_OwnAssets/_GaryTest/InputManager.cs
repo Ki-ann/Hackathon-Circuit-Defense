@@ -8,7 +8,8 @@ public class InputManager : MonoBehaviour {
 	[SerializeField] private bool useKeyboard = false;
 	public bool LeftClick { get; private set; }
     [SerializeField] private VRTK_ControllerEvents lControllerEvents;
-    [SerializeField] private VRTK_ControllerEvents RControllerEvents;
+    [SerializeField] private VRTK_ControllerEvents rControllerEvents;
+    [SerializeField] private float touchpadXDeadZone;
 
     [HideInInspector] public float MouseScroll;
 	public struct MousePosition {
@@ -25,7 +26,24 @@ public class InputManager : MonoBehaviour {
 		}
         else
         {
-            LeftClick = lControllerEvents.IsButtonPressed(VRTK_ControllerEvents.ButtonAlias.TriggerPress) || RControllerEvents.IsButtonPressed(VRTK_ControllerEvents.ButtonAlias.TriggerPress);
+            LeftClick = lControllerEvents.IsButtonPressed(VRTK_ControllerEvents.ButtonAlias.TriggerPress) || rControllerEvents.IsButtonPressed(VRTK_ControllerEvents.ButtonAlias.TriggerPress);
+
+            if (lControllerEvents.GetAxisState(VRTK_ControllerEvents.Vector2AxisAlias.Touchpad, SDK_BaseController.ButtonPressTypes.PressDown))
+            {
+                Vector2 lCAxis = lControllerEvents.GetAxis(VRTK_ControllerEvents.Vector2AxisAlias.Touchpad);
+                if(lCAxis.x > touchpadXDeadZone || lCAxis.x < -touchpadXDeadZone)
+                {
+                    MouseScroll = lCAxis.x;
+                }
+            }
+            else if (rControllerEvents.GetAxisState(VRTK_ControllerEvents.Vector2AxisAlias.Touchpad, SDK_BaseController.ButtonPressTypes.PressDown))
+            {
+                Vector2 rCAxis = rControllerEvents.GetAxis(VRTK_ControllerEvents.Vector2AxisAlias.Touchpad);
+                if (rCAxis.x > touchpadXDeadZone || rCAxis.x < -touchpadXDeadZone)
+                {
+                    MouseScroll = rCAxis.x;
+                }
+            }
         }
 	}
 

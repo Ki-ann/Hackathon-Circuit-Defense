@@ -246,12 +246,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0561cb0b686d587418cbd1c8414189c9, type: 2}
   m_IsPrefabAsset: 0
---- !u!114 &91469941 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114908227622027326, guid: 0561cb0b686d587418cbd1c8414189c9,
-    type: 2}
-  m_PrefabInternal: {fileID: 91469940}
-  m_Script: {fileID: 11500000, guid: 97a183898e185b64785b3d65021d92cb, type: 3}
 --- !u!1 &152451594
 GameObject:
   m_ObjectHideFlags: 0
@@ -943,12 +937,6 @@ MeshFilter:
 --- !u!114 &1163979872 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114914206034980826, guid: 8f0dbb9c981b16e4bace7791e395d6a0,
-    type: 2}
-  m_PrefabInternal: {fileID: 1419386013}
-  m_Script: {fileID: 11500000, guid: eba3cd5456cd79e49948f5ceb58544b4, type: 3}
---- !u!114 &1180289855 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114993761072221736, guid: 8f0dbb9c981b16e4bace7791e395d6a0,
     type: 2}
   m_PrefabInternal: {fileID: 1419386013}
   m_Script: {fileID: 11500000, guid: eba3cd5456cd79e49948f5ceb58544b4, type: 3}
@@ -1659,7 +1647,7 @@ MonoBehaviour:
   selectedCircuitPart: {fileID: 153365254}
   ListOfTurrets:
   - {fileID: 153365254}
-  - {fileID: 91469941}
+  - {fileID: 0}
 --- !u!114 &1830272159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1674,7 +1662,8 @@ MonoBehaviour:
   cam: {fileID: 0}
   useKeyboard: 0
   lControllerEvents: {fileID: 1163979872}
-  RControllerEvents: {fileID: 1180289855}
+  rControllerEvents: {fileID: 0}
+  touchpadXDeadZone: 0.4
   MouseScroll: 0
 --- !u!1 &1911584786
 GameObject:
