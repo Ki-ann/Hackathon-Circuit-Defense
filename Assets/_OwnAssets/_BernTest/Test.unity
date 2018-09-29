@@ -6895,12 +6895,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerItem: {fileID: 636407049}
-  lowerAngleLimit: 120
-  upperAngleLimit: 200
-  xlowerAngleLimit: 0
-  xupperAngleLimit: 0
-  ylowerAngleLimit: 0
-  yupperAngleLimit: 0
+  speedThreshold: 0
   uiPos: {fileID: 783184397}
   pp: {fileID: 1648970503}
   otherTrigger: {fileID: 1723864212}
@@ -9414,12 +9409,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerItem: {fileID: 636407049}
-  lowerAngleLimit: 165
-  upperAngleLimit: 245
-  xlowerAngleLimit: 0
-  xupperAngleLimit: 0
-  ylowerAngleLimit: 0
-  yupperAngleLimit: 0
+  speedThreshold: 0
   uiPos: {fileID: 1544862365}
   pp: {fileID: 1648970503}
   otherTrigger: {fileID: 1295278578}
@@ -11538,12 +11528,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerItem: {fileID: 636407049}
-  lowerAngleLimit: 245
-  upperAngleLimit: 285
-  xlowerAngleLimit: 0
-  xupperAngleLimit: 345
-  ylowerAngleLimit: 85
-  yupperAngleLimit: 95
+  speedThreshold: 0.26
   uiPos: {fileID: 1210340760}
   pp: {fileID: 1648970503}
   otherTrigger: {fileID: 2055064105}
@@ -11561,12 +11546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   triggerItem: {fileID: 636407049}
-  lowerAngleLimit: 75
-  upperAngleLimit: 115
-  xlowerAngleLimit: 0
-  xupperAngleLimit: 345
-  ylowerAngleLimit: 35
-  yupperAngleLimit: 45
+  speedThreshold: 0.26
   uiPos: {fileID: 1204033988}
   pp: {fileID: 1648970503}
   otherTrigger: {fileID: 2055064104}

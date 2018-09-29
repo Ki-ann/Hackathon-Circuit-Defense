@@ -5,13 +5,9 @@ using UnityEngine;
 public class HandAngleTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject triggerItem;
-    [SerializeField] private float lowerAngleLimit;
-    [SerializeField] private float upperAngleLimit;
-    
-    [SerializeField] private float xlowerAngleLimit;
-    [SerializeField] private float xupperAngleLimit;
-    [SerializeField] private float ylowerAngleLimit;
-    [SerializeField] private float yupperAngleLimit;
+    [SerializeField] private float speedThreshold;
+
+    private float prevAngle;
 
     [SerializeField] private Transform uiPos;
     [SerializeField] private PlacementPointer pp;
@@ -24,6 +20,7 @@ public class HandAngleTrigger : MonoBehaviour
     private void Start()
     {
         ft = triggerItem.GetComponent<FollowTransform>();
+        prevAngle = transform.rotation.z;
     }
 
     private void Update()
@@ -33,29 +30,24 @@ public class HandAngleTrigger : MonoBehaviour
             return;
         }
 
-        if(!activeState && !otherTrigger.activeState)
+        if (!activeState && !otherTrigger.activeState)
         {
             placementMode.Value = false;
         }
 
-        if (transform.rotation.eulerAngles.x < xlowerAngleLimit || transform.rotation.eulerAngles.x > xupperAngleLimit)
+        //if (Mathf.Abs(transform.rotation.eulerAngles.z - prevAngle) / Time.deltaTime > speedThreshold)
+        //{
+        //    Debug.Log(Mathf.Abs(transform.rotation.eulerAngles.z - prevAngle) / Time.deltaTime);
+        //    activeState = !activeState;
+        //}
+
+        if(Mathf.Abs(transform.rotation.z - prevAngle) > speedThreshold)
         {
-            return;
+            Debug.Log(Mathf.Abs(transform.rotation.z - prevAngle));
+            activeState = !activeState;
         }
 
-        if (transform.rotation.eulerAngles.y < ylowerAngleLimit || transform.rotation.eulerAngles.y > yupperAngleLimit)
-        {
-            return;
-        }
-
-        if (transform.rotation.eulerAngles.z > lowerAngleLimit && transform.rotation.eulerAngles.z < upperAngleLimit)
-        {
-            activeState = true;
-        }
-        else
-        {
-            activeState = false;
-        }
+        prevAngle = transform.rotation.z;
 
         if (activeState != prevState)
         {
