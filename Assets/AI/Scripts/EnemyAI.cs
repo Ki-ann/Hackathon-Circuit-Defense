@@ -16,10 +16,9 @@ public class EnemyAI : MonoBehaviour, IEnemy, IDamageable {
     protected Vector3 destination;
     protected Vector3 startPosition;
     // Use this for initialization
-    void Start()
+    public virtual void Start()
     {
         GetNavAgent();
-        destination = destinationObj.transform.position;
         startPosition = startPositionObj.transform.position;
         speed = agent.speed;
         health = 100;
@@ -27,8 +26,9 @@ public class EnemyAI : MonoBehaviour, IEnemy, IDamageable {
     }
 
     // Update is called once per frame
-    void Update()
+    public virtual void Update()
     {
+        destination = destinationObj.transform.position;
 
     }
 
@@ -45,5 +45,11 @@ public class EnemyAI : MonoBehaviour, IEnemy, IDamageable {
     public void DealDamage(float damage)
     {
 
+    }
+
+    private void OnDrawGizmos()
+    {
+        Color color = Color.red;
+        Gizmos.DrawSphere(destination, 2f);
     }
 }
