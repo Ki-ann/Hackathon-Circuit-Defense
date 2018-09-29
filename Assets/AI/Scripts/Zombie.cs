@@ -6,17 +6,28 @@ using UnityEngine.AI;
 public class Zombie : EnemyAI {
 
 	// Use this for initialization
-	void Start () {
+	public override void Start () {
+        base.Start();
         base.GetNavAgent();
     }
 	
 	// Update is called once per frame
-	void Update () {
+	public override void Update () {
+        base.Update();
         if (destinationObj)
-            agent.SetDestination(destination);
+        {
+            if(agent.destination != destination)
+                agent.SetDestination(destination);
+            //Debug.Log(destination);
+            //Debug.Log(destinationObj);
+            //Debug.Log(true);
+        }
+
+        if (!this.agent)
+            this.agent = GetComponent<NavMeshAgent>();
+            
     }
 //    public override void GetNavAgent()
 //    {
-        
 //    }
 }
