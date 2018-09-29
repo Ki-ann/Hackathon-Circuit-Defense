@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAI : MonoBehaviour, IEnemy, ITakeDamage, IDealDamage {
+public class EnemyAI : MonoBehaviour, ITakeDamage, IDealDamage, IEnemy {
 
     public float speed { get; set; }
     public float health { get; set; }
@@ -29,7 +29,6 @@ public class EnemyAI : MonoBehaviour, IEnemy, ITakeDamage, IDealDamage {
     public virtual void Update()
     {
         destination = destinationObj.transform.position;
-
     }
 
     public virtual void GetNavAgent()
