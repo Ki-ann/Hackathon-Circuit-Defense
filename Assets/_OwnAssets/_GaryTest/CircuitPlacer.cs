@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CubePlacer : MonoBehaviour {
+public class CircuitPlacer : MonoBehaviour {
 	public CircuitPart selectedCircuitPart;
 	public List<CircuitPart> ListOfTurrets;
 	private GameObject targetToMove;
