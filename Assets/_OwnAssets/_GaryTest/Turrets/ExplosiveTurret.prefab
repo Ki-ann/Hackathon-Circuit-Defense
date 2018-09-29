@@ -29,6 +29,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1623804802653380
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4714490278234108}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1668529226795164
 GameObject:
   m_ObjectHideFlags: 0
@@ -71,7 +86,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4864058934973932}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4431254564843284
 Transform:
@@ -82,9 +97,23 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.5, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4714490278234108}
   m_Father: {fileID: 4864058934973932}
-  m_RootOrder: 1
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4714490278234108
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1623804802653380}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.66}
+  m_LocalScale: {x: 1, y: 2, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4431254564843284}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4864058934973932
 Transform:
@@ -96,8 +125,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4118178124895464}
   - {fileID: 4431254564843284}
+  - {fileID: 4118178124895464}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -154,13 +183,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9dbeed7d12216149bd98138f6119e87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlaced: 0
   isConnected: 0
   snapArea: {x: 0, y: 0, z: 0}
-  Positive: {fileID: 0}
-  Negative: {fileID: 0}
+  positive: {fileID: 0}
+  negative: {fileID: 0}
   prefab: {fileID: 1668529226795164}
   m_Visual: {fileID: 1399009325783590}
   m_Target: {fileID: 1790272655551458}
+  hP: 0
+  cost: 0
+  firePoint: {fileID: 1623804802653380}
+  attackRadius: 4
+  attackSpeed: 2
+  attackDamage: 10
 --- !u!136 &136488291580061132
 CapsuleCollider:
   m_ObjectHideFlags: 1
