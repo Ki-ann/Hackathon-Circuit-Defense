@@ -6,13 +6,15 @@ using UnityEngine;
 public class MissileController : MonoBehaviour {
 	[SerializeField] private float timeTillExplode;
 	[SerializeField] private float explosionRadius;
+	private bool isExploded = false;
 	private Turret turret;
 	public Turret m_Turret {
 		set { turret = value; }
 	}
 
 	void Update () {
-		Countdown ();
+		if (!isExploded)
+			Countdown ();
 	}
 
 	void OnCollisionEnter (Collision other) {
@@ -20,16 +22,18 @@ public class MissileController : MonoBehaviour {
 	}
 
 	void Explode () {
+		isExploded = true;
 		CheckForSurroundingEnemies ();
-		GameObject explosion = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-		explosion.transform.position = transform.position;
-		
-		Destroy (gameObject, 0f);
+		Destroy (gameObject, 0.1f);
 	}
 
-	// IEnumerator explosionHandler(GameObject explosion) {
-	// 	explosion.transform.localScale
-	// }	
+	void OnDisable () {
+		GameObject explosion = GameObject.CreatePrimitive (PrimitiveType.Sphere);
+		explosion.transform.position = transform.position;
+		explosion.GetComponent<Collider>().enabled = false;
+		ExplosionHandler explosionHandler = explosion.AddComponent<ExplosionHandler>();
+		explosionHandler.ExplosionRadius = explosionRadius;
+	}
 
 	void CheckForSurroundingEnemies () {
 		Collider[] surroundingColliders = Physics.OverlapSphere (transform.position, explosionRadius);
