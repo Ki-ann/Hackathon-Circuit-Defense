@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Buildings : CircuitPart {
-	public Battery connectedBattery;
 	private poles NearestLookDirection;
 	public override void Update () {
 		base.Update ();

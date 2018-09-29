@@ -1,8 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 public class Wire : CircuitPart, ICircuitNeighbour {
-    public Battery connectedBattery;
+
     [SerializeField] private GameObject[] wireVisuals;
     private int nextVisualIndex;
 
@@ -10,7 +11,7 @@ public class Wire : CircuitPart, ICircuitNeighbour {
         base.AddSelfToGridSystem ();
 
         SwapVisuals ();
-        GetNeighboursToSwapVisuals ();
+        GetNeighboursToDoAction ();
     }
     public void SwapVisuals () {
         CircuitPart[] neighbouringParts = this.m_gridSystem.GetNeighbouringParts (this.snapArea);
@@ -85,18 +86,14 @@ public class Wire : CircuitPart, ICircuitNeighbour {
         this.visual = Instantiate (wireVisuals[nextVisualIndex], this.transform);
     }
 
-    private void GetNeighboursToSwapVisuals () {
-        CircuitPart[] neighbouringParts = this.m_gridSystem.GetNeighbouringParts (this.snapArea).Where (x => x != null).ToArray ();
-        for (int i = 0; i < neighbouringParts.Length; i++) {
-            ICircuitNeighbour neighbour = neighbouringParts[i].GetComponent<ICircuitNeighbour> ();
-            if (neighbour != null)
-                neighbour.NeighbourAction ();
-        }
+    public override void GetNeighboursToDoAction () {
+        base.GetNeighboursToDoAction ();
         this.SwapVisuals ();
     }
 
-    public void NeighbourAction () {
+    public override void NeighbourAction () {
         this.SwapVisuals ();
+        this.LinkToNextNode ();
     }
 
     [ContextMenu ("Next Wire Visual")]
@@ -108,20 +105,28 @@ public class Wire : CircuitPart, ICircuitNeighbour {
 
     public override void LinkToNextNode () {
         base.LinkToNextNode ();
-        for(int i = 0; i < _From.Count; i++){
-            if(_From[i].GetComponent<Wire>()){
-                this.connectedBattery = ((Wire)_From[i]).connectedBattery;
-                this.connectedBattery.connectedIndex++;
-                this.connectedBattery.connectedPartsList.Add(this);
-                return;
-            }
-            // if(_From[i].GetComponent<Turret>()){
-            //     this.connectedBattery = ((Turret)_From[i]).connectedBattery;
-            //     this.connectedBattery.connectedIndex++;
-            //     this.connectedBattery.connectedPartsList.Add(this);
-            //     return;
-            // }
-        }
+        // CircuitPart[] neighbouringParts = this.m_gridSystem.GetNeighbouringParts (this.snapArea).Where (x => x != null).ToArray ();
+
+        // for (int i = 0; i < neighbouringParts.Length; i++) {
+        //     if (!this._From.Contains (neighbouringParts[i])) {
+        //         this._To.Add (neighbouringParts[i]);
+        //         neighbouringParts[i]._From.Add (this);
+
+        //         if (neighbouringParts[i].GetComponent<Wire> ()) {
+        //             ((Wire) neighbouringParts[i]).connectedBattery = this.connectedBattery;
+        //         } else if (_To.Contains (this.connectedBattery)) {
+        //             this.connectedBattery.EstablishedBatteryConnection (this);
+        //             return;
+        //         }
+                // if (neighbouringParts[i].GetComponent<Wire> ()) {
+                //     this.connectedBattery = ((Wire) neighbouringParts[i]).connectedBattery;
+                //     AddToPathList ();
+                // }
+                /*else if (neighbouringParts[i].GetComponent<Turret> ()) {
+                                   this.connectedBattery = ((Turret) neighbouringParts[i]).connectedBattery;
+                                   AddToPathList ();
+                               } */
+            
         
     }
 }

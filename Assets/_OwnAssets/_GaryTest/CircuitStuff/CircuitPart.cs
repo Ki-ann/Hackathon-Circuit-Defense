@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public abstract class CircuitPart : MonoBehaviour, ITakeDamage {
+public abstract class CircuitPart : MonoBehaviour, ITakeDamage, ICircuitNeighbour, IBattery {
 	public GridSystem m_gridSystem { get; private set; }
+	public Battery connectedBattery { get; set; }
 
 	[HideInInspector] public bool isPlaced = false;
-	[HideInInspector] public List<CircuitPart> _To = new List<CircuitPart> ();
-	[HideInInspector] public List<CircuitPart> _From = new List<CircuitPart> ();
+	public List<CircuitPart> _To = new List<CircuitPart> ();
+	public List<CircuitPart> _From = new List<CircuitPart> ();
 	[HideInInspector] public Vector3 snapArea;
 
 	[Header ("Circuit Stuff")]
@@ -31,7 +32,6 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage {
 	public enum poles { UP, DOWN, LEFT, RIGHT, NONE };
  public poles _Positive;
  public poles _Negative;
-
 
  [System.Serializable]
  public struct ChargeLevel {
@@ -95,7 +95,6 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage {
 
 	public virtual void Update () {
 		snapArea = m_gridSystem.GetNearestPosition (target.transform.position);
-		
 		visual.transform.position = snapArea;
 	}
 
@@ -114,6 +113,8 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage {
 
 		if (m_gridSystem.CheckFreeSpace (snapArea))
 			m_gridSystem.AddToGridSystem (snapArea, this.gameObject);
+
+		LinkToNextNode ();
 	}
 
 	// Should be called when the part gets destroyed
@@ -121,22 +122,66 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage {
 		m_gridSystem.RemoveFromGridSystem (this.gameObject);
 	}
 
+	[ContextMenu ("a")]
 	public virtual void LinkToNextNode () {
 		CircuitPart[] neighbouringParts = this.m_gridSystem.GetNeighbouringParts (this.snapArea).Where (x => x != null).ToArray ();
-		for (int i = 0; i < neighbouringParts.Length; i++) {
-			if (!_From.Contains (neighbouringParts[i])) {
-				_To.Add (neighbouringParts[i]);
-				neighbouringParts[i]._From.Add (this);
+		var iBatteries = neighbouringParts.Where (x => x.GetComponent<IBattery> () != null && x.GetComponent<IBattery> ().connectedBattery != null).Select (x => x.GetComponent<IBattery> ()).FirstOrDefault ();
+		//Debug.Log(iBatteries);
+		var ibat = this.GetComponent<IBattery> ();
+
+		if (iBatteries != null && iBatteries.connectedBattery && ibat != null && ibat.connectedBattery) {
+			foreach (CircuitPart part in neighbouringParts) {
+				if (!_From.Contains (part)) {
+					if (!_To.Contains (part))
+						_To.Add (part);
+				}
 			}
-			//Stop linking at the end
-			if (!neighbouringParts[i]._To.Any ())
-				neighbouringParts[i].LinkToNextNode ();
+
+		} else if (iBatteries != null && iBatteries.connectedBattery) {
+			if (!_From.Contains ((CircuitPart) iBatteries)) {
+				if (!_To.Contains ((CircuitPart) iBatteries))
+					_From.Add ((CircuitPart) iBatteries);
+			}
+
+			if (ibat != null)
+				ibat.connectedBattery = iBatteries.connectedBattery;
+
+			foreach (CircuitPart part in neighbouringParts) {
+				if (!_From.Contains (part)) {
+					if (!_To.Contains (part))
+						_To.Add (part);
+				}
+			}
 		}
 
 	}
 
-	public void ClearLinks () {
+	public virtual void ClearLinks () {
 		_From = new List<CircuitPart> ();
 		_To = new List<CircuitPart> ();
+	}
+
+	public virtual void GetNeighboursToDoAction () {
+		CircuitPart[] neighbouringParts = this.m_gridSystem.GetNeighbouringParts (this.snapArea).Where (x => x != null).ToArray ();
+		for (int i = 0; i < neighbouringParts.Length; i++) {
+			ICircuitNeighbour neighbour = neighbouringParts[i].GetComponent<ICircuitNeighbour> ();
+			if (neighbour != null)
+				neighbour.NeighbourAction ();
+		}
+	}
+
+	public virtual void NeighbourAction () {
+
+	}
+	/// <summary>
+	/// Callback to draw gizmos that are pickable and always drawn.
+	/// </summary>
+	void OnDrawGizmos () {
+		if (isConnected) {
+			Gizmos.color = Color.green;
+		} else {
+			Gizmos.color = Color.red;
+		}
+		Gizmos.DrawSphere (this.visual.transform.position, 0.2f);
 	}
 }
