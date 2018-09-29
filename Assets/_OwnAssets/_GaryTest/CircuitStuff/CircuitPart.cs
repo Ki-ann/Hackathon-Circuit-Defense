@@ -79,7 +79,7 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage {
 	public float MaxHP {
 		get { return maxHP; }
 	}
-	public float currentHP;
+	[HideInInspector] public float currentHP;
 
 	[SerializeField] private int cost;
 	public int Cost {

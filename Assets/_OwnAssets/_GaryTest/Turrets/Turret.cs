@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public abstract class Turret : CircuitPart {
+public abstract class Turret : Buildings, IHaveAttack {
 	[Header ("Attack Stats")]
 	[Tooltip ("Attack Radius of tower")]
 	[SerializeField] private GameObject firePoint;
@@ -44,7 +44,7 @@ public abstract class Turret : CircuitPart {
 	}
 
 	void CalculateAttackSpeed () {
-		float PercentageCharge = Charge.ChargePercentage();
+		float PercentageCharge = Charge.ChargePercentage ();
 		attackSpeed = minAttackSpeed - attackSpeedDiff * PercentageCharge;
 	}
 
@@ -82,7 +82,7 @@ public abstract class Turret : CircuitPart {
 	void LookAtTarget () {
 		visual.transform.LookAt (targetToAttack.transform);
 	}
-	public abstract IEnumerator TryAttack ();
+	public virtual IEnumerator TryAttack () { yield return new WaitForSeconds (0); }
 
 	void OnDrawGizmos () {
 		Gizmos.color = Color.yellow;
