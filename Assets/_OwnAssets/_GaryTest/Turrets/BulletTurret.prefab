@@ -11,6 +11,21 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1383998213664906}
   m_IsPrefabAsset: 1
+--- !u!1 &1366422947992816
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4500883638673522}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1383998213664906
 GameObject:
   m_ObjectHideFlags: 0
@@ -69,7 +84,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4500883638673522}
   m_Father: {fileID: 4659200477263116}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -85,6 +101,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4659200477263116}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4500883638673522
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1366422947992816}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.68}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4213073407000452}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4659200477263116
 Transform:
@@ -166,14 +195,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97a183898e185b64785b3d65021d92cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hP: 0
+  isPlaced: 0
   isConnected: 0
   snapArea: {x: 0, y: 0, z: 0}
-  Positive: {fileID: 0}
-  Negative: {fileID: 0}
+  positive: {fileID: 0}
+  negative: {fileID: 0}
   prefab: {fileID: 1383998213664906}
   m_Visual: {fileID: 1892862917269010}
   m_Target: {fileID: 1771923509052838}
-  attackRadius: 5
+  hP: 0
+  cost: 0
+  firePoint: {fileID: 1366422947992816}
+  attackRadius: 6
   attackSpeed: 2
   attackDamage: 5
