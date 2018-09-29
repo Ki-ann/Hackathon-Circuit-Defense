@@ -108,7 +108,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1929684682823654
 GameObject:
   m_ObjectHideFlags: 1
@@ -517,10 +517,10 @@ MonoBehaviour:
   prefab: {fileID: 1868763753286416}
   m_Visual: {fileID: 1102263188997464}
   m_Target: {fileID: 1679380754731592}
-  maxHP: 20
+  maxHP: 500
   currentHP: 0
   cost: 0
-  maxRechargeSpeed: 4
+  maxRechargeSpeed: 100
   damagedCooldownTime: 2
   shieldBarrier: {fileID: 1981852462863192}
 --- !u!135 &135560390412771664

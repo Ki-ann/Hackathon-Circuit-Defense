@@ -473,7 +473,7 @@ MonoBehaviour:
   prefab: {fileID: 1383998213664906}
   m_Visual: {fileID: 1448189035464936}
   m_Target: {fileID: 1771923509052838}
-  maxHP: 0
+  maxHP: 500
   currentHP: 0
   cost: 0
   barrel: {fileID: 1892862917269010}

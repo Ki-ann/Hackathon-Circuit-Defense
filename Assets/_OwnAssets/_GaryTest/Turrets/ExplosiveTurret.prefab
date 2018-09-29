@@ -127,7 +127,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1790272655551458
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,7 +461,7 @@ MonoBehaviour:
   prefab: {fileID: 1668529226795164}
   m_Visual: {fileID: 1313184455160678}
   m_Target: {fileID: 1790272655551458}
-  maxHP: 0
+  maxHP: 500
   currentHP: 0
   cost: 0
   barrel: {fileID: 1399009325783590}
