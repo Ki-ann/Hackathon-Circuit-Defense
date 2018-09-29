@@ -40,7 +40,7 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage, ICircuitNeighbou
 			get { return maxCharge; }
 		}
 
-		[HideInInspector] private float currentCharge;
+		private float currentCharge;
 
 		public float CurrentCharge {
 			get { return currentCharge; }
@@ -101,13 +101,13 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage, ICircuitNeighbou
 
 	public virtual void TakeDamage (float amount) {
 		currentHP -= amount;
-        Debug.Log("currenthp: " + currentHP);
+		Debug.Log ("currenthp: " + currentHP);
 		if (currentHP <= 0)
-			Die();
+			Die ();
 	}
 
-	public virtual void Die() {
-		Debug.Log("Die");
+	public virtual void Die () {
+		Debug.Log ("Die");
 		gameObject.SetActive (false);
 	}
 	public void UpdateTargetPosition (Vector3 position) {

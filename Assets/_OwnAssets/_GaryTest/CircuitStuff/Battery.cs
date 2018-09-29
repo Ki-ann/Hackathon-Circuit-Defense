@@ -4,7 +4,11 @@ using System.Linq;
 using UnityEngine;
 
 public class Battery : CircuitPart, ICircuitNeighbour {
-    public List<CircuitPart> path = new List<CircuitPart> ();
+    public struct VoltagePath {
+        public List<CircuitPart> path;
+        public float charge;
+    }
+    public List<VoltagePath> goodPaths = new List<VoltagePath> ();
     public GameObject VoltageBall;
 
     private bool startChecking;
@@ -15,6 +19,16 @@ public class Battery : CircuitPart, ICircuitNeighbour {
     }
     public override void Update () {
         base.Update ();
+
+        if (goodPaths.Any ()) {
+            foreach (VoltagePath path in goodPaths) {
+                for (int i = 0; i < path.path.Count; i++) {
+                    path.path[i].Charge.ChargeLevelChange (path.charge);
+                    path.path[i].isConnected = true;
+                }
+            }
+        }
+
     }
     public override void AddSelfToGridSystem () {
         base.AddSelfToGridSystem ();
@@ -132,10 +146,12 @@ public class Battery : CircuitPart, ICircuitNeighbour {
         while (true) {
             if (startChecking) {
                 VoltageSphere ball = Instantiate (VoltageBall, this.visual.transform.position, Quaternion.identity).GetComponent<VoltageSphere> ();
+                ball.originalBattery = this;
                 ball.charge.ChargeLevelChange (this.Charge.MaxCharge);
                 ball.previousPart = (CircuitPart) this;
                 ball.nextPart = PositivePart;
-                yield return new WaitForSeconds (3f);
+                yield return new WaitUntil (() => ball == null);
+                break;
             } else
                 yield return new WaitForFixedUpdate ();
         }
