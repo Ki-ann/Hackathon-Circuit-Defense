@@ -51,12 +51,12 @@ public class UIHandler : MonoBehaviour
 
         if (index < 0)
         {
-            index = 0;
+            index = shopItems.Count - 1;
         }
 
-        if (index == shopItems.Count - 1)
+        if (index == shopItems.Count)
         {
-            index = shopItems.Count - 1;
+            index = 0;
         }
 
         sh.OnValueChange(shopItems, index);

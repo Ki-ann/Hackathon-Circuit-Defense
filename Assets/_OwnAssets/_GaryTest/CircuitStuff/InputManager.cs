@@ -12,6 +12,8 @@ public class InputManager : MonoBehaviour {
 	[SerializeField] private VRTK_ControllerEvents rControllerEvents;
 	[SerializeField] private float touchpadXDeadZone;
 
+    [SerializeField] private UIHandler uIHandler;
+
 	[HideInInspector] public float MouseScroll;
 	[HideInInspector] public float ShiftMouseScroll;
 	private bool shiftDown;
@@ -34,12 +36,28 @@ public class InputManager : MonoBehaviour {
 				Vector2 lCAxis = lControllerEvents.GetAxis (VRTK_ControllerEvents.Vector2AxisAlias.Touchpad);
 				if (lCAxis.x > touchpadXDeadZone || lCAxis.x < -touchpadXDeadZone) {
 					MouseScroll = lCAxis.x;
+                    if(lCAxis.x > 0)
+                    {
+                        uIHandler.ScrollShop(1);
+                    }
+                    else
+                    {
+                        uIHandler.ScrollShop(-1);
+                    }
 				}
 			} else if (rControllerEvents.GetAxisState (VRTK_ControllerEvents.Vector2AxisAlias.Touchpad, SDK_BaseController.ButtonPressTypes.PressDown)) {
 				Vector2 rCAxis = rControllerEvents.GetAxis (VRTK_ControllerEvents.Vector2AxisAlias.Touchpad);
 				if (rCAxis.x > touchpadXDeadZone || rCAxis.x < -touchpadXDeadZone) {
 					MouseScroll = rCAxis.x;
-				}
+                    if (rCAxis.x > 0)
+                    {
+                        uIHandler.ScrollShop(1);
+                    }
+                    else
+                    {
+                        uIHandler.ScrollShop(-1);
+                    }
+                }
 			}
 		}
 	}
