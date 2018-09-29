@@ -4,10 +4,16 @@ using UnityEngine;
 
 public abstract class Buildings : CircuitPart {
 	private poles NearestLookDirection;
+
+	public override void Start () {
+		base.Start ();
+		visual.GetComponent<Collider> ().enabled = true;
+	}
+	
 	public override void Update () {
 		base.Update ();
 		if (!isPlaced) {
-			RotateVisualLookAt();
+			RotateVisualLookAt ();
 		}
 
 		if (isPlaced) {
@@ -22,7 +28,7 @@ public abstract class Buildings : CircuitPart {
 
 	void RotateVisualLookAt () {
 		visual.transform.LookAt (target.transform);
-		float rotateAngle = Mathf.Round(visual.transform.eulerAngles.y / 90) * 90;
+		float rotateAngle = Mathf.Round (visual.transform.eulerAngles.y / 90) * 90;
 		visual.transform.eulerAngles = new Vector3 (0, rotateAngle, 0);
 	}
 }

@@ -101,14 +101,14 @@ public abstract class CircuitPart : MonoBehaviour, ITakeDamage, ICircuitNeighbou
 
 	public virtual void TakeDamage (float amount) {
 		currentHP -= amount;
-        Debug.Log("currenthp: " + currentHP);
 		if (currentHP <= 0)
 			Die();
 	}
 
 	public virtual void Die() {
-		Debug.Log("Die");
-		gameObject.SetActive (false);
+		RemoveSelfFromGridSystem();
+		GetNeighboursToDoAction();
+		Destroy(gameObject, 0f);
 	}
 	public void UpdateTargetPosition (Vector3 position) {
 		target.transform.position = position;

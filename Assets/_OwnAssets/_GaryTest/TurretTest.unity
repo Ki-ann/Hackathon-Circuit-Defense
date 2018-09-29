@@ -364,7 +364,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 349952461}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.31, y: 0.07999998, z: -7.7}
+  m_LocalPosition: {x: 4.31, y: -0.9, z: -7.7}
   m_LocalScale: {x: 10, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
@@ -509,7 +509,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 469202058}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.31, y: 0.07999998, z: 15.3}
+  m_LocalPosition: {x: 4.31, y: -0.9, z: 15.3}
   m_LocalScale: {x: 10, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
@@ -549,7 +549,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 792592438}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.25, y: 0.07999998, z: 3.85}
+  m_LocalPosition: {x: 16.25, y: -0.9, z: 3.85}
   m_LocalScale: {x: 10, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
@@ -613,6 +613,7 @@ MonoBehaviour:
   waveCount: 1
   timer: 1.5
   resetTimer: 0.5
+  timeB4WaveStart: 30
   totalToSpawn: 0
   spawnCount: 0
 --- !u!4 &1097061338
@@ -662,7 +663,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1154869569}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -10.17, y: 0.742, z: 1.1129999}
+  m_LocalPosition: {x: -10.17, y: -0.9, z: 1.1129999}
   m_LocalScale: {x: 10, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
@@ -854,7 +855,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: 83e4cadef1089884e9453bd838f28577, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 4ff6c2c70b6b51342b83743ffab0bf38, type: 2}
 --- !u!65 &1374342130
 BoxCollider:
   m_ObjectHideFlags: 0

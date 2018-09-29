@@ -508,4 +508,5 @@ MonoBehaviour:
   cost: 0
   maxRechargeSpeed: 100
   damagedCooldownTime: 2
-  shieldBarrier: {fileID: 1981852462863192}
+  shield: {fileID: 1981852462863192}
+  shieldMaterial: {fileID: 2100000, guid: 55722582caddab94c95d8a5d1c5946b9, type: 2}
