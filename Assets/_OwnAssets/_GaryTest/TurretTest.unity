@@ -222,7 +222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectedCircuitPart: {fileID: 795846954}
   ListOfTurrets:
-  - {fileID: 2129273514}
+  - {fileID: 0}
   - {fileID: 795846954}
 --- !u!114 &420875070
 MonoBehaviour:
@@ -428,13 +428,30 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 1668529226795164, guid: 0561cb0b686d587418cbd1c8414189c9, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 114001570328761174, guid: 0561cb0b686d587418cbd1c8414189c9,
+        type: 2}
+      propertyPath: prefab
+      value: 
+      objectReference: {fileID: 1668529226795164, guid: 0561cb0b686d587418cbd1c8414189c9,
+        type: 2}
+    - target: {fileID: 114001570328761174, guid: 0561cb0b686d587418cbd1c8414189c9,
+        type: 2}
+      propertyPath: m_Visual
+      value: 
+      objectReference: {fileID: 1800503271}
+    - target: {fileID: 114001570328761174, guid: 0561cb0b686d587418cbd1c8414189c9,
+        type: 2}
+      propertyPath: m_Target
+      value: 
+      objectReference: {fileID: 1315075604}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0561cb0b686d587418cbd1c8414189c9, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &1315075604 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1790272655551458, guid: 0561cb0b686d587418cbd1c8414189c9,
+    type: 2}
+  m_PrefabInternal: {fileID: 1276036856}
 --- !u!1 &1598799437
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,9 +565,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2129273514 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114908227622027326, guid: 0561cb0b686d587418cbd1c8414189c9,
+--- !u!1 &1800503271 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1399009325783590, guid: 0561cb0b686d587418cbd1c8414189c9,
     type: 2}
   m_PrefabInternal: {fileID: 1276036856}
-  m_Script: {fileID: 11500000, guid: 97a183898e185b64785b3d65021d92cb, type: 3}
