@@ -30,7 +30,11 @@ public class Zombie : EnemyAI {
     }
     void OnCollisionStay(Collision other)
     {
-        if (other.gameObject.transform.parent.GetComponent<CircuitPart>())
+        if (other.gameObject.GetComponent<Core>()) 
+        {
+            //add core stuff here
+        }
+        else if (other.gameObject.transform.parent.GetComponent<CircuitPart>())
         {
             other.gameObject.transform.parent.GetComponent<CircuitPart>().TakeDamage(damage);
             //Debug.Log("fk u turret");
