@@ -15,11 +15,10 @@ public class EnemyAI : MonoBehaviour, ITakeDamage, IEnemy {
     protected NavMeshAgent agent;
     protected Vector3 destination;
     protected Vector3 startPosition;
-    [SerializeField]protected Animator anim;
+    [SerializeField] protected Animator anim;
     // Use this for initialization
-    public virtual void Start()
-    {
-        GetNavAgent();
+    public virtual void Start () {
+        GetNavAgent ();
         startPosition = startPositionObj.transform.position;
         speed = agent.speed;
         health = 100;
@@ -27,28 +26,24 @@ public class EnemyAI : MonoBehaviour, ITakeDamage, IEnemy {
     }
 
     // Update is called once per frame
-    public virtual void Update()
-    {
-        destination = destinationObj.transform.position;
+    public virtual void Update () {
+        if (destinationObj != null)
+            destination = destinationObj.transform.position;
     }
 
-    public virtual void GetNavAgent()
-    {
-        agent = GetComponent<NavMeshAgent>();
+    public virtual void GetNavAgent () {
+        agent = GetComponent<NavMeshAgent> ();
     }
 
-    public virtual void TakeDamage(float damage)
-    {
+    public virtual void TakeDamage (float damage) {
         health -= damage;
 
-        if (health <= 0)
-        {
-            Die();
+        if (health <= 0) {
+            Die ();
         }
     }
-    
-    public virtual void Die()
-    {
-        Destroy(this.gameObject, 0f);
+
+    public virtual void Die () {
+        Destroy (this.gameObject, 0f);
     }
 }

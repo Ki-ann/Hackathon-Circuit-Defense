@@ -10,7 +10,7 @@ public class CircuitPlacer : MonoBehaviour {
 	public List<Battery> ListOfBatteries;
 	private GameObject targetToMove;
 	private InputManager inputManager;
-    [SerializeField] private IntVariable money;
+	[SerializeField] private IntVariable money;
 	[HideInInspector] public enum ItemType { TURRETS, WIRES, BATTERIES };
  private ItemType selectedItemType = ItemType.TURRETS;
 
@@ -22,9 +22,12 @@ public class CircuitPlacer : MonoBehaviour {
 	void Update () {
 		if (inputManager.MouseScroll != 0) {
 			ChangeSelectedPart (selectedItemType);
-			
-			if (selectedCircuitPart.visual.GetComponent<Collider> ().enabled)
-				selectedCircuitPart.visual.GetComponent<Collider> ().enabled = false;
+
+			if (selectedCircuitPart.visual.GetComponent<Collider> () != null) {
+				if (selectedCircuitPart.visual.GetComponent<Collider> ().enabled) {
+					selectedCircuitPart.visual.GetComponent<Collider> ().enabled = false;
+				}
+			}
 		}
 		if (inputManager.ShiftMouseScroll != 0f) {
 			ChangeSelectedItemType ();
@@ -45,7 +48,7 @@ public class CircuitPlacer : MonoBehaviour {
 		Vector3 snapArea = selectedCircuitPart.snapArea;
 
 		if (selectedCircuitPart.m_gridSystem.CheckFreeSpace (snapArea) && money.Value - selectedCircuitPart.Cost >= 0) {
-            money.Value -= selectedCircuitPart.Cost;
+			money.Value -= selectedCircuitPart.Cost;
 			CircuitPart placedCircuitPart = Instantiate (selectedCircuitPart.prefab, Vector3.zero, Quaternion.identity).GetComponent<CircuitPart> ();
 			placedCircuitPart.visual.transform.position = snapArea;
 			placedCircuitPart.snapArea = snapArea;
