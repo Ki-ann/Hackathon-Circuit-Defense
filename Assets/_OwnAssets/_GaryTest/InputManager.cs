@@ -9,6 +9,7 @@ public class InputManager : MonoBehaviour {
 	public bool LeftClick { get; private set; }
     [SerializeField] private VRTK_ControllerEvents lControllerEvents;
     [SerializeField] private VRTK_ControllerEvents rControllerEvents;
+    [SerializeField] private float touchpadXDeadZone;
 
     [HideInInspector] public float MouseScroll;
 	public struct MousePosition {
@@ -30,12 +31,18 @@ public class InputManager : MonoBehaviour {
             if (lControllerEvents.GetAxisState(VRTK_ControllerEvents.Vector2AxisAlias.Touchpad, SDK_BaseController.ButtonPressTypes.PressDown))
             {
                 Vector2 lCAxis = lControllerEvents.GetAxis(VRTK_ControllerEvents.Vector2AxisAlias.Touchpad);
-                MouseScroll = lCAxis.x;
+                if(lCAxis.x > touchpadXDeadZone || lCAxis.x < -touchpadXDeadZone)
+                {
+                    MouseScroll = lCAxis.x;
+                }
             }
             else if (rControllerEvents.GetAxisState(VRTK_ControllerEvents.Vector2AxisAlias.Touchpad, SDK_BaseController.ButtonPressTypes.PressDown))
             {
                 Vector2 rCAxis = rControllerEvents.GetAxis(VRTK_ControllerEvents.Vector2AxisAlias.Touchpad);
-                MouseScroll = rCAxis.x;
+                if (rCAxis.x > touchpadXDeadZone || rCAxis.x < -touchpadXDeadZone)
+                {
+                    MouseScroll = rCAxis.x;
+                }
             }
         }
 	}
