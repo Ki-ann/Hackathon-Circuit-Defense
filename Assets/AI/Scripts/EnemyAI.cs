@@ -15,7 +15,7 @@ public class EnemyAI : MonoBehaviour, ITakeDamage, IDealDamage, IEnemy {
     protected NavMeshAgent agent;
     protected Vector3 destination;
     protected Vector3 startPosition;
-    protected Animator anim;
+    [SerializeField]protected Animator anim;
     // Use this for initialization
     public virtual void Start()
     {

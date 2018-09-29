@@ -26,7 +26,13 @@ public class Zombie : EnemyAI {
         if (health <= 0)
             Destroy(this.gameObject);
 
-        anim = GetComponent<Animator>();
+        if(!anim)
+            anim = GetComponent<Animator>();
+
+        if (Vector3.Distance(transform.position, destination) > agent.remainingDistance)
+            SetAnimations(true);
+        else
+            SetAnimations(false);
     }
     void OnCollisionStay(Collision other)
     {
@@ -51,5 +57,9 @@ public class Zombie : EnemyAI {
     public void SetHealth(float _health)
     {
         health = _health;
+    }
+    public void SetAnimations(bool isMoving)
+    {
+        anim.SetBool("Move", isMoving);
     }
 }

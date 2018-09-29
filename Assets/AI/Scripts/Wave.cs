@@ -8,10 +8,6 @@ public class Wave : MonoBehaviour {
     public STATUS waveStatus;
     public Zombie zombie;
 
-    bool start;
-    bool end;
-    bool ongoing;
-
     [SerializeField] int waveCount = 0;
     [SerializeField] float timer = 1.5f;
     [SerializeField] float resetTimer = 0.5f;
@@ -41,20 +37,14 @@ public class Wave : MonoBehaviour {
                 StandBy();
                 break;
             case STATUS.START:
-                start = true;
-                end = false;
                 StartWave();
                 break;
             case STATUS.END:
-                start = false;
-                end = true;
-                ongoing = false;
                 EndWave();
                 break;
             case STATUS.ONGOING:
                 Spawn();
                 Ongoing();
-                ongoing = true;
                 break;
             case STATUS.NEXT:
                 NextWave();
