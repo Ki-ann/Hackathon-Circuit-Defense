@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Turret : CircuitPart {
+	[Header ("Attack Stats")]
 	[Tooltip ("Attack Radius of tower")]
 	[SerializeField] private float attackRadius; 
 	[SerializeField] private float attackSpeed;
@@ -17,7 +18,7 @@ public abstract class Turret : CircuitPart {
 
 	void CheckRadius () 
 	{
-		Collider[] colInRadius = Physics.OverlapSphere (gameObject.transform.position, attackRadius);
+		Collider[] colInRadius = Physics.OverlapSphere (visual.transform.position, attackRadius);
 
 		foreach (Collider col in colInRadius)
 		{
@@ -32,6 +33,7 @@ public abstract class Turret : CircuitPart {
 
 	void OnDrawGizmos()
 	{
-		
+		Gizmos.color = Color.yellow;
+		Gizmos.DrawWireSphere (visual.transform.position, attackRadius);
 	}
 }
