@@ -12,6 +12,7 @@ public class VoltageSphere : MonoBehaviour {
 	public List<VoltageSphere> childSpheres = new List<VoltageSphere> ();
 	public List<CircuitPart> cachePath = new List<CircuitPart> ();
 
+	bool consol = false;
 	/// <summary>
 	/// OnTriggerEnter is called when the Collider other enters the trigger.
 	/// </summary>
@@ -23,14 +24,28 @@ public class VoltageSphere : MonoBehaviour {
 		}
 	}
 
+	void Start()
+	{
+		StartCoroutine(timeout());
+	}
+
 	void Update () {
+		if (consol == false) {
+			if (transform.localScale.x <= 0.35f) {
+				consol = true;
+				Consolidation ();
+			}
+		}
+		if(consol == true){
+			return;
+		}
 		//if haven't split
 		if (!childSpheres.Any ()) {
 			// go to next
 			if (nextPart != null && previousPart != null) {
 				if (nextPart == originalBattery) {
-					if(masterSphere) masterSphere.Consolidation ();
-					else Consolidation();
+					if (masterSphere) masterSphere.Consolidation ();
+					else Consolidation ();
 				}
 				if (Vector3.Distance (transform.position, nextPart.visual.transform.position) <= 0.1f) {
 					switch (nextPart._To.Count) {
@@ -76,10 +91,12 @@ public class VoltageSphere : MonoBehaviour {
 	}
 
 	public void ReturnBallToMaster () {
-		masterSphere.childSpheres.Remove (this);
-		foreach (VoltageSphere mini in masterSphere.childSpheres) {
-			mini.charge.ChargeLevelChange (this.charge.CurrentCharge / (int) masterSphere.childSpheres.Count ());
-			mini.transform.localScale *= 1.2f;
+		if (masterSphere) {
+			masterSphere.childSpheres.Remove (this);
+			foreach (VoltageSphere mini in masterSphere.childSpheres) {
+				mini.charge.ChargeLevelChange (this.charge.CurrentCharge / (int) masterSphere.childSpheres.Count ());
+				mini.transform.localScale *= 1.2f;
+			}
 		}
 		Destroy (this.gameObject);
 	}
@@ -108,6 +125,11 @@ public class VoltageSphere : MonoBehaviour {
 		path.charge = charge.CurrentCharge;
 		originalBattery.goodPaths.Add (path);
 
-		Destroy(this.gameObject);
+		Destroy (this.gameObject);
+	}
+
+	IEnumerator timeout(){
+		yield return new WaitForSeconds(30f);
+		StartCoroutine(consolidate());
 	}
 }

@@ -3654,8 +3654,8 @@ MonoBehaviour:
   shopMenu: {fileID: 1449484365}
   sh: {fileID: 1449484367}
   turretSI:
-  - {fileID: 11400000, guid: ad961e341dcad014e900309bd418bc40, type: 2}
   - {fileID: 11400000, guid: fa5c4d51fcfebf44b8bee66d2e538d4e, type: 2}
+  - {fileID: 11400000, guid: ad961e341dcad014e900309bd418bc40, type: 2}
   - {fileID: 11400000, guid: d10a362801f4285409b28aad23b4f9b6, type: 2}
   wireSI:
   - {fileID: 11400000, guid: 9534946d79dd7814c90ecd94f1142b23, type: 2}

@@ -16,22 +16,26 @@ public class Wave : MonoBehaviour {
     [SerializeField] int totalToSpawn;
     [SerializeField] int spawnCount;
 
+    private Core core;
     Vector3 spawnPos;
     Quaternion spawnRot;
     Zombie spawnedZombie;
     // Use this for initialization
-    void Start () { }
+    void Start () {
+        core = FindObjectOfType<Core> ();
+    }
 
     // Update is called once per frame
     void Update () {
-        //Debug.Log(spawnZombie);
-        WaveAlgo (waveStatus);
+        if (core.GameRun) {
+            //Debug.Log(spawnZombie);
+            WaveAlgo (waveStatus);
 
-        //test
-        if (Input.GetKeyDown(KeyCode.C))
-         {
-             ShortenWaveWaitTime();
-         }
+            //test
+            if (Input.GetKeyDown (KeyCode.C)) {
+                ShortenWaveWaitTime ();
+            }
+        }
     }
 
     void ShortenWaveWaitTime () {
