@@ -13,6 +13,11 @@ public class InputManager : MonoBehaviour
     [SerializeField] private VRTK_ControllerEvents rControllerEvents;
     [SerializeField] private float touchpadXDeadZone;
 
+    [SerializeField] private float touchpad2DeadZone;
+    [SerializeField] private float speeeddd;
+    [SerializeField] private Transform cameraTrans;
+    [SerializeField] private Transform playerTrans;
+
     [SerializeField] private UIHandler uIHandler;
 
     [HideInInspector] public float MouseScroll;
@@ -82,7 +87,32 @@ public class InputManager : MonoBehaviour
         else
         {
             LeftClick = lControllerEvents.IsButtonPressed(VRTK_ControllerEvents.ButtonAlias.TriggerPress) || rControllerEvents.IsButtonPressed(VRTK_ControllerEvents.ButtonAlias.TriggerPress);
-            
+
+            Vector2 rCAxis = rControllerEvents.GetAxis(VRTK_ControllerEvents.Vector2AxisAlias.TouchpadTwo);
+
+            if (rCAxis.x > touchpad2DeadZone)
+            {
+                Vector3 xMov = new Vector3(cameraTrans.right.x, 0, cameraTrans.right.z);
+                playerTrans.Translate(xMov * speeeddd * Time.deltaTime);
+            }
+
+            if (rCAxis.x < -touchpad2DeadZone)
+            {
+                Vector3 xMov = new Vector3(cameraTrans.right.x, 0, cameraTrans.right.z);
+                playerTrans.Translate(-xMov * speeeddd * Time.deltaTime);
+            }
+
+            if (rCAxis.y > touchpad2DeadZone)
+            {
+                Vector3 yMov = new Vector3(cameraTrans.forward.x, 0, cameraTrans.forward.z);
+                playerTrans.Translate(yMov * speeeddd * Time.deltaTime);
+            }
+
+            if (rCAxis.y < -touchpad2DeadZone)
+            {
+                Vector3 yMov = new Vector3(cameraTrans.forward.x, 0, cameraTrans.forward.z);
+                playerTrans.Translate(-yMov * speeeddd * Time.deltaTime);
+            }
         }
     }
 

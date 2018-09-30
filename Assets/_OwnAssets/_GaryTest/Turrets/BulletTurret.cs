@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class BulletTurret : Turret {
     private LineRenderer bulletPath;
+    private AudioSource shootSound;
 
     public override void Start () {
         base.Start ();
         bulletPath = GetComponent<LineRenderer> ();
+        shootSound = GetComponent<AudioSource> ();
     }
     public override IEnumerator TryAttack () {
         isAttacking = true;
@@ -15,10 +17,12 @@ public class BulletTurret : Turret {
         if (Physics.Raycast (FirePoint.transform.position, Barrel.transform.forward, out hit, AttackRadius)) {
             if (hit.collider.GetComponent<EnemyAI> () != null) {
                 //Attack 
-                hit.collider.GetComponent<EnemyAI>().TakeDamage(AttackDamage);
+                hit.collider.GetComponent<EnemyAI> ().TakeDamage (AttackDamage);
+                shootSound.Play ();
                 StartCoroutine (DrawLine (hit.point));
             }
         } else {
+            shootSound.Play ();
             StartCoroutine (DrawLine (FirePoint.transform.forward * AttackRadius));
         }
         yield return new WaitForSeconds (AttackSpeed);
