@@ -7,6 +7,11 @@ public class ExplosionHandler : MonoBehaviour {
 	public float ExplosionRadius {
 		set { explosionRadius = value; }
 	}
+	private AudioSource audioToPlay;
+
+	void Start() {
+		audioToPlay = GetComponent<AudioSource>();
+	}
 
 	void Update () {
 		StartCoroutine (explosionHandler ());
@@ -17,7 +22,9 @@ public class ExplosionHandler : MonoBehaviour {
 		for (int i = 0; i < (int) explosionRadius; i++) {
 			Scale++;
 		}
-		yield return new WaitForSeconds (0f);
-		Destroy (gameObject, 0.5f);
+		if (!audioToPlay.isPlaying)
+			audioToPlay.Play();
+		yield return new WaitForSeconds (audioToPlay.clip.length);
+		Destroy (gameObject);
 	}
 }

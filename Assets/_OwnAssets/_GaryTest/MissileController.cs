@@ -6,10 +6,15 @@ using UnityEngine;
 public class MissileController : MonoBehaviour {
 	[SerializeField] private float timeTillExplode;
 	[SerializeField] private float explosionRadius;
+	private AudioSource explosionSound;
 	private bool isExploded = false;
 	private Turret turret;
 	public Turret m_Turret {
 		set { turret = value; }
+	}
+
+	void Start () {
+		explosionSound = GetComponent<AudioSource> ();
 	}
 
 	void Update () {
@@ -30,8 +35,13 @@ public class MissileController : MonoBehaviour {
 	void OnDisable () {
 		GameObject explosion = GameObject.CreatePrimitive (PrimitiveType.Sphere);
 		explosion.transform.position = transform.position;
-		explosion.GetComponent<Collider>().enabled = false;
-		ExplosionHandler explosionHandler = explosion.AddComponent<ExplosionHandler>();
+		explosion.GetComponent<Collider> ().enabled = false;
+		ExplosionHandler explosionHandler = explosion.AddComponent<ExplosionHandler> ();
+		AudioSource explosionAudio = explosion.AddComponent<AudioSource> ();
+		explosionAudio.clip =  explosionSound.clip;
+		explosionAudio.playOnAwake = false;
+		explosionAudio.spatialBlend = 1.0f;
+		explosionAudio.volume = explosionSound.volume;
 		explosionHandler.ExplosionRadius = explosionRadius;
 	}
 

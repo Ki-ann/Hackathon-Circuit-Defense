@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wave : MonoBehaviour
-{
-
+public class Wave : MonoBehaviour {
     public enum STATUS { START, END, ONGOING, NEXT, STANDBY }
     public STATUS waveStatus;
     public Zombie zombie;
@@ -21,66 +19,61 @@ public class Wave : MonoBehaviour
     Vector3 spawnPos;
     Quaternion spawnRot;
     Zombie spawnedZombie;
+    private AudioSource BGM;
     // Use this for initialization
-    void Start()
-    {
-        core = FindObjectOfType<Core>();
+    void Start () {
+        BGM = GetComponent<AudioSource> ();
+        core = FindObjectOfType<Core> ();
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if (core.GameRun)
-        {
-            //Debug.Log(spawnZombie);
-            WaveAlgo(waveStatus);
+    void Update () {
+        if (core.GameRun) {
+            if (!BGM.isPlaying)
+                BGM.Play ();
+            WaveAlgo (waveStatus);
 
             //test
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                ShortenWaveWaitTime();
+            if (Input.GetKeyDown (KeyCode.C)) {
+                ShortenWaveWaitTime ();
             }
+        } else {
+            BGM.Stop ();
         }
     }
 
-    void ShortenWaveWaitTime()
-    {
+    void ShortenWaveWaitTime () {
         timer = 2.0f;
     }
 
-    public void WaveAlgo(STATUS waveStatus)
-    {
-        switch (waveStatus)
-        {
+    public void WaveAlgo (STATUS waveStatus) {
+        switch (waveStatus) {
             case STATUS.STANDBY:
-                StandBy();
+                StandBy ();
                 break;
             case STATUS.START:
-                StartWave();
+                StartWave ();
                 break;
             case STATUS.END:
-                EndWave();
+                EndWave ();
                 break;
             case STATUS.ONGOING:
-                Spawn();
-                Ongoing();
+                Spawn ();
+                Ongoing ();
                 break;
             case STATUS.NEXT:
-                NextWave();
+                NextWave ();
                 break;
         }
     }
 
-    public void StandBy()
-    {
+    public void StandBy () {
         timer = timeB4WaveStart;
         waveStatus = STATUS.START;
     }
-    public void StartWave()
-    {
+    public void StartWave () {
         timer -= Time.deltaTime;
-        if (timer <= 0)
-        {
+        if (timer <= 0) {
             spawnCount = 0;
             totalToSpawn = waveCount * waveCount;
             timer = 1.5f;
@@ -88,36 +81,28 @@ public class Wave : MonoBehaviour
         }
     }
 
-    public void EndWave()
-    {
-        for (int i = 0; i < AIArray.Instance.enemyList.Count; i++)
-        {
-            if (AIArray.Instance.enemyList[i] != null)
-            {
-                DestroyImmediate(AIArray.Instance.enemyList[i].gameObject);
-                AIArray.Instance.enemyList.RemoveAt(i);
-            }
-            else
-                AIArray.Instance.enemyList.RemoveAt(i);
+    public void EndWave () {
+        for (int i = 0; i < AIArray.Instance.enemyList.Count; i++) {
+            if (AIArray.Instance.enemyList[i] != null) {
+                DestroyImmediate (AIArray.Instance.enemyList[i].gameObject);
+                AIArray.Instance.enemyList.RemoveAt (i);
+            } else
+                AIArray.Instance.enemyList.RemoveAt (i);
         }
 
         if (AIArray.Instance.enemyList.Count == 0)
             waveStatus = STATUS.NEXT;
     }
 
-    public void NextWave()
-    {
+    public void NextWave () {
         waveCount += 1;
         waveStatus = STATUS.STANDBY;
     }
 
-    public void Ongoing()
-    {
-        for (int i = 0; i < AIArray.Instance.enemyList.Count; i++)
-        {
-            if (AIArray.Instance.enemyList[i] == null)
-            {
-                AIArray.Instance.enemyList.RemoveAt(i);
+    public void Ongoing () {
+        for (int i = 0; i < AIArray.Instance.enemyList.Count; i++) {
+            if (AIArray.Instance.enemyList[i] == null) {
+                AIArray.Instance.enemyList.RemoveAt (i);
                 totalToSpawn--;
                 spawnCount--;
             }
@@ -125,23 +110,20 @@ public class Wave : MonoBehaviour
                 waveStatus = STATUS.END;
         }
     }
-    public void Spawn()
-    {
-        if (totalToSpawn - spawnCount > 0)
-        {
+    public void Spawn () {
+        if (totalToSpawn - spawnCount > 0) {
             timer -= Time.deltaTime;
-            if (timer <= 0)
-            {
-                spawnPos = SpawnArray.Instance.spawnPointObjList[Random.Range(0, waveCount)].transform.position;
-                spawnRot = SpawnArray.Instance.spawnPointObjList[Random.Range(0, waveCount)].transform.rotation;
-                spawnedZombie = Instantiate(zombie, spawnPos, spawnRot);
-                spawnedZombie.SetDamage(30f);
-                spawnedZombie.SetHealth(100f);
-                spawnedZombie.SetSpeed(2.5f);
-                spawnedZombie.destinationObj = FindObjectOfType<Core>().gameObject;
+            if (timer <= 0) {
+                spawnPos = SpawnArray.Instance.spawnPointObjList[Random.Range (0, waveCount)].transform.position;
+                spawnRot = SpawnArray.Instance.spawnPointObjList[Random.Range (0, waveCount)].transform.rotation;
+                spawnedZombie = Instantiate (zombie, spawnPos, spawnRot);
+                spawnedZombie.SetDamage (30f);
+                spawnedZombie.SetHealth (100f);
+                spawnedZombie.SetSpeed (2.5f);
+                spawnedZombie.destinationObj = FindObjectOfType<Core> ().gameObject;
 
-                if (!AIArray.Instance.enemyList.Contains(spawnedZombie as EnemyAI))
-                    AIArray.Instance.enemyList.Add(spawnedZombie as EnemyAI);
+                if (!AIArray.Instance.enemyList.Contains (spawnedZombie as EnemyAI))
+                    AIArray.Instance.enemyList.Add (spawnedZombie as EnemyAI);
 
                 spawnCount++;
                 timer = resetTimer;

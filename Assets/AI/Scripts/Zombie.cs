@@ -7,6 +7,8 @@ public class Zombie : EnemyAI {
     [SerializeField] private float attackCooldown;
     private float cooldownAttackTimer;
     private bool isOnCoolDown = false;
+    [SerializeField] private AudioSource impact;
+    [SerializeField] private AudioSource groan;
     // Use this for initialization
     public override void Start () {
         base.Start ();
@@ -33,12 +35,14 @@ public class Zombie : EnemyAI {
             SetAnimations (false);
 
         Timer ();
+        StartCoroutine (PlayGroan ());
     }
     void OnCollisionStay (Collision other) {
         if (!isOnCoolDown) {
             if (other.gameObject.GetComponent<Core> ()) {
                 Core core = other.gameObject.GetComponent<Core> ();
                 core.TakeDamage (damage);
+                impact.Play ();
                 cooldownAttackTimer = attackCooldown;
                 isOnCoolDown = true;
 
@@ -47,13 +51,19 @@ public class Zombie : EnemyAI {
                 if (other.gameObject.transform.parent.GetComponent<CircuitPart> ()) {
                     //change current position to turret's postion
                     destinationObj = other.gameObject;
-
                     other.gameObject.transform.parent.GetComponent<CircuitPart> ().TakeDamage (damage);
+                    impact.Play ();
                     cooldownAttackTimer = attackCooldown;
                     isOnCoolDown = true;
                 }
             }
         }
+    }
+
+    IEnumerator PlayGroan () {
+        yield return new WaitForSeconds (Random.Range (2.0f, 5.0f));
+        if (!groan.isPlaying)
+            groan.Play ();
     }
     public void SetDamage (float _damage) {
         damage = _damage;
