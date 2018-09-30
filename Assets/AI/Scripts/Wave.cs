@@ -15,7 +15,7 @@ public class Wave : MonoBehaviour {
     [SerializeField] int totalToSpawn;
     [SerializeField] int spawnCount;
     [SerializeField] GameObject button;
-    private Core core;
+    [SerializeField] private Core core;
     Vector3 spawnPos;
     Quaternion spawnRot;
     Zombie spawnedZombie;
@@ -23,7 +23,6 @@ public class Wave : MonoBehaviour {
     // Use this for initialization
     void Start () {
         BGM = GetComponent<AudioSource> ();
-        core = FindObjectOfType<Core> ();
     }
 
     // Update is called once per frame
@@ -72,21 +71,20 @@ public class Wave : MonoBehaviour {
         }
     }
 
-     public void StartPls()
-    {
-        waveStatus = STATUS.START;
-    }
     public void StandBy () {
         timer = timeB4WaveStart;
         button.SetActive (true);
     }
-    public void StartWave () {
-        button.SetActive (false);
-        if (core.gameObject.activeSelf != true) {
-            core.gameObject.SetActive (true);
+    public void TriggerWaveStart () {
+        if (!core.GameRun) {
             core.GameRun = true;
+            if (core.gameObject.activeSelf != true) {
+                core.gameObject.SetActive (true);
+            }
+            WaveAlgo (STATUS.START);
         }
-
+    }
+    public void StartWave () {
         timer -= Time.deltaTime;
         if (timer <= 0) {
             spawnCount = 0;
@@ -133,7 +131,7 @@ public class Wave : MonoBehaviour {
                 spawnPos = SpawnArray.Instance.spawnPointObjList[Random.Range (0, waveCount)].transform.position;
                 spawnRot = SpawnArray.Instance.spawnPointObjList[Random.Range (0, waveCount)].transform.rotation;
                 spawnedZombie = Instantiate (zombie, spawnPos, spawnRot);
-                spawnedZombie.TypeOfZombie(Random.Range (1, 3));
+                spawnedZombie.TypeOfZombie (Random.Range (1, 3));
                 //spawnedZombie.SetDamage(30f);
                 //spawnedZombie.SetHealth(100f);
                 //spawnedZombie.SetSpeed(2.5f);
@@ -141,7 +139,6 @@ public class Wave : MonoBehaviour {
 
                 if (!AIArray.Instance.enemyList.Contains (spawnedZombie as EnemyAI))
                     AIArray.Instance.enemyList.Add (spawnedZombie as EnemyAI);
-
 
                 timer = resetTimer;
             }
