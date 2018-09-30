@@ -13,10 +13,10 @@ public class Wave : MonoBehaviour
     [SerializeField] float timer = 1.5f;
     [SerializeField] float resetTimer = 0.5f;
     [SerializeField] float timeB4WaveStart = 30f;
-    int resetCount = 0;
+    int resetCount = 1;
     [SerializeField] int totalToSpawn;
     [SerializeField] int spawnCount;
-
+    [SerializeField] GameObject button;
     private Core core;
     Vector3 spawnPos;
     Quaternion spawnRot;
@@ -30,11 +30,12 @@ public class Wave : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (core.GameRun)
+        WaveAlgo(waveStatus);
+        if (!core.GameRun)
         {
             //Debug.Log(spawnZombie);
-            WaveAlgo(waveStatus);
-
+            waveStatus = STATUS.END;
+            waveCount = resetCount;
             //test
             if (Input.GetKeyDown(KeyCode.C))
             {
@@ -74,10 +75,17 @@ public class Wave : MonoBehaviour
     public void StandBy()
     {
         timer = timeB4WaveStart;
-        waveStatus = STATUS.START;
+        button.SetActive(true);
     }
     public void StartWave()
     {
+        button.SetActive(false);
+        if (core.gameObject.activeSelf != true)
+        {
+            core.gameObject.SetActive(true);
+            core.GameRun = true;
+        }
+
         timer -= Time.deltaTime;
         if (timer <= 0)
         {
