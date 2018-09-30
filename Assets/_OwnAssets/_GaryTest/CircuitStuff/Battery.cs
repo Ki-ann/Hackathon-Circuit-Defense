@@ -12,6 +12,7 @@ public class Battery : CircuitPart, ICircuitNeighbour {
     public GameObject VoltageBall;
 
     private bool startChecking;
+    [ContextMenu("Send Ball")]
     public override void Start () {
         base.Start ();
         this.connectedBattery = this;
@@ -141,7 +142,7 @@ public class Battery : CircuitPart, ICircuitNeighbour {
             }
         }
     }
-
+    
     IEnumerator voltageCheckerCoroutine () {
         while (true) {
             if (startChecking) {
