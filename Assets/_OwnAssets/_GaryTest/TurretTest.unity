@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1897506404}
-  m_IndirectSpecularColor: {r: 1.1095178, g: 1.3890117, b: 1.8887491, a: 1}
+  m_IndirectSpecularColor: {r: 1.1095159, g: 1.3890083, b: 1.8887446, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -12064,6 +12064,7 @@ MonoBehaviour:
   totalToSpawn: 0
   spawnCount: 0
   button: {fileID: 1996414741}
+  core: {fileID: 243946920}
 --- !u!4 &1097061338
 Transform:
   m_ObjectHideFlags: 0
@@ -13323,7 +13324,7 @@ Prefab:
     - target: {fileID: 114771796370286084, guid: b7c9311a258086140bfadefe00dd6646,
         type: 2}
       propertyPath: onButtonDown.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: StartPls
+      value: TriggerWaveStart
       objectReference: {fileID: 0}
     - target: {fileID: 114771796370286084, guid: b7c9311a258086140bfadefe00dd6646,
         type: 2}
