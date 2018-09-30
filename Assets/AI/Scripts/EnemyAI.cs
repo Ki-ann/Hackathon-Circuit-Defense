@@ -9,6 +9,7 @@ public class EnemyAI : MonoBehaviour, ITakeDamage, IEnemy {
     public float health { get; set; }
     public float damage { get; set; }
 
+    public Core core;
     public GameObject destinationObj;
     public GameObject startPositionObj;
 
@@ -29,6 +30,14 @@ public class EnemyAI : MonoBehaviour, ITakeDamage, IEnemy {
     public virtual void Update () {
         if (destinationObj != null)
             destination = destinationObj.transform.position;
+        if (destinationObj == null) {
+            if (!core) {
+                core = FindObjectOfType<Core> ();
+            } else {
+                destinationObj = core.gameObject;
+            }
+        }
+
     }
 
     public virtual void GetNavAgent () {
