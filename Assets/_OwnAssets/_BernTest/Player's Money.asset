@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Name: Player's Money
   m_EditorClassIdentifier: 
   Value: 5000
-  Constant: 5000
+  Constant: 400
