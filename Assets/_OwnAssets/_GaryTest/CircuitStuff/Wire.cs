@@ -4,6 +4,8 @@ using System.Linq;
 using UnityEngine;
 public class Wire : CircuitPart, ICircuitNeighbour {
 
+    [SerializeField] private MeshRenderer connectedVisual;
+    [SerializeField] private Material[] connectedMat;
     [SerializeField] private GameObject[] wireVisuals;
     private int nextVisualIndex;
 
@@ -12,6 +14,16 @@ public class Wire : CircuitPart, ICircuitNeighbour {
 
         SwapVisuals ();
         GetNeighboursToDoAction ();
+    }
+
+    public override void Update () {
+        base.Update ();
+        connectedVisual.transform.position = visual.transform.position; 
+        if (isConnected) {
+            connectedVisual.material = connectedMat[1];
+        } else {
+            connectedVisual.material = connectedMat[0];
+        }
     }
     public void SwapVisuals () {
         CircuitPart[] neighbouringParts = this.m_gridSystem.GetNeighbouringParts (this.snapArea);
@@ -118,15 +130,14 @@ public class Wire : CircuitPart, ICircuitNeighbour {
         //             this.connectedBattery.EstablishedBatteryConnection (this);
         //             return;
         //         }
-                // if (neighbouringParts[i].GetComponent<Wire> ()) {
-                //     this.connectedBattery = ((Wire) neighbouringParts[i]).connectedBattery;
-                //     AddToPathList ();
-                // }
-                /*else if (neighbouringParts[i].GetComponent<Turret> ()) {
-                                   this.connectedBattery = ((Turret) neighbouringParts[i]).connectedBattery;
-                                   AddToPathList ();
-                               } */
-            
-        
+        // if (neighbouringParts[i].GetComponent<Wire> ()) {
+        //     this.connectedBattery = ((Wire) neighbouringParts[i]).connectedBattery;
+        //     AddToPathList ();
+        // }
+        /*else if (neighbouringParts[i].GetComponent<Turret> ()) {
+                           this.connectedBattery = ((Turret) neighbouringParts[i]).connectedBattery;
+                           AddToPathList ();
+                       } */
+
     }
 }
