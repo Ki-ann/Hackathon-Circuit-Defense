@@ -7,11 +7,14 @@ public class HpBar : MonoBehaviour {
 
 	[SerializeField] Image image;
 	[SerializeField] Color color;
-	[SerializeField] BillboardItem billboard;
-	// Use this for initialization
-	void Start () {
-		billboard.faceTarget = Camera.main.transform;
-	}
+	public BillboardItem billboard;
+
+	// void Start()
+	// {
+	// 	if(billboard)
+	// 	billboard = GetComponent<BillboardItem>();
+	// 	billboard.faceTarget = 
+	// }
 
 	// Update is called once per frame
 	void Update () {
