@@ -73,11 +73,26 @@ public class CircuitPlacer : MonoBehaviour {
             case "Shield":
                 cp = ListOfTurrets[2];
                 break;
+            case "Bullet2":
+                cp = ListOfTurrets[3];
+                break;
+            case "Explosive2":
+                cp = ListOfTurrets[4];
+                break;
+            case "Shield2":
+                cp = ListOfTurrets[5];
+                break;
             case "Wire":
                 cp = ListOfWires[0];
                 break;
+            case "Wire2":
+                cp = ListOfWires[1];
+                break;
             case "Battery":
                 cp = ListOfBatteries[0];
+                break;
+            case "Battery2":
+                cp = ListOfBatteries[1];
                 break;
             default:
                 break;
