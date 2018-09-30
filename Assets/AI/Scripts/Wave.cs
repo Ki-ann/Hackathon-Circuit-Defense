@@ -86,6 +86,10 @@ public class Wave : MonoBehaviour {
             }
             waveStatus = STATUS.START;
         }
+        else
+        {
+            waveStatus = STATUS.START;
+        }
     }
     public void StartWave () {
         timer -= Time.deltaTime;

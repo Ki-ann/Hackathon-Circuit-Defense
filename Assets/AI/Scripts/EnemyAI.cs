@@ -59,7 +59,7 @@ public class EnemyAI : MonoBehaviour, ITakeDamage, IEnemy {
 
     public virtual void TakeDamage (float damage) {
         health -= damage;
-        hpBar.UpdateHPBar (health, maxHealth);
+        //hpBar.UpdateHPBar (health, maxHealth);
         if (health <= 0) {
             Die ();
         }
