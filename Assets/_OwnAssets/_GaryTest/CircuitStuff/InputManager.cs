@@ -6,7 +6,7 @@ using VRTK;
 public class InputManager : MonoBehaviour
 {
     [SerializeField] private Camera cam;
-    [SerializeField] private bool useKeyboard = false;
+    public bool useKeyboard = false;
     public bool LeftClick { get; private set; }
 
     [SerializeField] private VRTK_ControllerEvents lControllerEvents;

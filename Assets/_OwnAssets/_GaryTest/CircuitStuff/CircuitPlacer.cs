@@ -20,24 +20,75 @@ public class CircuitPlacer : MonoBehaviour {
 	}
 
 	void Update () {
-		if (inputManager.MouseScroll != 0) {
-			ChangeSelectedPart (selectedItemType);
+        if (inputManager.useKeyboard)
+        {
+            if (inputManager.MouseScroll != 0)
+            {
+                ChangeSelectedPart(selectedItemType);
 
-			if (selectedCircuitPart.visual.GetComponent<Collider> () != null) {
-				if (selectedCircuitPart.visual.GetComponent<Collider> ().enabled) {
-					selectedCircuitPart.visual.GetComponent<Collider> ().enabled = false;
-				}
-			}
-		}
-		if (inputManager.ShiftMouseScroll != 0f) {
-			ChangeSelectedItemType ();
-		}
-		targetToMove.transform.position = new Vector3 (inputManager.mousePosition.x, 0, inputManager.mousePosition.z);
+                if (selectedCircuitPart.visual.GetComponent<Collider>() != null)
+                {
+                    if (selectedCircuitPart.visual.GetComponent<Collider>().enabled)
+                    {
+                        selectedCircuitPart.visual.GetComponent<Collider>().enabled = false;
+                    }
+                }
+            }
+            if (inputManager.ShiftMouseScroll != 0f)
+            {
+                ChangeSelectedItemType();
+            }
+            targetToMove.transform.position = new Vector3(inputManager.mousePosition.x, 0, inputManager.mousePosition.z);
 
-		if (inputManager.LeftClick) {
-			PlacePart ();
-		}
+            if (inputManager.LeftClick)
+            {
+                PlacePart();
+            }
+        }
+
+        else
+        {
+            //ChangeSelected
+            targetToMove.transform.position = new Vector3(inputManager.mousePosition.x, 0, inputManager.mousePosition.z);
+
+            if (inputManager.LeftClick)
+            {
+                PlacePart();
+            }
+        }
 	}
+
+    public void SelectWithName(string name)
+    {
+        CircuitPart cp = null;
+
+        switch (name)
+        {
+            case "Bullet":
+                cp = ListOfTurrets[0];
+                break;
+            case "Explosive":
+                cp = ListOfTurrets[1];
+                break;
+            case "Shield":
+                cp = ListOfTurrets[2];
+                break;
+            case "Wire":
+                cp = ListOfWires[0];
+                break;
+            case "Battery":
+                cp = ListOfBatteries[0];
+                break;
+            default:
+                break;
+        }
+        cp.visual.transform.position = selectedCircuitPart.visual.transform.position;
+        selectedCircuitPart.gameObject.SetActive(false);
+
+        selectedCircuitPart = cp;
+        selectedCircuitPart.gameObject.SetActive(true);
+        targetToMove = selectedCircuitPart.target.gameObject;
+    }
 
 	// Hard coded lmao
 	public void SetSelectedItemType (ItemType changeTo) {

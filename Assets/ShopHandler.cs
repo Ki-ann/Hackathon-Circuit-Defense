@@ -15,10 +15,12 @@ public class ShopHandler : MonoBehaviour
     [SerializeField] private TextMeshPro leftCostTMP;
     [SerializeField] private TextMeshPro middleCostTMP;
     [SerializeField] private TextMeshPro rightCostTMP;
+    [SerializeField] private CircuitPlacer circuitPlacer;
 
     public void OnValueChange(List<ShopItem> shopItems, int selected)
     {
         PrepareShop(selected == 0 ? null : shopItems[selected - 1], shopItems[selected], (selected + 1) >= shopItems.Count ? null : shopItems[selected + 1]);
+        circuitPlacer.SelectWithName(shopItems[selected].ItemName);
     }
 
     private void PrepareShop(ShopItem leftObj, ShopItem middleObj, ShopItem rightObj)
