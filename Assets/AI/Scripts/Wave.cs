@@ -31,15 +31,18 @@ public class Wave : MonoBehaviour {
             if (!BGM.isPlaying)
                 BGM.Play ();
 
+            //test
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                ShortenWaveWaitTime();
+            }
+
             WaveAlgo (waveStatus);
             if (!core.GameRun) {
                 //Debug.Log(spawnZombie);
                 waveStatus = STATUS.END;
                 waveCount = resetCount;
-                //test
-                if (Input.GetKeyDown (KeyCode.C)) {
-                    ShortenWaveWaitTime ();
-                }
+                
             } else {
                 BGM.Stop ();
             }
@@ -81,7 +84,7 @@ public class Wave : MonoBehaviour {
             if (core.gameObject.activeSelf != true) {
                 core.gameObject.SetActive (true);
             }
-            WaveAlgo (STATUS.START);
+            waveStatus = STATUS.START;
         }
     }
     public void StartWave () {

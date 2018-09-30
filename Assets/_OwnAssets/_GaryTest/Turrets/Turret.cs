@@ -34,6 +34,7 @@ public abstract class Turret : Buildings, IHaveAttack, ICircuitNeighbour{
 			//Test
 			if (Input.GetKeyDown (KeyCode.Z)) {
 				Charge.ChargeLevelChange (5);
+                Debug.Log("Charge");
 			}
 
 			if (Charge.CurrentCharge == 0)
