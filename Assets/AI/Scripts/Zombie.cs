@@ -65,6 +65,27 @@ public class Zombie : EnemyAI {
         if (!groan.isPlaying)
             groan.Play ();
     }
+    public void TypeOfZombie(int number)
+    {
+        switch (number)
+        {
+            case 1://normal zombie
+                SetDamage(75);
+                SetSpeed(agent.speed);
+                SetHealth(30);
+                break;
+            case 2://fast zombie
+                SetDamage(75);
+                SetSpeed(agent.speed * 1.5f);
+                SetHealth(20);
+                break;
+            case 3://tanky zombie
+                SetDamage(200);
+                SetSpeed(agent.speed/1.5f);
+                SetHealth(100);
+                break;
+        }
+    }
     public void SetDamage (float _damage) {
         damage = _damage;
     }

@@ -11,10 +11,10 @@ public class Wave : MonoBehaviour {
     [SerializeField] float timer = 1.5f;
     [SerializeField] float resetTimer = 0.5f;
     [SerializeField] float timeB4WaveStart = 30f;
-    int resetCount = 0;
+    int resetCount = 1;
     [SerializeField] int totalToSpawn;
     [SerializeField] int spawnCount;
-
+    [SerializeField] GameObject button;
     private Core core;
     Vector3 spawnPos;
     Quaternion spawnRot;
@@ -31,14 +31,19 @@ public class Wave : MonoBehaviour {
         if (core.GameRun) {
             if (!BGM.isPlaying)
                 BGM.Play ();
-            WaveAlgo (waveStatus);
 
-            //test
-            if (Input.GetKeyDown (KeyCode.C)) {
-                ShortenWaveWaitTime ();
+            WaveAlgo (waveStatus);
+            if (!core.GameRun) {
+                //Debug.Log(spawnZombie);
+                waveStatus = STATUS.END;
+                waveCount = resetCount;
+                //test
+                if (Input.GetKeyDown (KeyCode.C)) {
+                    ShortenWaveWaitTime ();
+                }
+            } else {
+                BGM.Stop ();
             }
-        } else {
-            BGM.Stop ();
         }
     }
 
@@ -69,9 +74,15 @@ public class Wave : MonoBehaviour {
 
     public void StandBy () {
         timer = timeB4WaveStart;
-        waveStatus = STATUS.START;
+        button.SetActive (true);
     }
     public void StartWave () {
+        button.SetActive (false);
+        if (core.gameObject.activeSelf != true) {
+            core.gameObject.SetActive (true);
+            core.GameRun = true;
+        }
+
         timer -= Time.deltaTime;
         if (timer <= 0) {
             spawnCount = 0;
@@ -117,9 +128,10 @@ public class Wave : MonoBehaviour {
                 spawnPos = SpawnArray.Instance.spawnPointObjList[Random.Range (0, waveCount)].transform.position;
                 spawnRot = SpawnArray.Instance.spawnPointObjList[Random.Range (0, waveCount)].transform.rotation;
                 spawnedZombie = Instantiate (zombie, spawnPos, spawnRot);
-                spawnedZombie.SetDamage (30f);
-                spawnedZombie.SetHealth (100f);
-                spawnedZombie.SetSpeed (2.5f);
+                spawnedZombie.TypeOfZombie (Random.Range (1, 3));
+                //spawnedZombie.SetDamage(30f);
+                //spawnedZombie.SetHealth(100f);
+                //spawnedZombie.SetSpeed(2.5f);
                 spawnedZombie.destinationObj = FindObjectOfType<Core> ().gameObject;
 
                 if (!AIArray.Instance.enemyList.Contains (spawnedZombie as EnemyAI))
