@@ -5,9 +5,12 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour, ITakeDamage, IEnemy {
 
+    [SerializeField] GameObject HpBarPrefab;
+    HpBar hpBar;
     public float speed { get; set; }
     public float health { get; set; }
     public float damage { get; set; }
+    public float maxHealth { get; set; }
 
     public Core core;
     public GameObject destinationObj;
@@ -24,6 +27,9 @@ public class EnemyAI : MonoBehaviour, ITakeDamage, IEnemy {
         speed = agent.speed;
         health = 100;
         damage = 50;
+        maxHealth = health;
+        hpBar = Instantiate (HpBarPrefab, transform).GetComponent<HpBar> ();
+        hpBar.UpdateHPBar (health, maxHealth);
     }
 
     // Update is called once per frame
@@ -46,7 +52,7 @@ public class EnemyAI : MonoBehaviour, ITakeDamage, IEnemy {
 
     public virtual void TakeDamage (float damage) {
         health -= damage;
-
+        hpBar.UpdateHPBar (health, maxHealth);
         if (health <= 0) {
             Die ();
         }

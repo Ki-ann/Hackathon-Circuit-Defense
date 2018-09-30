@@ -4,10 +4,14 @@ using UnityEngine;
 
 public abstract class Buildings : CircuitPart {
 	public poles NearestLookDirection;
+	[SerializeField] GameObject HpBarPrefab;
+	HpBar hpBar;
 
 	public override void Start () {
 		base.Start ();
 		visual.GetComponent<Collider> ().enabled = true;
+		hpBar = Instantiate (HpBarPrefab, visual.transform).GetComponent<HpBar> ();
+		hpBar.UpdateHPBar (currentHP, MaxHP);
 	}
 
 	public override void Update () {
@@ -26,6 +30,10 @@ public abstract class Buildings : CircuitPart {
 		}
 	}
 
+	public override void TakeDamage (float amount) {
+		base.TakeDamage (amount);
+		hpBar.UpdateHPBar (currentHP, MaxHP);
+	}
 	void RotateVisualLookAt () {
 		visual.transform.LookAt (target.transform);
 		float rotateAngle = Mathf.Round (visual.transform.eulerAngles.y / 90) * 90;
