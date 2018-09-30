@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 329cd2fb23cd3364a975e37072388326, type: 3}
+  m_Name: TurretExplosive 1
+  m_EditorClassIdentifier: 
+  ItemName: Explosive2
+  ItemCost: 50
+  ItemPrefab: {fileID: 1492964114669282, guid: 98689bc0251b43d4bb51c7919458f736, type: 2}
