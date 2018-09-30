@@ -27,14 +27,22 @@ public abstract class Buildings : CircuitPart {
 				Charge.ChargeLevelChange (5);
 			}
 
-			//Turret Behvaiours
-		}
+            //Turret Behvaiours
+            DrainCharge();
+
+        }
 	}
 
 	public override void TakeDamage (float amount) {
 		base.TakeDamage (amount);
 		hpBar.UpdateHPBar (currentHP, MaxHP);
 	}
+
+    void DrainCharge()
+    {
+        Charge.ChargeLevelChange(-2 * Time.deltaTime);
+    }
+
 	void RotateVisualLookAt () {
 		visual.transform.LookAt (target.transform);
 		float rotateAngle = Mathf.Round (visual.transform.eulerAngles.y / 90) * 90;
