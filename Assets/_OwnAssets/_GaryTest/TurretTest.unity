@@ -192,6 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff36374f8ae09d4cbedb3f4d292540f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 500
 --- !u!114 &243946921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -750,6 +751,7 @@ MonoBehaviour:
   - {fileID: 331607669}
   ListOfBatteries:
   - {fileID: 1642547919}
+  money: {fileID: 11400000, guid: 065a716dcb3f11342b9838ca96ece3bb, type: 2}
 --- !u!114 &1298080841
 MonoBehaviour:
   m_ObjectHideFlags: 0
