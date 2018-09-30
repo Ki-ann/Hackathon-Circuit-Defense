@@ -43,6 +43,27 @@ public class Zombie : EnemyAI {
             //Debug.Log("fk u turret");
         }
     }
+    public void TypeOfZombie(int number)
+    {
+        switch (number)
+        {
+            case 1: //normal zombie
+                SetDamage(20);
+                SetSpeed(agent.speed);
+                SetHealth(30);
+                break;
+            case 2: //fast zombie
+                SetDamage(10);
+                SetSpeed(agent.speed * 1.5f);
+                SetHealth(15);
+                break;
+            case 3: //tanky zombie
+                SetDamage(30);
+                SetSpeed(agent.speed / 1.5f);
+                SetHealth(50);
+                break;
+        }
+    }
     public void SetDamage(float _damage)
     {
         damage = _damage;
