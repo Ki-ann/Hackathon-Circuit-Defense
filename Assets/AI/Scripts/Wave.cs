@@ -125,10 +125,11 @@ public class Wave : MonoBehaviour {
         if (totalToSpawn - spawnCount > 0) {
             timer -= Time.deltaTime;
             if (timer <= 0) {
+                spawnCount++;
                 spawnPos = SpawnArray.Instance.spawnPointObjList[Random.Range (0, waveCount)].transform.position;
                 spawnRot = SpawnArray.Instance.spawnPointObjList[Random.Range (0, waveCount)].transform.rotation;
                 spawnedZombie = Instantiate (zombie, spawnPos, spawnRot);
-                spawnedZombie.TypeOfZombie (Random.Range (1, 3));
+                spawnedZombie.TypeOfZombie(Random.Range (1, 3));
                 //spawnedZombie.SetDamage(30f);
                 //spawnedZombie.SetHealth(100f);
                 //spawnedZombie.SetSpeed(2.5f);
@@ -137,7 +138,7 @@ public class Wave : MonoBehaviour {
                 if (!AIArray.Instance.enemyList.Contains (spawnedZombie as EnemyAI))
                     AIArray.Instance.enemyList.Add (spawnedZombie as EnemyAI);
 
-                spawnCount++;
+
                 timer = resetTimer;
             }
         }
