@@ -143,9 +143,10 @@ public class Wave : MonoBehaviour
                 spawnPos = SpawnArray.Instance.spawnPointObjList[Random.Range(0, waveCount)].transform.position;
                 spawnRot = SpawnArray.Instance.spawnPointObjList[Random.Range(0, waveCount)].transform.rotation;
                 spawnedZombie = Instantiate(zombie, spawnPos, spawnRot);
-                spawnedZombie.SetDamage(30f);
-                spawnedZombie.SetHealth(100f);
-                spawnedZombie.SetSpeed(2.5f);
+                spawnedZombie.TypeOfZombie(Random.Range(1, 3));
+                //spawnedZombie.SetDamage(30f);
+                //spawnedZombie.SetHealth(100f);
+                //spawnedZombie.SetSpeed(2.5f);
                 spawnedZombie.destinationObj = FindObjectOfType<Core>().gameObject;
 
                 if (!AIArray.Instance.enemyList.Contains(spawnedZombie as EnemyAI))
