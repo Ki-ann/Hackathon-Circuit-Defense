@@ -27,22 +27,23 @@ public class Wave : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            //ShortenWaveWaitTime();
+            TriggerWaveStart();
+        }
+
         if (core.GameRun) {
             if (!BGM.isPlaying)
                 BGM.Play ();
 
-            //test
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                ShortenWaveWaitTime();
-            }
-
             WaveAlgo (waveStatus);
+
             if (!core.GameRun) {
                 //Debug.Log(spawnZombie);
                 waveStatus = STATUS.END;
                 waveCount = resetCount;
-                
+                BGM.Stop();
             } else {
                 BGM.Stop ();
             }
@@ -135,8 +136,8 @@ public class Wave : MonoBehaviour {
             timer -= Time.deltaTime;
             if (timer <= 0) {
                 spawnCount++;
-                spawnPos = SpawnArray.Instance.spawnPointObjList[Random.Range (0, waveCount)].transform.position;
-                spawnRot = SpawnArray.Instance.spawnPointObjList[Random.Range (0, waveCount)].transform.rotation;
+                spawnPos = SpawnArray.Instance.spawnPointObjList[Random.Range (0, SpawnArray.Instance.spawnPointObjList.Count -1)].transform.position;
+                spawnRot = SpawnArray.Instance.spawnPointObjList[Random.Range (0, SpawnArray.Instance.spawnPointObjList.Count - 1)].transform.rotation;
                 spawnedZombie = Instantiate (zombie, spawnPos, spawnRot);
                 spawnedZombie.TypeOfZombie (Random.Range (1, 3));
                 //spawnedZombie.SetDamage(30f);

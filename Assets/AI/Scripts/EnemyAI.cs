@@ -30,7 +30,7 @@ public class EnemyAI : MonoBehaviour, ITakeDamage, IEnemy {
     // Use this for initialization
     public virtual void Start () {
         GetNavAgent ();
-        startPosition = startPositionObj.transform.position;
+        //startPosition = startPositionObj.transform.position;
         speed = agent.speed;
         health = 100;
         damage = 50;
