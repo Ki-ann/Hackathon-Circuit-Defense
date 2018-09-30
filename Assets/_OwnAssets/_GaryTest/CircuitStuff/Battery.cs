@@ -146,15 +146,20 @@ public class Battery : CircuitPart, ICircuitNeighbour {
     IEnumerator voltageCheckerCoroutine () {
         while (true) {
             if (startChecking) {
-                VoltageSphere ball = Instantiate (VoltageBall, this.visual.transform.position, Quaternion.identity).GetComponent<VoltageSphere> ();
+                
+                StartCoroutine(SendBall());
+                yield return new WaitForSeconds(5f);
+            } else
+                yield return new WaitForFixedUpdate ();
+        }
+    }
+
+    IEnumerator SendBall(){
+        VoltageSphere ball = Instantiate (VoltageBall, this.visual.transform.position, Quaternion.identity).GetComponent<VoltageSphere> ();
                 ball.originalBattery = this;
                 ball.charge.ChargeLevelChange (this.Charge.MaxCharge);
                 ball.previousPart = (CircuitPart) this;
                 ball.nextPart = PositivePart;
                 yield return new WaitUntil (() => ball == null);
-                break;
-            } else
-                yield return new WaitForFixedUpdate ();
-        }
     }
 }

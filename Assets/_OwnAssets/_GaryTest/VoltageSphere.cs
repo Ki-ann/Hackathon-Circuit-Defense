@@ -63,7 +63,7 @@ public class VoltageSphere : MonoBehaviour {
 							break;
 					}
 				}
-				transform.position = Vector3.Lerp (transform.position, nextPart.visual.transform.position, Time.deltaTime * 5f);
+				transform.position = Vector3.Lerp (transform.position, nextPart.visual.transform.position, Time.deltaTime * 25f);
 				//we hit an open circuit, return the voltage to the split spheres
 			} else if (nextPart == null && previousPart != null) {
 				ReturnBallToMaster ();
@@ -74,6 +74,9 @@ public class VoltageSphere : MonoBehaviour {
 		previousPart = nextPart;
 		cachePath.Add (previousPart);
 		nextPart = next;
+		if(nextPart && !nextPart._To.Any()){
+			nextPart.NeighbourAction();
+		}
 	}
 
 	public void SplitBall (int size) {
@@ -114,7 +117,7 @@ public class VoltageSphere : MonoBehaviour {
 		List<VoltageSphere> nonMasterBalls = new List<VoltageSphere> (childSpheres).Where (x => !x.childSpheres.Any ()).ToList ();
 		while (nonMasterBalls.Count > 1) {
 			for (int i = 0; i < nonMasterBalls.Count; i++) {
-				if (nonMasterBalls[i].nextPart == originalBattery) {
+				if (nonMasterBalls[i] != null && nonMasterBalls[i].nextPart == originalBattery) {
 					nonMasterBalls[i].ReturnBallToMaster ();
 				}
 			}
@@ -129,7 +132,7 @@ public class VoltageSphere : MonoBehaviour {
 	}
 
 	IEnumerator timeout(){
-		yield return new WaitForSeconds(30f);
+		yield return new WaitForSeconds(10f);
 		StartCoroutine(consolidate());
 	}
 }
