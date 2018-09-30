@@ -126,19 +126,19 @@ public class Battery : CircuitPart, ICircuitNeighbour {
     public override void LinkToNextNode () {
         CheckNeighboursForConnection ();
         if (PositivePart != null) {
-            if (PositivePart.GetComponent<Wire> ()) {
+            if (PositivePart.GetComponent<CircuitPart> ()) {
                 if (!this._To.Contains (PositivePart)) this._To.Add (PositivePart);
-                ((Wire) PositivePart).connectedBattery = this;
+                ((CircuitPart) PositivePart).connectedBattery = this;
             }
         }
         if (NegativePart != null) {
-            if (NegativePart.GetComponent<Wire> ()) {
+            if (NegativePart.GetComponent<CircuitPart> ()) {
                 //flip negative side hack
-                //if (!this._From.Contains (NegativePart)) this._From.Add (NegativePart);
-                NegativePart._From = new List<CircuitPart> (NegativePart._To);
-                NegativePart._To.Clear ();
-                NegativePart._To.Add (this);
-                ((Wire) NegativePart).connectedBattery = this;
+                if (!this._From.Contains (NegativePart)) this._From.Add (NegativePart);
+                // NegativePart._From = new List<CircuitPart> (NegativePart._To);
+                // NegativePart._To.Clear ();
+                // NegativePart._To.Add (this);
+                //((CircuitPart) NegativePart).connectedBattery = this;
             }
         }
     }
@@ -148,7 +148,7 @@ public class Battery : CircuitPart, ICircuitNeighbour {
             if (startChecking) {
                 
                 StartCoroutine(SendBall());
-                yield return new WaitForSeconds(5f);
+                yield return new WaitForSeconds(7f);
             } else
                 yield return new WaitForFixedUpdate ();
         }

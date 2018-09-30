@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public abstract class Turret : Buildings, IHaveAttack, ICircuitNeighbour ,IBattery{
-	public Battery connectedBattery {get;set;}
+public abstract class Turret : Buildings, IHaveAttack, ICircuitNeighbour{
 	[SerializeField] private GameObject barrel;
 	public GameObject Barrel {
 		get { return barrel; }
@@ -138,17 +137,18 @@ public abstract class Turret : Buildings, IHaveAttack, ICircuitNeighbour ,IBatte
     public override void LinkToNextNode () {
         CheckNeighboursForConnection ();
         if (PositivePart != null) {
-            if (PositivePart.GetComponent<Wire> ()) {
+            if (PositivePart.GetComponent<CircuitPart> ()) {
                 if (!this._To.Contains (PositivePart)) this._To.Add (PositivePart);
             }
         }
         if (NegativePart != null) {
-            if (NegativePart.GetComponent<Wire> ()) {
+            if (NegativePart.GetComponent<CircuitPart> ()) {
                 //flip negative side hack
-                //if (!this._From.Contains (NegativePart)) this._From.Add (NegativePart);
-                NegativePart._From = new List<CircuitPart> (NegativePart._To);
-                NegativePart._To.Clear ();
-                NegativePart._To.Add (this);
+                if (!this._From.Contains (NegativePart)) this._From.Add (NegativePart);
+                // NegativePart._From = new List<CircuitPart> (NegativePart._To);
+                // NegativePart._To.Clear ();
+                // NegativePart._To.Add (this);
+                this.connectedBattery = NegativePart.connectedBattery;
             }
         }
 	}
