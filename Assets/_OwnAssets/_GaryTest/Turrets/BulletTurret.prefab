@@ -558,8 +558,10 @@ MonoBehaviour:
   m_Target: {fileID: 1771923509052838}
   maxHP: 500
   currentHP: 0
-  cost: 0
+  cost: 20
   NearestLookDirection: 0
+  HpBarPrefab: {fileID: 1182836877247892, guid: 5acc55eee89885a4484abbf43b5155f5,
+    type: 2}
   barrel: {fileID: 1892862917269010}
   firePoint: {fileID: 1366422947992816}
   attackRadius: 6

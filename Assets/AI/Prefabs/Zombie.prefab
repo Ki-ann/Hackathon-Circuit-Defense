@@ -1458,9 +1458,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c2cf771c5903bf41b36797b7086c488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HpBarPrefab: {fileID: 1182836877247892, guid: 5acc55eee89885a4484abbf43b5155f5,
+    type: 2}
   core: {fileID: 0}
   destinationObj: {fileID: 0}
   startPositionObj: {fileID: 0}
+  playerMoney: {fileID: 11400000, guid: 065a716dcb3f11342b9838ca96ece3bb, type: 2}
   anim: {fileID: 0}
   attackCooldown: 1
   impact: {fileID: 82895132910124180}

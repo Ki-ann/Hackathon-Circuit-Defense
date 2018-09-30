@@ -73,16 +73,19 @@ public class Zombie : EnemyAI {
                 SetDamage(75);
                 SetSpeed(agent.speed);
                 SetHealth(30);
+                Reward = 50;
                 break;
             case 2://fast zombie
                 SetDamage(75);
                 SetSpeed(agent.speed * 1.5f);
                 SetHealth(20);
+                Reward = 100;
                 break;
             case 3://tanky zombie
                 SetDamage(200);
                 SetSpeed(agent.speed/1.5f);
                 SetHealth(100);
+                Reward = 150;
                 break;
         }
     }

@@ -72,6 +72,10 @@ public class Wave : MonoBehaviour {
         }
     }
 
+     public void StartPls()
+    {
+        waveStatus = STATUS.START;
+    }
     public void StandBy () {
         timer = timeB4WaveStart;
         button.SetActive (true);
