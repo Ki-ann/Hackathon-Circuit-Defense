@@ -11,6 +11,7 @@ public abstract class Buildings : CircuitPart {
 		base.Start ();
 		visual.GetComponent<Collider> ().enabled = true;
 		hpBar = Instantiate (HpBarPrefab, visual.transform).GetComponent<HpBar> ();
+		hpBar.transform.localPosition = new Vector3 (0, 1.7f, 0);
 		hpBar.UpdateHPBar (currentHP, MaxHP);
 	}
 
